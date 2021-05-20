@@ -4,6 +4,10 @@
 
 Place your team member names here.
 
+## Access our site:
+
+https://cse412-21s.github.io/us-gun-violence
+
 ### Contribution Statements
 
 Add individual contribution statements here.
