@@ -21,6 +21,7 @@ const useStore = create((set, get) => ({
       .then((r) => r.text())
       .then((inp) => {
         const oldDataset = get().dataset;
+        inp = fromCSV(inp);
         set({ dataset: { ...oldDataset, [name]: inp } });
       });
   },

@@ -12,11 +12,9 @@ const Home = () => {
   let loadjson = useStore((store) => store.loadjson);
   console.log(dataset);
   useEffect(() => {
-    (async () => {
-      loadDataSet("p");
-      loadDataSet("ppst");
-      loadjson("usa");
-    })();
+    loadDataSet("p");
+    loadDataSet("ppst");
+    loadjson("usa");
   }, []);
   if (dataset.p && dataset.usa && dataset.ppst) {
     return (
@@ -24,7 +22,7 @@ const Home = () => {
         <section>
           <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
         </section>
-        <section>
+        {/* <section>
           <VegaComp
             func={mapMeanAgeOfPerpetrators}
             name="mapMeanAgeOfPerpetrators"
@@ -35,7 +33,7 @@ const Home = () => {
               schema: "goldred",
             }}
           />
-        </section>
+        </section> */}
       </main>
     );
   }
