@@ -3,7 +3,7 @@ import tw from "twin.macro";
 import useStore from "../store/index";
 import { useEffect } from "react";
 import VegaComp from "../components/VegaComp";
-import perpetratorsByGender from "../components/PrepetratorsByGender";
+import perpetratorsByGender from "../components/functions/PrepetratorsByGender";
 
 const Home = () => {
   let dataset = useStore((store) => store.dataset);
