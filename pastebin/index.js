@@ -94,5 +94,18 @@ This snippet ties our worker to the router we deifned above, all incoming reques
 are passed to the router where your routes are called and the response is sent.
 */
 addEventListener('fetch', e => {
+    if (e.request.method === 'OPTIONS') {
+        return new Response(null, {
+            status: 204,
+            headers: {
+                'Access-Control-Allow-Credentials': 'true',
+                'Access-Control-Allow-Methods':
+                    'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+            },
+        });
+    }
+
     e.respondWith(router.handle(e.request));
 });
