@@ -67,18 +67,23 @@ router.post('/post', async request => {
     });
 });
 
+const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-type': 'application/json',
+};
+
 router.post('/postpaste', async request => {
     const bod = await request.json();
     const date = new Date().toISOString();
     let key = bod.key ? bod.key : date;
     await PASTE_BIN.put(key, JSON.stringify(bod.body));
-    return new Response(key);
+    return new Response(key, { headers });
 });
 
 router.post('/getpaste', async request => {
     const bod = await request.json();
     const result = await PASTE_BIN.get(bod.key);
-    return new Response(result);
+    return new Response(result, { headers });
 });
 
 /*
