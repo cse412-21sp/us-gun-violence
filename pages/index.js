@@ -1,24 +1,115 @@
-import React from 'react'
-import tw from 'twin.macro'
-import { Button, Logo } from './../components'
+import { useEffect } from "react";
+import * as vega from "vega";
+import * as vl from "vega-lite-api";
+import * as vegaLite from "vega-lite";
+import * as vegaTooltip from "vega-tooltip";
+import { op, fromCSV } from "arquero";
 
-const styles = {
-  // Move long class sets out of jsx to keep it scannable
-  container: ({ hasBackground }) => [
-    tw`flex flex-col items-center justify-center h-screen`,
-    hasBackground && tw`bg-gradient-to-b from-electric to-ribbon`,
-  ],
+function perpetratorsByGender(p) {
+  const brush = vl
+    .selectInterval() // Brush is a better (vivid?) name than selection in this case!
+    .encodings("x"); // limit selection to x-axis (year) values
+
+  const x = vl.x().yearmonth("date");
+
+  const gender_ratio = p
+    .filter((d) => d.type === "Subject-Suspect")
+    .derive({
+      month: (d) => op.utcmonth(d.date),
+      is_male: (d) => d.gender === "Male",
+      is_female: (d) => d.gender === "Female",
+    })
+    .groupby(["month", "year"])
+    .rollup({
+      female_pctg: (d) =>
+        (100 * op.sum(d.is_female)) / (op.sum(d.is_female) + op.sum(d.is_male)),
+      male_pctg: (d) =>
+        (100 * op.sum(d.is_male)) / (op.sum(d.is_female) + op.sum(d.is_male)),
+      date: (d) => op.min(op.utcdatetime(d.date)),
+    })
+    .derive({ date: (d) => op.datetime(d.year, d.month) })
+    .rename({ male_pctg: "male", female_pctg: "female" })
+    .fold(["female", "male"])
+    .rename({ key: "gender" });
+
+  const gender_count = p
+    .filter((d) => d.type === "Subject-Suspect")
+    .derive({
+      month: (d) => op.utcmonth(d.date),
+      is_male: (d) => d.gender === "Male",
+      is_female: (d) => d.gender === "Female",
+    })
+    .groupby(["month", "year"])
+    .rollup({
+      female_count: (d) => op.sum(d.is_female),
+      male_count: (d) => op.sum(d.is_male),
+      date: (d) => op.min(op.utcdatetime(d.date)),
+    })
+    .derive({ date: (d) => op.datetime(d.year, d.month) })
+    .rename({ male_count: "male", female_count: "female" })
+    .fold(["female", "male"])
+    .rename({ key: "gender" });
+
+  return vl.hconcat(
+    vl
+      .markArea({ opacity: 0.5 })
+      .data(gender_count)
+      .encode(
+        x,
+        vl.y().fieldQ("value").title("Number of perpetrators"),
+        vl.color().fieldN("gender").scale({ scheme: "set1" })
+      )
+      .params(brush),
+    vl
+      .markArea({ opacity: 0.5 })
+      .data(gender_ratio)
+      .encode(
+        x,
+        vl.y().fieldQ("value").title("Percentage of perpetrators"),
+        vl.color().fieldN("gender").scale({ scheme: "set1" })
+      )
+      .encode(x.scale({ domain: brush }))
+  );
+}
+const options = {
+  config: {
+    // Vega-Lite default configuration
+  },
+  init: (view) => {
+    // initialize tooltip handler
+    view.tooltip(new vegaTooltip.Handler().call);
+  },
+  view: {
+    renderer: "canvas",
+  },
+};
+vl.register(vega, vegaLite, options);
+
+export default function Home({ p }) {
+  if (!p) {
+    return <></>;
+  }
+  useEffect(() => {
+    perpetratorsByGender(JSON.parse(p))
+      .render()
+      .then((viewElement) => {
+        // render returns a promise to a DOM element containing the chart
+        // viewElement.value contains the Vega View object instance
+        document.getElementById("view").appendChild(viewElement);
+      });
+  }, []);
+  return <div id="view"></div>;
 }
 
-const IndexPage = () => (
-  <div css={styles.container({ hasBackground: true })}>
-    <div tw="flex flex-col justify-center h-full gap-y-5">
-      <Button variant="primary">Submit</Button>
-      <Button variant="secondary">Cancel</Button>
-      <Button isSmall>Close</Button>
-    </div>
-    <Logo />
-  </div>
-)
-
-export default IndexPage
+export async function getStaticProps(context) {
+  const p = await fromCSV(
+    await (
+      await fetch(
+        "https://raw.githubusercontent.com/cse412-21sp/us-gun-violence/main/data/perpetrators.csv"
+      )
+    ).text()
+  );
+  return {
+    props: { p: JSON.stringify(p) }, // will be passed to the page component as props
+  };
+}
