@@ -46,4 +46,4 @@ const vegaOptions = {
 };
 vl.register(vega, vegaLite, vegaOptions);
 
-export default gunArea;
+export default map;
