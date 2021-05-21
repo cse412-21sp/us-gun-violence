@@ -4,7 +4,8 @@ import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 import { op } from "arquero";
 
-function perpetratorsByGender(p) {
+function perpetratorsByGender(dataSet) {
+  const { p } = dataSet;
   const brush = vl
     .selectInterval() // Brush is a better (vivid?) name than selection in this case!
     .encodings("x"); // limit selection to x-axis (year) values

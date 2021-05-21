@@ -3,8 +3,10 @@ import * as vega from "vega";
 import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
+import useStore from "../store/index";
 
-const Veg = ({ func, name }) => {
+const Veg = ({ func, name, width, height }) => {
+  const dataSet = useStore((state) => state.dataset);
   const options = {
     config: {
       // Vega-Lite default configuration
@@ -19,7 +21,7 @@ const Veg = ({ func, name }) => {
   };
   vl.register(vega, vegaLite, options);
   useEffect(() => {
-    func()
+    func(dataSet)
       .render()
       .then((viewElement) => {
         // render returns a promise to a DOM element containing the chart

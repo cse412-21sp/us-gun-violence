@@ -15,7 +15,7 @@ const useStore = create((set, get) => ({
   loadDataSet: async (name) => {
     const oldDataset = get().dataset;
     const inp = fromCSV(await (await fetch(ds[name])).text());
-    set({ dataset: { ...oldDataset, name: inp } });
+    set({ dataset: { ...oldDataset, [name]: inp } });
   },
 }));
 

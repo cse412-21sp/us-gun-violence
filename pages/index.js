@@ -2,6 +2,8 @@ import { WindMillLoading } from "react-loadingg";
 import tw from "twin.macro";
 import useStore from "../store/index";
 import { useEffect } from "react";
+import VegaComp from "../components/VegaComp";
+import perpetratorsByGender from "../components/PrepetratorsByGender";
 
 const Home = () => {
   let dataset = useStore((store) => store.dataset);
@@ -10,7 +12,15 @@ const Home = () => {
   useEffect(() => {
     loadDataSet("p");
   }, []);
-
+  if (dataset.p) {
+    return (
+      <main>
+        <section>
+          <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
+        </section>
+      </main>
+    );
+  }
   return (
     <main tw={"w-screen h-screen flex flex-col items-center justify-center"}>
       <section>
