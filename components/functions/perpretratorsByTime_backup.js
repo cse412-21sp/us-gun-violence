@@ -2,14 +2,9 @@ import * as vega from "vega";
 import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
-function perpetratorsByTime_backup(
-  dataSet,
-  field,
-  state_abbr,
-  color,
-  y_domain
-) {
+function perpetratorsByTime_backup({ dataSet, options }) {
   const { p } = dataSet;
+  const { field, state_abbr, color, y_domain } = options;
   const titles = {
     mean_age: "Perpetrators mean age",
     underages_ratio: ["Ratio of underage/total", "perpetrators"],
@@ -64,7 +59,7 @@ function perpetratorsByTime_backup(
   );
 }
 
-const options = {
+const vegaOptions = {
   config: {
     // Vega-Lite default configuration
   },
@@ -76,6 +71,6 @@ const options = {
     renderer: "canvas",
   },
 };
-vl.register(vega, vegaLite, options);
+vl.register(vega, vegaLite, vegaOptions);
 
 export default perpetratorsByTime_backup;

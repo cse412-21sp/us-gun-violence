@@ -2,7 +2,9 @@ import * as vega from "vega";
 import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
-function stateRanking_backup(field, yearStart, yearEnd, scheme) {
+function stateRanking_backup({ dataSet, options }) {
+  const { field, yearStart, yearEnd, scheme } = options;
+  const { stp, p } = dataSet;
   const titles = {
     mean_age: "Perpetrators mean age",
     underages_ratio: ["Ratio of underage/total", "perpetrators"],
@@ -53,7 +55,7 @@ function stateRanking_backup(field, yearStart, yearEnd, scheme) {
     );
 }
 
-const options = {
+const vegaOptions = {
   config: {
     // Vega-Lite default configuration
   },
@@ -65,6 +67,6 @@ const options = {
     renderer: "canvas",
   },
 };
-vl.register(vega, vegaLite, options);
+vl.register(vega, vegaLite, vegaOptions);
 
 export default stateRanking_backup;

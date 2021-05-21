@@ -4,7 +4,7 @@ import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 import { op } from "arquero";
 
-function perpetratorsByGender(dataSet) {
+function perpetratorsByGender({ dataSet }) {
   const { p } = dataSet;
   const brush = vl
     .selectInterval() // Brush is a better (vivid?) name than selection in this case!
@@ -72,7 +72,7 @@ function perpetratorsByGender(dataSet) {
   );
 }
 
-const options = {
+const vegaOptions = {
   config: {
     // Vega-Lite default configuration
   },
@@ -84,6 +84,6 @@ const options = {
     renderer: "canvas",
   },
 };
-vl.register(vega, vegaLite, options);
+vl.register(vega, vegaLite, vegaOptions);
 
 export default perpetratorsByGender;

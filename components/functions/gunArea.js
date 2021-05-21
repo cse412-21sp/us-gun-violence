@@ -3,7 +3,9 @@ import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
-function gunArea() {
+function gunArea({ dataSet, options }) {
+  const { g } = dataSet;
+
   return vl
     .markArea({ opacity: 0.8 })
     .data(g)
@@ -19,7 +21,7 @@ function gunArea() {
     );
 }
 
-const options = {
+const vegaOptions = {
   config: {
     // Vega-Lite default configuration
   },
@@ -31,6 +33,6 @@ const options = {
     renderer: "canvas",
   },
 };
-vl.register(vega, vegaLite, options);
+vl.register(vega, vegaLite, vegaOptions);
 
 export default gunArea;

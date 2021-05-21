@@ -2,7 +2,9 @@ import * as vega from "vega";
 import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
-function gunKillCounts(yearStart, yearEnd) {
+function gunKillCounts({ dataSet, options }) {
+  const { yearStart, yearEnd } = options;
+  const { g } = dataSet;
   return vl
     .markBar({ opacity: 0.8 })
     .data(g)
@@ -25,7 +27,7 @@ function gunKillCounts(yearStart, yearEnd) {
         .title("Gun type")
     );
 }
-const options = {
+const vegaOptions = {
   config: {
     // Vega-Lite default configuration
   },
@@ -37,6 +39,6 @@ const options = {
     renderer: "canvas",
   },
 };
-vl.register(vega, vegaLite, options);
+vl.register(vega, vegaLite, vegaOptions);
 
 export default gunKillCounts;

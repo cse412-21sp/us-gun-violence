@@ -3,7 +3,10 @@ import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
-function gunByState(gun, yearStart, yearEnd, scheme) {
+function gunByState({ dataSet, options }) {
+  const { gst } = dataSet;
+  const { gun, yearStart, yearEnd, scheme } = options;
+
   return vl
     .layer(
       vl
@@ -45,7 +48,7 @@ function gunByState(gun, yearStart, yearEnd, scheme) {
     .project(vl.projection("albersUsa"));
 }
 
-const options = {
+const vegaOptions = {
   config: {
     // Vega-Lite default configuration
   },
@@ -57,6 +60,6 @@ const options = {
     renderer: "canvas",
   },
 };
-vl.register(vega, vegaLite, options);
+vl.register(vega, vegaLite, vegaOptions);
 
 export default gunByState;
