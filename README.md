@@ -2,7 +2,9 @@
 
 ## Team Members
 
-Place your team member names here.
+- Laphon Premcharoen
+- Varich Boonsanong
+- Phoenix Yi
 
 ## Access our site:
 
@@ -10,11 +12,16 @@ https://cse412-21sp.github.io/us-gun-violence
 
 ### Contribution Statements
 
-Add individual contribution statements here.
+- Visualization components and write-ups
+  - Laphon Premcharoen
+  - Phoenix Yi
+- Web integration
+  - Varich Boonsanong
 
 ## Project Proposal Abstract
 
-This is the space for you to add a description for your project.
+There are a very few countries in the word where citizens have the right to bear arms. US is one of them where their citizens own guns nearly half of all civilian guns in the world. As a result, gun incidents are alarming in US. This project aims to study the trends of gun violence in US and explore any potential concerns regarding civilian-owned guns in US. The dataset used in this project contains records of gun incidents in US from January 2013 to March 2018 provided by Gun Violence Archive. Besides the overall rate of gun violence over time, we aim to use geospatial mapping to see the distribution of gun incidents by states and counties. Using graphical distributions (regression and normal distribution), we will able to explore the demographics of gun perpetrators including age and gender and see any correlations they have with the damage caused. Finally, we will also explore which gun types are most used and most associated with a larger number of casualties.
+
 
 ## Getting Started
 
