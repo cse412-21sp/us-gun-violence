@@ -4,7 +4,7 @@ import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 function perpetratorsByState({ dataSet, options }) {
   const { field, yearStart, yearEnd, scheme } = options;
-  const { pst, usa } = dataSet;
+  const { pst, usa, ppst } = dataSet;
   const titles = {
     mean_age: "Perpetrators mean age",
     underages_ratio: ["Ratio of underage/total", "perpetrators"],

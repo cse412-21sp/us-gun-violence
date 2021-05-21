@@ -6,7 +6,6 @@ import { op } from "arquero";
 
 function perpetratorsByGender({ dataSet, options }) {
   const { p } = dataSet;
-  console.log("p", p);
   const brush = vl
     .selectInterval() // Brush is a better (vivid?) name than selection in this case!
     .encodings("x"); // limit selection to x-axis (year) values

@@ -32,7 +32,7 @@ const useStore = create((set, get) => ({
   },
   loadjson: (name) => {
     fetch(json[name])
-      .then((r) => r.text())
+      .then((r) => r.json())
       .then((js) => {
         const oldDataset = get().dataset;
         set({ dataset: { ...oldDataset, [name]: js } });

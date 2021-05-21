@@ -22,7 +22,7 @@ const Home = () => {
         <section>
           <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
         </section>
-        {/* <section>
+        <section>
           <VegaComp
             func={mapMeanAgeOfPerpetrators}
             name="mapMeanAgeOfPerpetrators"
@@ -33,7 +33,7 @@ const Home = () => {
               schema: "goldred",
             }}
           />
-        </section> */}
+        </section>
       </main>
     );
   }
