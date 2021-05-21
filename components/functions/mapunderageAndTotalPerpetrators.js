@@ -14,24 +14,6 @@ function map({ dataSet, options }) {
     .config({ scale: { maxSize: 1500 }, view: { stroke: null } });
 }
 
-function gunArea({ dataSet, options }) {
-  const { g } = dataSet;
-
-  return vl
-    .markArea({ opacity: 0.8 })
-    .data(g)
-    .transform(vl.filter("datum['gun'] != 'Unknown'"))
-    .encode(
-      vl.x().yearmonth("date"),
-      vl.y().count().title("Number of guns"),
-      vl
-        .color()
-        .fieldN("gun")
-        .scale({ scheme: "category20b" })
-        .title("Gun type")
-    );
-}
-
 const vegaOptions = {
   config: {
     // Vega-Lite default configuration

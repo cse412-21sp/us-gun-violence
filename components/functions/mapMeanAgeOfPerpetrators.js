@@ -3,7 +3,7 @@ import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 import stateRanking from "./stateRanking";
-import perpetratorsByState from "./perpetratorByState";
+import perpetratorsByState from "./perpetratorsByState";
 
 function map({ dataSet, options }) {
   return vl

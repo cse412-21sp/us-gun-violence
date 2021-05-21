@@ -10,12 +10,21 @@ const ds = {
   ppst: "https://raw.githubusercontent.com/cse412-21sp/us-gun-violence/main/data/perpetrators_by_state.csv",
 };
 
+const json = {
+  usa: "https://raw.githubusercontent.com/vega/vega-datasets/master/data/us-10m.json",
+};
+
 const useStore = create((set, get) => ({
   dataset: {},
   loadDataSet: async (name) => {
     const oldDataset = get().dataset;
     const inp = fromCSV(await (await fetch(ds[name])).text());
     set({ dataset: { ...oldDataset, [name]: inp } });
+  },
+  loadjson: async (name) => {
+    const oldDataset = get().dataset;
+    const js = await (await fetch(json[name])).text();
+    set({ dataset: { ...oldDataset, [name]: js } });
   },
 }));
 

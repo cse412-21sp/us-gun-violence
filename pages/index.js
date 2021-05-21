@@ -4,21 +4,35 @@ import useStore from "../store/index";
 import { useEffect } from "react";
 import VegaComp from "../components/VegaComp";
 import perpetratorsByGender from "../components/functions/PrepetratorsByGender";
+import mapMeanAgeOfPerpetrators from "../components/functions/mapMeanAgeOfPerpetrators";
 
 const Home = () => {
   let dataset = useStore((store) => store.dataset);
   let loadDataSet = useStore((state) => state.loadDataSet);
+  let loadjson = useStore((store) => store.loadjson);
   console.log(dataset);
   useEffect(() => {
     loadDataSet("p");
+    loadjson("usa");
   }, []);
-  if (dataset.p) {
+  if (dataset.p && dataset.usa) {
     return (
       <main>
         <section>
           <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
         </section>
-        <section></section>
+        <section>
+          <VegaComp
+            func={mapMeanAgeOfPerpetrators}
+            name="mapMeanAgeOfPerpetrators"
+            options={{
+              field: "mean_age",
+              yearStart: 2013,
+              yearEnd: 2018,
+              schema: "goldred",
+            }}
+          />
+        </section>
       </main>
     );
   }
