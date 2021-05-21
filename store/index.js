@@ -16,15 +16,26 @@ const json = {
 
 const useStore = create((set, get) => ({
   dataset: {},
-  loadDataSet: async (name) => {
-    const oldDataset = get().dataset;
-    const inp = fromCSV(await (await fetch(ds[name])).text());
-    set({ dataset: { ...oldDataset, [name]: inp } });
+  loadDataSet: (name) => {
+    fetch(ds[name])
+      .then((r) => r.text())
+      .then((inp) => {
+        const oldDataset = get().dataset;
+        set({ dataset: { ...oldDataset, [name]: inp } });
+      });
   },
-  loadjson: async (name) => {
-    const oldDataset = get().dataset;
-    const js = await (await fetch(json[name])).text();
-    set({ dataset: { ...oldDataset, [name]: js } });
+  loadDataSets: (names) => {
+    for (let name of names) {
+      get().loadDataSet(name);
+    }
+  },
+  loadjson: (name) => {
+    fetch(json[name])
+      .then((r) => r.text())
+      .then((js) => {
+        const oldDataset = get().dataset;
+        set({ dataset: { ...oldDataset, [name]: js } });
+      });
   },
 }));
 

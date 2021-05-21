@@ -12,10 +12,13 @@ const Home = () => {
   let loadjson = useStore((store) => store.loadjson);
   console.log(dataset);
   useEffect(() => {
-    loadDataSet("p");
-    loadjson("usa");
+    (async () => {
+      loadDataSet("p");
+      loadDataSet("ppst");
+      loadjson("usa");
+    })();
   }, []);
-  if (dataset.p && dataset.usa) {
+  if (dataset.p && dataset.usa && dataset.ppst) {
     return (
       <main>
         <section>
