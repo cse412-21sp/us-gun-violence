@@ -18,6 +18,7 @@ const Home = () => {
         <section>
           <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
         </section>
+        <section></section>
       </main>
     );
   }
