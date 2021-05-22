@@ -4,13 +4,15 @@ import ageHistogram from "../components/functions/ageHistogram";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
-import VegaComp from "../components/VegaComp";
 import tw from "twin.macro";
+import dynamic from "next/dynamic";
 
 const Section = (props) => {
   return <section>{props.children}</section>;
 };
-
+const VegaComp = dynamic(() => import("./VegaComp"), {
+  ssr: false,
+});
 const Vis = () => {
   return (
     <main tw="w-screen flex flex-col justify-center items-center">

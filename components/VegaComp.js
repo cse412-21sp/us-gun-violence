@@ -22,16 +22,19 @@ const Veg = ({ func, name, width, height, options }) => {
   };
   vl.register(vega, vegaLite, vegaOptions);
   useEffect(() => {
-    if (typeof window !== undefined && container.current && container) {
+    console.log(container);
+    try {
       func({ dataSet, options })
         .render()
         .then((viewElement) => {
-          console.log(container);
-
-          // render returns a promise to a DOM element containing the chart
-          // viewElement.value contains the Vega View object instance
-          container.current.appendChild(viewElement);
+          // // render returns a promise to a DOM element containing the chart
+          // // viewElement.value contains the Vega View object instance
+          if (typeof window !== undefined && container.current && container) {
+            container.current.appendChild(viewElement);
+          }
         });
+    } catch (err) {
+      console.log(err);
     }
   }, [container, container.current]);
 
