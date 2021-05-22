@@ -38,6 +38,6 @@ const Veg = ({ func, name, width, height, options }) => {
     }
   }, [container, container.current]);
 
-  return <div ref={container}></div>;
+  return <div ref={container} tw="rounded-2xl"></div>;
 };
 export default Veg;
