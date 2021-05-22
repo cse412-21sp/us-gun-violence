@@ -6,6 +6,7 @@ import * as vegaTooltip from "vega-tooltip";
 function ageHistogram({ dataSet, options }) {
   const { p } = dataSet;
   const { yearStart, yearEnd, color } = options;
+  console.log("a", p);
   return vl
     .markBar({ opacity: 0.5 })
     .data(
@@ -24,7 +25,8 @@ function ageHistogram({ dataSet, options }) {
         .bin({ step: 5 }),
       vl.y().count().title("Number of Perpetrators"),
       vl.color().value(color)
-    );
+    )
+    .width(720);
 }
 
 const vegaOptions = {

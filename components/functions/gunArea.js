@@ -18,7 +18,9 @@ function gunArea({ dataSet, options }) {
         .fieldN("gun")
         .scale({ scheme: "category20b" })
         .title("Gun type")
-    );
+    )
+    .height(400)
+    .width(700);
 }
 
 const vegaOptions = {

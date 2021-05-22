@@ -13,10 +13,12 @@ const Home = () => {
   console.log(dataset);
   useEffect(() => {
     loadDataSet("p");
-    loadDataSet("ppst");
+    // loadDataSet("ppst");
+    loadDataSet("pst");
+    loadDataSet("g");
     loadjson("usa");
   }, []);
-  if (dataset.p && dataset.usa && dataset.ppst) {
+  if (dataset.p && dataset.usa && dataset.pst && dataset.g) {
     return <Vis />;
   }
   return (
