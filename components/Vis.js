@@ -4,15 +4,16 @@ import ageHistogram from "../components/functions/ageHistogram";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
-import mapunderageAndTotalPerpetrators from "./functions/mapunderageAndTotalPerpetrators";
 import VegaComp from "../components/VegaComp";
-import tw, { styled } from "twin.macro";
+import tw from "twin.macro";
 
-const Section = styled.section(({ variant, isSmall }) => []);
+const Section = (props) => {
+  return <section>{props.children}</section>;
+};
 
 const Vis = () => {
   return (
-    <main tw="flex flex-col justify-center items-center">
+    <main tw="w-screen flex flex-col justify-center items-center">
       <Section>
         <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
       </Section>
@@ -59,18 +60,6 @@ const Vis = () => {
           name="perpetratorsByTime"
         />
       </Section>
-      {/* <Section>
-        <VegaComp
-          func={mapunderageAndTotalPerpetrators}
-          name="mapunderageAndTotalPerpetrators"
-          options={{
-            field: "underages_ratio",
-            yearStart: 2013,
-            yaerEnd: 2018,
-            scheme: "yellowgreenblue",
-          }}
-        />
-      </Section> */}
       <Section>
         <VegaComp
           func={perpetratorsByTime}
