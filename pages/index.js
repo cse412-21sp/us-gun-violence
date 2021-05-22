@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import VegaComp from "../components/VegaComp";
 import perpetratorsByGender from "../components/functions/PrepetratorsByGender";
 import mapMeanAgeOfPerpetrators from "../components/functions/mapMeanAgeOfPerpetrators";
+import dynamic from "next/dynamic";
 
 const Home = () => {
   let dataset = useStore((store) => store.dataset);
