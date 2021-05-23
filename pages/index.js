@@ -1,8 +1,9 @@
-import { WindMillLoading } from "react-loadingg";
+// import { WindMillLoading } from "react-loadingg";
 import tw from "twin.macro";
 import useStore from "../store/index";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
+import { CoffeeLoading } from "react-loadingg";
 
 const Vis = dynamic(() => import("../components/Vis"));
 
@@ -34,7 +35,7 @@ const Home = () => {
   return (
     <main tw={"w-screen h-screen flex flex-col items-center justify-center"}>
       <section>
-        <WindMillLoading size="large" />
+        <CoffeeLoading size="large" />
       </section>
       <section tw={"pt-64"}>
         <h1 tw={"text-2xl font-sans"}>We are loading site</h1>
