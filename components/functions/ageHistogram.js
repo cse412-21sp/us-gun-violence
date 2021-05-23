@@ -11,7 +11,6 @@ function ageHistogram({ dataSet, options }) {
     .data(
       p
         .params({ yearStart: yearStart, yearEnd: yearEnd })
-        .filter((d) => d.type === "Subject-Suspect")
         .filter(
           (d) => op.year(d.date) >= yearStart && op.year(d.date) <= yearEnd
         )
