@@ -13,9 +13,10 @@
 // Webpack 5 config
 module.exports = {
   future: { webpack5: true },
-  webpack: config => {
-    config.resolve.fallback = { fs: false, module: false }
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, module: false };
 
-    return config
+    return config;
   },
-}
+  assetPrefix: !debug ? "https://cse412-21sp.github.io/us-gun-violence" : "",
+};
