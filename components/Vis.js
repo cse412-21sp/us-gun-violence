@@ -6,14 +6,22 @@ import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
-import { Slider } from "antd";
+import { Slider, Select } from "antd";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
+const { Option } = Select;
 
 const Section = (props) => {
   return (
-    <section tw="flex flex-col justify-center items-center">
+    <motion.section
+      tw="flex flex-col justify-center items-center"
+      animate={{ x: 0 }}
+      transition={{ ease: "easeOut", duration: 1 }}
+      initial={{ x: -4000 }}
+    >
       {props.children}
-    </section>
+    </motion.section>
   );
 };
 
@@ -30,6 +38,7 @@ const Desc = tw.p`px-36`;
 const Vis = () => {
   const [ageYear, setAgeYera] = useState([2013, 2018]);
   const [mapYear, setMapYear] = useState([2013, 2018]);
+  const [mapState, setMapState] = useState("WA");
 
   return (
     <main tw="w-screen flex flex-col justify-center items-center gap-y-8 bg-gray-100">
@@ -78,14 +87,31 @@ const Vis = () => {
       <Section>
         <H1>Age distributions of perpetrators</H1>
         <Box>
-          <div tw="grid-cols-4 grid ">
-            <span tw="col-span-1">year range</span>
+          <div tw="flex gap-x-2 items-center">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select a person"
+              optionFilterProp="children"
+              onChange={onChange}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              onSearch={onSearch}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              <Option value="jack">Jack</Option>
+              <Option value="lucy">Lucy</Option>
+              <Option value="tom">Tom</Option>
+            </Select>
+            <span>year range</span>
             <Slider
               range
               defaultValue={ageYear}
               max={2018}
               min={2013}
-              tw="col-span-3"
+              tw="w-4/5"
               onAfterChange={(v) => setAgeYera(v)}
             />
           </div>
@@ -126,14 +152,28 @@ const Vis = () => {
       <Section>
         <H1>Ratio of underage over total perpretrators across US</H1>
         <Box>
-          <div tw="grid-cols-4 grid ">
-            <span tw="col-span-1">year range</span>
+          <div tw="flex gap-x-2 items-center">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select states"
+              optionFilterProp="children"
+              onChange={stateOnChange}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              <Option value="jack">Jack</Option>
+              <Option value="lucy">Lucy</Option>
+              <Option value="tom">Tom</Option>
+            </Select>
+            <span tw="">year range</span>
             <Slider
               range
               defaultValue={mapYear}
               max={2018}
               min={2013}
-              tw="col-span-3"
+              tw="w-4/5"
               onAfterChange={(v) => setMapYear(v)}
             />
           </div>
