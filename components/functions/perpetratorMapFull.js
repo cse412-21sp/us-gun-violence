@@ -100,30 +100,6 @@ function perpetratorMapFull({ dataSet, options }) {
     .config({ scale: { maxSize: 1500 }, view: { stroke: null } });
 }
 
-/*
-function stateRect({ dataSet, options }) {
-  const { pst } = dataSet;
-  const { field, yearStart, yearEnd, scheme} = options;
-  return vl
-    .markRect()
-    .data(pst)
-    .transform(
-      vl.filter(
-        'datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd
-      )
-    )
-    .encode(
-      vl
-        .y()
-        .fieldN("state")
-        .sort(vl.mean(field).order("descending"))
-        .title("State"),
-      vl.color().mean(field).scale({ scheme: scheme }),
-      vl.tooltip([vl.fieldN("state"), vl.mean(field)])
-    );
-}
-*/
-
 const vegaOptions = {
   config: {
     // Vega-Lite default configuration
