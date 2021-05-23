@@ -13,7 +13,6 @@ function perpetratorsByGender({ dataSet, options }) {
   const x = vl.x().yearmonth("date");
 
   const gender_ratio = p
-    .filter((d) => d.type === "Subject-Suspect")
     .derive({
       month: (d) => op.utcmonth(d.date),
       is_male: (d) => d.gender === "Male",
@@ -59,7 +58,9 @@ function perpetratorsByGender({ dataSet, options }) {
         vl.y().fieldQ("value").title("Number of perpetrators"),
         vl.color().fieldN("gender").scale({ scheme: "set1" })
       )
-      .params(brush).width(450).height(360),
+      .params(brush)
+      .width(450)
+      .height(360),
     vl
       .markArea({ opacity: 0.5 })
       .data(gender_ratio)
@@ -68,7 +69,9 @@ function perpetratorsByGender({ dataSet, options }) {
         vl.y().fieldQ("value").title("Percentage of perpetrators"),
         vl.color().fieldN("gender").scale({ scheme: "set1" })
       )
-      .encode(x.scale({ domain: brush })).width(450).height(360)
+      .encode(x.scale({ domain: brush }))
+      .width(450)
+      .height(360)
   );
 }
 
