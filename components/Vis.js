@@ -36,7 +36,8 @@ const H1 = tw.h1`font-semibold font-mono text-lg`;
 const Desc = tw.p`px-36`;
 
 const Vis = () => {
-  const [ageYear, setAgeYera] = useState([2013, 2018]);
+  const [timeYear, setTimeYear] = useState([2013, 2018]);
+  const [ageYear, setAgeYear] = useState([2013, 2018]);
   const [mapYear, setMapYear] = useState([2013, 2018]);
   const [mapState, setMapState] = useState("WA");
   const [feat, setFeat] = useState("mean_age");
@@ -89,6 +90,17 @@ const Vis = () => {
       <Section>
         <H1>Age distributions of perpetrators</H1>
         <Box>
+          <div tw="flex gap-x-2 items-center">
+            <span>year range</span>
+            <Slider
+              range
+              value={ageYear}
+              max={2018}
+              min={2013}
+              tw="w-3/5"
+              onAfterChange={(v) => setAgeYear(v)}
+            />
+          </div>
           <VegaComp
             func={ageHistogram}
             options={{
@@ -144,7 +156,7 @@ const Vis = () => {
             <span tw="">year range</span>
             <Slider
               range
-              defaultValue={mapYear}
+              value={mapYear}
               max={2018}
               min={2013}
               tw="w-3/5"
@@ -193,11 +205,11 @@ const Vis = () => {
             <span>year range</span>
             <Slider
               range
-              defaultValue={ageYear}
+              defaultValue={timeYear}
               max={2018}
               min={2013}
               tw="w-3/5"
-              onAfterChange={(v) => setAgeYera(v)}
+              onAfterChange={(v) => setTimeYear(v)}
             />
           </div>
           <VegaComp
