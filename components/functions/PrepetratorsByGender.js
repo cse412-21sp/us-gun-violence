@@ -32,7 +32,6 @@ function perpetratorsByGender({ dataSet, options }) {
     .rename({ key: "gender" });
 
   const gender_count = p
-    .filter((d) => d.type === "Subject-Suspect")
     .derive({
       month: (d) => op.utcmonth(d.date),
       is_male: (d) => d.gender === "Male",
