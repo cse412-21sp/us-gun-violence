@@ -17,8 +17,7 @@ function ageHistogram({ dataSet, options }) {
         )
     )
     .encode(
-      vl
-        .x()
+      vl.x()
         .fieldQ("age")
         .scale({ domain: [0, 100] })
         .bin({ step: 5 }),

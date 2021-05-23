@@ -4,6 +4,7 @@ import ageHistogram from "../components/functions/ageHistogram";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
+import gunMapFull from "./functions/gunMapFull"
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
@@ -143,6 +144,20 @@ const Vis = () => {
             func={numGunByTypes}
             name="numGunByTypes"
             options={{
+              yearStart: 2013,
+              yearEnd: 2018,
+            }}
+          />
+        </Box>
+      </Section>
+      <Section inView>
+        <H1>Percentage of gun accross US</H1>
+        <Box>
+          <VegaComp
+            func={gunMapFull}
+            name="gunMapFull"
+            options={{
+              gun: 'Handgun',
               yearStart: 2013,
               yearEnd: 2018,
             }}
