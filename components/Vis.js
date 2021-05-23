@@ -10,14 +10,19 @@ import { Slider, Select } from "antd";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import choices from "../components/choices";
+import { useInView } from "react-intersection-observer";
 const { Option } = Select;
 
 const Section = (props) => {
+  console.log(props.inView);
   return (
     <motion.section
       tw="flex flex-col justify-center items-center"
-      animate={{ x: 0 }}
-      transition={{ ease: "easeOut", duration: 1 }}
+      animate={{ x: 0, visibility: props.inView ? true : false }}
+      transition={{
+        ease: "easeOut",
+        // , duration: 1
+      }}
       initial={{ x: -4000 }}
     >
       {props.children}
@@ -42,10 +47,15 @@ const Vis = () => {
   const [mapState, setMapState] = useState("WA");
   const [feat, setFeat] = useState("mean_age");
   const { states, features } = choices;
+  const [ref, inView, entry] = useInView({
+    /* Optional options */
+    threshold: 2,
+    triggerOnce: true,
+  });
 
   return (
     <main tw="w-screen flex flex-col justify-center items-center gap-y-8 bg-gray-100">
-      <Section tw="">
+      <Section inView>
         <p tw="flex justify-center items-center flex-col text-white bg-yellow-700 h-64  w-screen">
           <span tw="text-4xl">US Gun Violence</span>
           <span>Interactive data visualizations about gun violence in US</span>
@@ -71,7 +81,7 @@ const Vis = () => {
           with a larger number of casualties. abstract
         </p>
       </section>
-      <Section>
+      <Section inView>
         <H1>Male and Femal perpetrators over time</H1>
         <Box>
           <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
@@ -87,7 +97,7 @@ const Vis = () => {
           expression met surrounded not. Be at talked ye though secure nearer.
         </Desc>
       </Section>
-      <Section>
+      <Section inView>
         <H1>Age distributions of perpetrators</H1>
         <Box>
           <div tw="flex gap-x-2 items-center">
@@ -135,7 +145,7 @@ const Vis = () => {
           }}
         />
       </Section> */}
-      <Section>
+      <Section inView>
         <H1>Ratio of underage over total perpretrators across US</H1>
         <Box>
           <div tw="flex gap-x-2 items-center">
@@ -184,7 +194,7 @@ const Vis = () => {
           expression met surrounded not. Be at talked ye though secure nearer.
         </Desc>
       </Section>
-      <Section>
+      <Section inView>
         <H1>Male and Femal perpetrators over time</H1>
         <Box>
           <div tw="flex items-center space-x-2">

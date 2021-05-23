@@ -21,6 +21,7 @@
     "next": "latest",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-intersection-observer": "^8.32.0",
     "react-loadingg": "^1.7.2",
     "vega": "^5.20.2",
     "vega-lite": "^5.1.0",
