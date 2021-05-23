@@ -59,7 +59,7 @@ function perpetratorsByGender({ dataSet, options }) {
         vl.y().fieldQ("value").title("Number of perpetrators"),
         vl.color().fieldN("gender").scale({ scheme: "set1" })
       )
-      .params(brush),
+      .params(brush).width(450).height(360),
     vl
       .markArea({ opacity: 0.5 })
       .data(gender_ratio)
@@ -68,7 +68,7 @@ function perpetratorsByGender({ dataSet, options }) {
         vl.y().fieldQ("value").title("Percentage of perpetrators"),
         vl.color().fieldN("gender").scale({ scheme: "set1" })
       )
-      .encode(x.scale({ domain: brush }))
+      .encode(x.scale({ domain: brush })).width(450).height(360)
   );
 }
 

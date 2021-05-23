@@ -7,8 +7,8 @@ import gunKillCounts from "./gunKillCounts";
 
 function numGunByTypes({ dataSet, options }) {
   return vl.hconcat(
-    gunCounts({ dataSet, options }),
-    gunKillCounts({ dataSet, options })
+    gunCounts({ dataSet, options }).width(300),
+    gunKillCounts({ dataSet, options }).width(300)
   );
 }
 
