@@ -4,6 +4,7 @@ import ageHistogram from "../components/functions/ageHistogram";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
+import gunMapFull from "./functions/gunMapFull"
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
@@ -82,7 +83,7 @@ const Vis = () => {
         </p>
       </section>
       <Section inView>
-        <H1>Male and Femal perpetrators over time</H1>
+        <H1>Male and Female perpetrators over time</H1>
         <Box>
           <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
         </Box>
@@ -98,7 +99,7 @@ const Vis = () => {
         </Desc>
       </Section>
       <Section inView>
-        <H1>Age distributions of perpetrators</H1>
+        <H1>Age distribution of perpetrators</H1>
         <Box>
           <div tw="flex gap-x-2 items-center">
             <span>year range</span>
@@ -132,21 +133,39 @@ const Vis = () => {
           expression met surrounded not. Be at talked ye though secure nearer.
         </Desc>
       </Section>
-      {/* <Section>
-        <VegaComp func={gunArea} name="gunArea" />
+      <Section>
+        <Box>
+          <VegaComp func={gunArea} name="gunArea" />
+        </Box>
       </Section>
       <Section>
-        <VegaComp
-          func={numGunByTypes}
-          name="numGunByTypes"
-          options={{
-            yearStart: 2013,
-            yearEnd: 2018,
-          }}
-        />
-      </Section> */}
+        <Box>
+          <VegaComp
+            func={numGunByTypes}
+            name="numGunByTypes"
+            options={{
+              yearStart: 2013,
+              yearEnd: 2018,
+            }}
+          />
+        </Box>
+      </Section>
       <Section inView>
-        <H1>Ratio of underage over total perpretrators across US</H1>
+        <H1>Percentage of gun accross US</H1>
+        <Box>
+          <VegaComp
+            func={gunMapFull}
+            name="gunMapFull"
+            options={{
+              gun: 'Handgun',
+              yearStart: 2013,
+              yearEnd: 2018,
+            }}
+          />
+        </Box>
+      </Section>
+      <Section inView>
+        <H1>Ratio of underages over total perpretrators across US</H1>
         <Box>
           <div tw="flex gap-x-2 items-center">
             <Select
@@ -193,9 +212,6 @@ const Vis = () => {
           needed praise at. Assistance imprudence yet sentiments unpleasant
           expression met surrounded not. Be at talked ye though secure nearer.
         </Desc>
-      </Section>
-      <Section inView>
-        <H1>Male and Femal perpetrators over time</H1>
         <Box>
           <div tw="flex items-center space-x-2">
             <Select
@@ -213,14 +229,6 @@ const Vis = () => {
               ))}
             </Select>
             <span>year range</span>
-            <Slider
-              range
-              defaultValue={timeYear}
-              max={2018}
-              min={2013}
-              tw="w-3/5"
-              onAfterChange={(v) => setTimeYear(v)}
-            />
           </div>
           <VegaComp
             func={perpetratorsByTime}

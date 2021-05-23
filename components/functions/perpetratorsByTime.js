@@ -33,7 +33,7 @@ function perpetratorsByTime({ dataSet, options }) {
           vl.color().value(color)
         )
     )
-    .width(500);
+    .width(500).height(250);
 }
 
 const vegaOptions = {
