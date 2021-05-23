@@ -1,5 +1,5 @@
 import perpetratorsByGender from "../components/functions/PrepetratorsByGender";
-import mapMeanAgeOfPerpetrators from "../components/functions/mapMeanAgeOfPerpetrators";
+import perpetratorMapFull from "../components/functions/perpetratorMapFull";
 import ageHistogram from "../components/functions/ageHistogram";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
@@ -138,13 +138,12 @@ const Vis = () => {
             />
           </div>
           <VegaComp
-            func={mapMeanAgeOfPerpetrators}
-            name="mapMeanAgeOfPerpetrators"
+            func={perpetratorMapFull}
+            name="perpetratorMapFull"
             options={{
               field: "mean_age",
               yearStart: mapYear[0],
-              yearEnd: mapYear[1],
-              schema: "goldred",
+              yearEnd: mapYear[1]
             }}
           />
         </Box>
