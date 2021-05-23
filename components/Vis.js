@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
 import { useState } from "react";
 import { motion } from "framer-motion";
-
+import choices from "../components/choices";
 const { Option } = Select;
 
 const Section = (props) => {
@@ -39,6 +39,9 @@ const Vis = () => {
   const [ageYear, setAgeYera] = useState([2013, 2018]);
   const [mapYear, setMapYear] = useState([2013, 2018]);
   const [mapState, setMapState] = useState("WA");
+  const [feat, setFeat] = useState("mean_age");
+  const { states, features } = choices;
+  console.log(states, "  ", features);
 
   return (
     <main tw="w-screen flex flex-col justify-center items-center gap-y-8 bg-gray-100">
@@ -87,34 +90,6 @@ const Vis = () => {
       <Section>
         <H1>Age distributions of perpetrators</H1>
         <Box>
-          <div tw="flex gap-x-2 items-center">
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select a person"
-              optionFilterProp="children"
-              onChange={onChange}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onSearch={onSearch}
-              filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="tom">Tom</Option>
-            </Select>
-            <span>year range</span>
-            <Slider
-              range
-              defaultValue={ageYear}
-              max={2018}
-              min={2013}
-              tw="w-4/5"
-              onAfterChange={(v) => setAgeYera(v)}
-            />
-          </div>
           <VegaComp
             func={ageHistogram}
             options={{
@@ -158,14 +133,14 @@ const Vis = () => {
               style={{ width: 200 }}
               placeholder="Select states"
               optionFilterProp="children"
-              onChange={stateOnChange}
+              onChange={(v) => setMapState(v)}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
             >
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="tom">Tom</Option>
+              {states.map((state) => (
+                <Option value={state}>{state}</Option>
+              ))}
             </Select>
             <span tw="">year range</span>
             <Slider
@@ -181,9 +156,9 @@ const Vis = () => {
             func={perpetratorMapFull}
             name="perpetratorMapFull"
             options={{
-              field: "mean_age",
+              field: feat,
               yearStart: mapYear[0],
-              yearEnd: mapYear[1]
+              yearEnd: mapYear[1],
             }}
           />
         </Box>
@@ -201,12 +176,37 @@ const Vis = () => {
       <Section>
         <H1>Male and Femal perpetrators over time</H1>
         <Box>
+          <div tw="flex items-center space-x-2">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="filter by feature"
+              optionFilterProp="children"
+              onChange={(v) => setFeat(v)}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {features.map((feat) => (
+                <Option value={feat}>{feat}</Option>
+              ))}
+            </Select>
+            <span>year range</span>
+            <Slider
+              range
+              defaultValue={ageYear}
+              max={2018}
+              min={2013}
+              tw="w-4/5"
+              onAfterChange={(v) => setAgeYera(v)}
+            />
+          </div>
           <VegaComp
             func={perpetratorsByTime}
             name="perpetratorsByTime"
             options={{
-              field: "underages_ratio",
-              state_abbr: "WA",
+              field: feat,
+              state_abbr: mapState,
               color: "red",
             }}
           />
