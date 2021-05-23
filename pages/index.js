@@ -15,10 +15,20 @@ const Home = () => {
     loadDataSet("p");
     loadDataSet("ppst");
     loadDataSet("pst");
+    loadDataSet("stf");
+    loadDataSet("stp");
     loadDataSet("g");
     loadjson("usa");
   }, []);
-  if (dataset.p && dataset.usa && dataset.pst && dataset.g && dataset.ppst) {
+  if (
+    dataset.p &&
+    dataset.usa &&
+    dataset.pst &&
+    dataset.g &&
+    dataset.ppst &&
+    dataset.stf &&
+    dataset.stp
+  ) {
     return <Vis />;
   }
   return (
@@ -27,7 +37,7 @@ const Home = () => {
         <WindMillLoading size="large" />
       </section>
       <section tw={"pt-64"}>
-        <h1 tw={"text-2xl font-sans"}>We are loading necessary files</h1>
+        <h1 tw={"text-2xl font-sans"}>We are loading site</h1>
       </section>
     </main>
   );
