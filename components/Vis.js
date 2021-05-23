@@ -24,7 +24,7 @@ const Desc = tw.p`px-36`;
 
 const Vis = () => {
   return (
-    <main tw="w-screen flex flex-col justify-center items-center gap-y-8">
+    <main tw="w-screen flex flex-col justify-center items-center gap-y-8 bg-gray-100">
       <Section tw="">
         <p tw="flex justify-center items-center flex-col text-white bg-yellow-700 h-64  w-screen">
           <span tw="text-4xl">US Gun Violence</span>
