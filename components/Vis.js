@@ -4,7 +4,7 @@ import ageHistogram from "../components/functions/ageHistogram";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
-import gunMapFull from "./functions/gunMapFull"
+import gunMapFull from "./functions/gunMapFull";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
@@ -15,7 +15,6 @@ import { useInView } from "react-intersection-observer";
 const { Option } = Select;
 
 const Section = (props) => {
-  console.log(props.inView);
   return (
     <motion.section
       tw="flex flex-col justify-center items-center"
@@ -42,9 +41,8 @@ const H1 = tw.h1`font-semibold font-mono text-lg`;
 const Desc = tw.p`px-36`;
 
 const Vis = () => {
-  const [timeYear, setTimeYear] = useState([2013, 2018]);
-  const [ageYear, setAgeYear] = useState([2013, 2018]);
-  const [mapYear, setMapYear] = useState([2013, 2018]);
+  const [ageYear, setAgeYear] = useState(2018);
+  const [mapYear, setMapYear] = useState(2018);
   const [mapState, setMapState] = useState("WA");
   const [feat, setFeat] = useState("mean_age");
   const { states, features } = choices;
@@ -56,12 +54,12 @@ const Vis = () => {
 
   return (
     <main tw="w-screen flex flex-col justify-center items-center gap-y-8 bg-gray-100">
-      <Section inView>
+      <section>
         <p tw="flex justify-center items-center flex-col text-white bg-yellow-700 h-64  w-screen">
           <span tw="text-4xl">US Gun Violence</span>
           <span>Interactive data visualizations about gun violence in US</span>
         </p>
-      </Section>
+      </section>
       <section tw="py-12 px-20">
         <h1 tw="font-mono text-xl font-bold">Introduction</h1>
         <p>
@@ -104,19 +102,18 @@ const Vis = () => {
           <div tw="flex gap-x-2 items-center">
             <span>year range</span>
             <Slider
-              range
               value={ageYear}
               max={2018}
               min={2013}
               tw="w-3/5"
-              onAfterChange={(v) => setAgeYear(v)}
+              onChange={(v) => setAgeYear(v)}
             />
           </div>
           <VegaComp
             func={ageHistogram}
             options={{
-              yearStart: ageYear[0],
-              yearEnd: ageYear[1],
+              yearStart: ageYear,
+              yearEnd: ageYear,
               color: "teal",
             }}
             name="ageHistogram"
@@ -157,7 +154,7 @@ const Vis = () => {
             func={gunMapFull}
             name="gunMapFull"
             options={{
-              gun: 'Handgun',
+              gun: "Handgun",
               yearStart: 2013,
               yearEnd: 2018,
             }}
@@ -184,12 +181,11 @@ const Vis = () => {
             </Select>
             <span tw="">year range</span>
             <Slider
-              range
               value={mapYear}
               max={2018}
               min={2013}
               tw="w-3/5"
-              onAfterChange={(v) => setMapYear(v)}
+              onChange={(v) => setMapYear(v)}
             />
           </div>
           <VegaComp
@@ -197,8 +193,8 @@ const Vis = () => {
             name="perpetratorMapFull"
             options={{
               field: feat,
-              yearStart: mapYear[0],
-              yearEnd: mapYear[1],
+              yearStart: mapYear,
+              yearEnd: mapYear,
             }}
           />
         </Box>
@@ -228,13 +224,12 @@ const Vis = () => {
                 <Option value={state}>{state}</Option>
               ))}
             </Select>
-            <span>year range</span>
           </div>
           <VegaComp
             func={perpetratorsByTime}
             name="perpetratorsByTime"
             options={{
-              field: "mean_age",
+              field: feat,
               state_abbr: mapState,
               color: "red",
             }}

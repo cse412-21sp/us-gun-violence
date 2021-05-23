@@ -17,13 +17,16 @@ function ageHistogram({ dataSet, options }) {
         )
     )
     .encode(
-      vl.x()
+      vl
+        .x()
         .fieldQ("age")
         .scale({ domain: [0, 100] })
         .bin({ step: 5 }),
       vl.y().count().title("Number of Perpetrators"),
       vl.color().value(color)
-    );
+    )
+    .width(720)
+    .height(360);
 }
 
 const vegaOptions = {
