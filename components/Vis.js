@@ -6,6 +6,8 @@ import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
+import { Slider } from "antd";
+import { useState } from "react";
 
 const Section = (props) => {
   return (
@@ -14,15 +16,21 @@ const Section = (props) => {
     </section>
   );
 };
+
 const VegaComp = dynamic(() => import("./VegaComp"), {
   ssr: false,
 });
 
-const H1 = tw.h1`font-semibold font-mono text-lg py-2`;
+const Box = tw.div`p-4 shadow-lg rounded-lg bg-white my-6`;
+
+const H1 = tw.h1`font-semibold font-mono text-lg`;
 
 const Desc = tw.p`px-36`;
 
 const Vis = () => {
+  const [ageYear, setAgeYera] = useState([2013, 2018]);
+  const [mapYear, setMapYear] = useState([2013, 2018]);
+
   return (
     <main tw="w-screen flex flex-col justify-center items-center gap-y-8 bg-gray-100">
       <Section tw="">
@@ -53,7 +61,9 @@ const Vis = () => {
       </section>
       <Section>
         <H1>Male and Femal perpetrators over time</H1>
-        <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
+        <Box>
+          <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
+        </Box>
         <Desc>
           Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
           In on my jointure horrible margaret suitable he followed speedily.
@@ -67,15 +77,28 @@ const Vis = () => {
       </Section>
       <Section>
         <H1>Age distributions of perpetrators</H1>
-        <VegaComp
-          func={ageHistogram}
-          options={{
-            yearStart: 2013,
-            yearEnd: 2018,
-            color: "teal",
-          }}
-          name="ageHistogram"
-        />
+        <Box>
+          <div tw="grid-cols-4 grid ">
+            <span tw="col-span-1">year range</span>
+            <Slider
+              range
+              defaultValue={ageYear}
+              max={2018}
+              min={2013}
+              tw="col-span-3"
+              onAfterChange={(v) => setAgeYera(v)}
+            />
+          </div>
+          <VegaComp
+            func={ageHistogram}
+            options={{
+              yearStart: ageYear[0],
+              yearEnd: ageYear[1],
+              color: "teal",
+            }}
+            name="ageHistogram"
+          />
+        </Box>
         <Desc>
           Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
           In on my jointure horrible margaret suitable he followed speedily.
@@ -102,16 +125,29 @@ const Vis = () => {
       </Section> */}
       <Section>
         <H1>Ratio of underage over total perpretrators across US</H1>
-        <VegaComp
-          func={mapMeanAgeOfPerpetrators}
-          name="mapMeanAgeOfPerpetrators"
-          options={{
-            field: "mean_age",
-            yearStart: 2013,
-            yearEnd: 2018,
-            schema: "goldred",
-          }}
-        />
+        <Box>
+          <div tw="grid-cols-4 grid ">
+            <span tw="col-span-1">year range</span>
+            <Slider
+              range
+              defaultValue={mapYear}
+              max={2018}
+              min={2013}
+              tw="col-span-3"
+              onAfterChange={(v) => setMapYear(v)}
+            />
+          </div>
+          <VegaComp
+            func={mapMeanAgeOfPerpetrators}
+            name="mapMeanAgeOfPerpetrators"
+            options={{
+              field: "mean_age",
+              yearStart: mapYear[0],
+              yearEnd: mapYear[1],
+              schema: "goldred",
+            }}
+          />
+        </Box>
         <Desc>
           Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
           In on my jointure horrible margaret suitable he followed speedily.
@@ -123,20 +159,19 @@ const Vis = () => {
           expression met surrounded not. Be at talked ye though secure nearer.
         </Desc>
       </Section>
-      {/* <Section>
-        <VegaComp
-          func={perpetratorsByTime}
-          options={{ field: "mean_age", state_abbr: "WA", color: "red" }}
-          name="perpetratorsByTime"
-        />
-      </Section> */}
       <Section>
         <H1>Male and Femal perpetrators over time</H1>
-        <VegaComp
-          func={perpetratorsByTime}
-          name="perpetratorsByTime"
-          options={{ field: "underages_ratio", state_abbr: "WA", color: "red" }}
-        />
+        <Box>
+          <VegaComp
+            func={perpetratorsByTime}
+            name="perpetratorsByTime"
+            options={{
+              field: "underages_ratio",
+              state_abbr: "WA",
+              color: "red",
+            }}
+          />
+        </Box>
         <Desc>
           Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
           In on my jointure horrible margaret suitable he followed speedily.
