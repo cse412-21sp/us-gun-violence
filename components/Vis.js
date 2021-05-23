@@ -41,7 +41,6 @@ const Vis = () => {
   const [mapState, setMapState] = useState("WA");
   const [feat, setFeat] = useState("mean_age");
   const { states, features } = choices;
-  console.log(states, "  ", features);
 
   return (
     <main tw="w-screen flex flex-col justify-center items-center gap-y-8 bg-gray-100">
@@ -131,15 +130,15 @@ const Vis = () => {
             <Select
               showSearch
               style={{ width: 200 }}
-              placeholder="Select states"
+              placeholder="filter by feature"
               optionFilterProp="children"
-              onChange={(v) => setMapState(v)}
+              onChange={(v) => setFeat(v)}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
             >
-              {states.map((state) => (
-                <Option value={state}>{state}</Option>
+              {features.map((feat) => (
+                <Option value={feat}>{feat}</Option>
               ))}
             </Select>
             <span tw="">year range</span>
@@ -148,7 +147,7 @@ const Vis = () => {
               defaultValue={mapYear}
               max={2018}
               min={2013}
-              tw="w-4/5"
+              tw="w-3/5"
               onAfterChange={(v) => setMapYear(v)}
             />
           </div>
@@ -180,15 +179,15 @@ const Vis = () => {
             <Select
               showSearch
               style={{ width: 200 }}
-              placeholder="filter by feature"
+              placeholder="Select states"
               optionFilterProp="children"
-              onChange={(v) => setFeat(v)}
+              onChange={(v) => setMapState(v)}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
             >
-              {features.map((feat) => (
-                <Option value={feat}>{feat}</Option>
+              {states.map((state) => (
+                <Option value={state}>{state}</Option>
               ))}
             </Select>
             <span>year range</span>
@@ -197,7 +196,7 @@ const Vis = () => {
               defaultValue={ageYear}
               max={2018}
               min={2013}
-              tw="w-4/5"
+              tw="w-3/5"
               onAfterChange={(v) => setAgeYera(v)}
             />
           </div>
@@ -205,7 +204,7 @@ const Vis = () => {
             func={perpetratorsByTime}
             name="perpetratorsByTime"
             options={{
-              field: feat,
+              field: "mean_age",
               state_abbr: mapState,
               color: "red",
             }}
