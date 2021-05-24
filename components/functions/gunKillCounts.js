@@ -25,7 +25,8 @@ function gunKillCounts({ dataSet, options }) {
         .scale({ scheme: "category20b" })
         .legend(false)
         .title("Gun type")
-    );
+    )
+    .config({background: null});
 }
 const vegaOptions = {
   config: {
