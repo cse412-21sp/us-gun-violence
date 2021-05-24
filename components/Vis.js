@@ -130,7 +130,7 @@ const Vis = () => {
         </Column>
         <Column>
         <Box>
-          <div tw="flex gap-x-2 items-center">
+          <div tw="flex gap-x-2 items-center w-full">
             <span>year range</span>
             <Slider
               value={ageYear}
@@ -173,7 +173,7 @@ const Vis = () => {
       </Section>
       <Section inView>
         <H1>Percentage of gun accross US</H1>
-        <Box>
+        <Box tw="w-full">
           <VegaComp
             func={gunMapFull}
             name="gunMapFull"
@@ -188,7 +188,7 @@ const Vis = () => {
       <Section tw='w-8/12' inView>
         <H1>Ratio of underages over total perpretrators across US</H1>
         <Box tw='w-full'>
-          <div tw="flex gap-x-2 items-center">
+          <div tw="flex gap-x-2 items-center w-full">
             <Select
               showSearch
               style={{ width: 200 }}
