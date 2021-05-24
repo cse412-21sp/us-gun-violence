@@ -19,7 +19,7 @@ function gunArea({ dataSet, options }) {
         .scale({ scheme: "category20b" })
         .title("Gun type")
     )
-    .height(400)
+    .height(480)
     .width(700);
 }
 
