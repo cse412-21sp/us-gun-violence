@@ -9,12 +9,9 @@ function ageHistogram({ dataSet, options }) {
   const { yearStart, yearEnd, color } = options;
   return vl
     .markBar({ opacity: 0.5 })
-    .data(
-      p
-        .params({ yearStart: yearStart, yearEnd: yearEnd })
-        .filter(
-          (d) => op.year(d.date) >= yearStart && op.year(d.date) <= yearEnd
-        )
+    .data(p)
+    .transform(
+      vl.filter('datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd)
     )
     .encode(
       vl
