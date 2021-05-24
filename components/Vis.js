@@ -17,7 +17,7 @@ const { Option } = Select;
 const Section = (props) => {
   return (
     <motion.section
-      tw="flex flex-col justify-center items-center"
+      tw="flex flex-col justify-center items-center w-9/12"
       animate={{ x: 0, visibility: props.inView ? true : false }}
       transition={{
         ease: "easeOut",
@@ -34,11 +34,15 @@ const VegaComp = dynamic(() => import("./VegaComp"), {
   ssr: false,
 });
 
-const Box = tw.div`p-4 shadow-lg rounded-lg bg-white my-6`;
+const Box = tw.div`flex flex-col p-4 shadow-lg rounded-lg justify-center items-center max-w-full bg-white my-6`;
 
-const H1 = tw.h1`font-semibold font-mono text-lg`;
+const H1 = tw.h1`font-semibold font-mono text-2xl`;
 
-const Desc = tw.p`px-36`;
+const Desc = tw.p`text-sm w-full p-6 text-justify text-lg`;
+
+const Row = tw.div`flex flex-row justify-items-stretch w-full`;
+
+const Column = tw.div`flex flex-col content-center justify-center`;
 
 const Vis = () => {
   const [ageYear, setAgeYear] = useState(2018);
@@ -53,16 +57,19 @@ const Vis = () => {
   });
 
   return (
-    <main tw="w-screen flex flex-col justify-center items-center gap-y-8 bg-gray-100">
+    <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-100">
       <section>
-        <p tw="flex justify-center items-center flex-col text-white bg-yellow-700 h-64  w-screen">
-          <span tw="text-4xl">US Gun Violence</span>
-          <span>Interactive data visualizations about gun violence in US</span>
+        <p tw="flex justify-center items-center text-lg flex-col text-white bg-yellow-700 h-64  w-screen">
+          <span tw="text-7xl">US Gun Violence</span>
+          <span></span>
+          <span tw="text-base">
+            Interactive data visualizations about gun violence in US
+          </span>
         </p>
       </section>
-      <section tw="py-12 px-20">
-        <h1 tw="font-mono text-xl font-bold">Introduction</h1>
-        <p>
+      <section tw="py-12 px-20 bg-white">
+        <h1 tw="font-mono text-2xl font-bold">Introduction</h1>
+        <p tw="text-lg">
           There are a very few countries in the word where citizens have the
           right to bear arms. US is one of them where their citizens own guns
           nearly half of all civilian guns in the world. As a result, gun
@@ -80,11 +87,36 @@ const Vis = () => {
           with a larger number of casualties. abstract
         </p>
       </section>
+
       <Section inView>
         <H1>Male and Female perpetrators over time</H1>
-        <Box>
-          <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
-        </Box>
+        <Row>
+            <Box>
+              <VegaComp
+                func={perpetratorsByGender}
+                name="perpetratorsByGender"
+              />
+            </Box>
+        </Row>
+        <Row>
+            <Desc>
+              Dissuade ecstatic and properly saw entirely sir why laughter
+              endeavor. In on my jointure horrible margaret suitable he followed
+              speedily. Indeed vanity excuse or mr lovers of on. By offer scale
+              an stuff. Blush be sorry no sight. Sang lose of hour then he left
+              find. For norland produce age wishing. To figure on it spring
+              season up. Her provision acuteness had excellent two why
+              intention. As called mr needed praise at. Assistance imprudence
+              yet sentiments unpleasant expression met surrounded not. Be at
+              talked ye though secure nearer.
+            </Desc>
+        </Row>
+      </Section>
+
+      <Section inView>
+        <H1>Age distribution of perpetrators</H1>
+        <Row>
+        <Column>
         <Desc>
           Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
           In on my jointure horrible margaret suitable he followed speedily.
@@ -95,9 +127,8 @@ const Vis = () => {
           needed praise at. Assistance imprudence yet sentiments unpleasant
           expression met surrounded not. Be at talked ye though secure nearer.
         </Desc>
-      </Section>
-      <Section inView>
-        <H1>Age distribution of perpetrators</H1>
+        </Column>
+        <Column>
         <Box>
           <div tw="flex gap-x-2 items-center">
             <span>year range</span>
@@ -119,17 +150,10 @@ const Vis = () => {
             name="ageHistogram"
           />
         </Box>
-        <Desc>
-          Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
-          In on my jointure horrible margaret suitable he followed speedily.
-          Indeed vanity excuse or mr lovers of on. By offer scale an stuff.
-          Blush be sorry no sight. Sang lose of hour then he left find. For
-          norland produce age wishing. To figure on it spring season up. Her
-          provision acuteness had excellent two why intention. As called mr
-          needed praise at. Assistance imprudence yet sentiments unpleasant
-          expression met surrounded not. Be at talked ye though secure nearer.
-        </Desc>
+        </Column>
+        </Row>
       </Section>
+
       <Section>
         <Box>
           <VegaComp func={gunArea} name="gunArea" />
@@ -161,9 +185,9 @@ const Vis = () => {
           />
         </Box>
       </Section>
-      <Section inView>
+      <Section tw='w-8/12' inView>
         <H1>Ratio of underages over total perpretrators across US</H1>
-        <Box>
+        <Box tw='w-full'>
           <div tw="flex gap-x-2 items-center">
             <Select
               showSearch
@@ -198,16 +222,8 @@ const Vis = () => {
             }}
           />
         </Box>
-        <Desc>
-          Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
-          In on my jointure horrible margaret suitable he followed speedily.
-          Indeed vanity excuse or mr lovers of on. By offer scale an stuff.
-          Blush be sorry no sight. Sang lose of hour then he left find. For
-          norland produce age wishing. To figure on it spring season up. Her
-          provision acuteness had excellent two why intention. As called mr
-          needed praise at. Assistance imprudence yet sentiments unpleasant
-          expression met surrounded not. Be at talked ye though secure nearer.
-        </Desc>
+        <Row>
+        <Column>
         <Box>
           <div tw="flex items-center space-x-2">
             <Select
@@ -235,6 +251,8 @@ const Vis = () => {
             }}
           />
         </Box>
+        </Column>
+        <Column>
         <Desc>
           Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
           In on my jointure horrible margaret suitable he followed speedily.
@@ -245,6 +263,8 @@ const Vis = () => {
           needed praise at. Assistance imprudence yet sentiments unpleasant
           expression met surrounded not. Be at talked ye though secure nearer.
         </Desc>
+        </Column>
+        </Row>
       </Section>
     </main>
   );
