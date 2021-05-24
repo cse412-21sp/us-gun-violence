@@ -15,6 +15,7 @@ import { useInView } from "react-intersection-observer";
 const { Option } = Select;
 
 const Section = (props) => {
+  console.log(props.inView);
   return (
     <motion.section
       tw="flex flex-col justify-center items-center w-9/12"
@@ -38,7 +39,7 @@ const Box = tw.div`flex flex-col p-4 shadow-lg rounded-lg justify-center items-c
 
 const H1 = tw.h1`font-semibold font-mono text-2xl`;
 
-const Desc = tw.p`text-sm w-full p-6 text-justify text-lg`;
+const Desc = tw.p`text-sm w-full p-6 text-justify`;
 
 const Row = tw.div`flex flex-row justify-items-stretch w-full`;
 
@@ -88,17 +89,31 @@ const Vis = () => {
         </p>
       </section>
 
-      <Section inView>
+      <Section inView={inView}>
         <H1>Male and Female perpetrators over time</H1>
         <Row>
-            <Box>
-              <VegaComp
-                func={perpetratorsByGender}
-                name="perpetratorsByGender"
-              />
-            </Box>
+          <Box>
+            <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
+          </Box>
         </Row>
         <Row>
+          <Desc>
+            Dissuade ecstatic and properly saw entirely sir why laughter
+            endeavor. In on my jointure horrible margaret suitable he followed
+            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
+            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
+            For norland produce age wishing. To figure on it spring season up.
+            Her provision acuteness had excellent two why intention. As called
+            mr needed praise at. Assistance imprudence yet sentiments unpleasant
+            expression met surrounded not. Be at talked ye though secure nearer.
+          </Desc>
+        </Row>
+      </Section>
+
+      <Section inView={inView}>
+        <H1>Age distribution of perpetrators</H1>
+        <Row>
+          <Column>
             <Desc>
               Dissuade ecstatic and properly saw entirely sir why laughter
               endeavor. In on my jointure horrible margaret suitable he followed
@@ -110,47 +125,30 @@ const Vis = () => {
               yet sentiments unpleasant expression met surrounded not. Be at
               talked ye though secure nearer.
             </Desc>
-        </Row>
-      </Section>
-
-      <Section inView>
-        <H1>Age distribution of perpetrators</H1>
-        <Row>
-        <Column>
-        <Desc>
-          Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
-          In on my jointure horrible margaret suitable he followed speedily.
-          Indeed vanity excuse or mr lovers of on. By offer scale an stuff.
-          Blush be sorry no sight. Sang lose of hour then he left find. For
-          norland produce age wishing. To figure on it spring season up. Her
-          provision acuteness had excellent two why intention. As called mr
-          needed praise at. Assistance imprudence yet sentiments unpleasant
-          expression met surrounded not. Be at talked ye though secure nearer.
-        </Desc>
-        </Column>
-        <Column>
-        <Box>
-          <div tw="flex gap-x-2 items-center w-full">
-            <span>year range</span>
-            <Slider
-              value={ageYear}
-              max={2018}
-              min={2013}
-              tw="w-3/5"
-              onChange={(v) => setAgeYear(v)}
-            />
-          </div>
-          <VegaComp
-            func={ageHistogram}
-            options={{
-              yearStart: ageYear,
-              yearEnd: ageYear,
-              color: "teal",
-            }}
-            name="ageHistogram"
-          />
-        </Box>
-        </Column>
+          </Column>
+          <Column>
+            <Box>
+              <div tw="flex gap-x-2 items-center w-full">
+                <span>year range</span>
+                <Slider
+                  value={ageYear}
+                  max={2018}
+                  min={2013}
+                  tw="w-3/5"
+                  onChange={(v) => setAgeYear(v)}
+                />
+              </div>
+              <VegaComp
+                func={ageHistogram}
+                options={{
+                  yearStart: ageYear,
+                  yearEnd: ageYear,
+                  color: "teal",
+                }}
+                name="ageHistogram"
+              />
+            </Box>
+          </Column>
         </Row>
       </Section>
 
@@ -171,7 +169,7 @@ const Vis = () => {
           />
         </Box>
       </Section>
-      <Section inView>
+      <Section inView={inView}>
         <H1>Percentage of gun accross US</H1>
         <Box tw="w-full">
           <VegaComp
@@ -185,9 +183,9 @@ const Vis = () => {
           />
         </Box>
       </Section>
-      <Section tw='w-8/12' inView>
+      <Section tw="w-8/12" inView={inView}>
         <H1>Ratio of underages over total perpretrators across US</H1>
-        <Box tw='w-full'>
+        <Box tw="w-full">
           <div tw="flex gap-x-2 items-center w-full">
             <Select
               showSearch
@@ -223,47 +221,50 @@ const Vis = () => {
           />
         </Box>
         <Row>
-        <Column>
-        <Box>
-          <div tw="flex items-center space-x-2">
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select states"
-              optionFilterProp="children"
-              onChange={(v) => setMapState(v)}
-              filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              {states.map((state) => (
-                <Option value={state}>{state}</Option>
-              ))}
-            </Select>
-          </div>
-          <VegaComp
-            func={perpetratorsByTime}
-            name="perpetratorsByTime"
-            options={{
-              field: feat,
-              state_abbr: mapState,
-              color: "red",
-            }}
-          />
-        </Box>
-        </Column>
-        <Column>
-        <Desc>
-          Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
-          In on my jointure horrible margaret suitable he followed speedily.
-          Indeed vanity excuse or mr lovers of on. By offer scale an stuff.
-          Blush be sorry no sight. Sang lose of hour then he left find. For
-          norland produce age wishing. To figure on it spring season up. Her
-          provision acuteness had excellent two why intention. As called mr
-          needed praise at. Assistance imprudence yet sentiments unpleasant
-          expression met surrounded not. Be at talked ye though secure nearer.
-        </Desc>
-        </Column>
+          <Column>
+            <Box>
+              <div tw="flex items-center space-x-2">
+                <Select
+                  showSearch
+                  style={{ width: 200 }}
+                  placeholder="Select states"
+                  optionFilterProp="children"
+                  onChange={(v) => setMapState(v)}
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                >
+                  {states.map((state) => (
+                    <Option value={state}>{state}</Option>
+                  ))}
+                </Select>
+              </div>
+              <VegaComp
+                func={perpetratorsByTime}
+                name="perpetratorsByTime"
+                options={{
+                  field: feat,
+                  state_abbr: mapState,
+                  color: "red",
+                }}
+              />
+            </Box>
+          </Column>
+          <Column>
+            <Desc>
+              Dissuade ecstatic and properly saw entirely sir why laughter
+              endeavor. In on my jointure horrible margaret suitable he followed
+              speedily. Indeed vanity excuse or mr lovers of on. By offer scale
+              an stuff. Blush be sorry no sight. Sang lose of hour then he left
+              find. For norland produce age wishing. To figure on it spring
+              season up. Her provision acuteness had excellent two why
+              intention. As called mr needed praise at. Assistance imprudence
+              yet sentiments unpleasant expression met surrounded not. Be at
+              talked ye though secure nearer.
+            </Desc>
+          </Column>
         </Row>
       </Section>
     </main>
