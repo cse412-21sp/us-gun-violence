@@ -150,7 +150,7 @@ const Vis = () => {
         </Row>
       </Section>
 
-      <Section tw="w-8/12" inView>
+      <Section tw="w-8/12" inView={inView}>
         <H1>Ratio of underages over total perpretrators across US</H1>
         <Box tw="w-full">
           <div tw="flex gap-x-2 items-center w-full">
@@ -232,7 +232,7 @@ const Vis = () => {
         </Row>
       </Section>
 
-      <Section>
+      <Section inView={inView}>
         <H1>Number of guns used over time</H1>
         <Row>
           <Box>
@@ -253,7 +253,7 @@ const Vis = () => {
           </Column>
         </Row>
       </Section>
-      <Section>
+      <Section inView={inView}>
         <H1>Gun counts and kill counts by types</H1>
         <Box>
           <VegaComp
@@ -279,7 +279,7 @@ const Vis = () => {
         </Row>
       </Section>
 
-      <Section inView>
+      <Section inView={inView}>
         <H1>Percentage of gun across US</H1>
         <Box tw="w-full">
           <VegaComp
