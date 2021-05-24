@@ -45,7 +45,8 @@ function gunByState({ dataSet, options }) {
           vl.tooltip([vl.fieldN("state"), vl.fieldQ("count_guns")])
         )
     )
-    .project(vl.projection("albersUsa"));
+    .project(vl.projection("albersUsa"))
+    .config({background: null});
 }
 
 const vegaOptions = {

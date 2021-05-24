@@ -5,6 +5,7 @@ import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
 import gunMapFull from "./functions/gunMapFull";
+import gunByTime from "./functions/gunByTime"
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
@@ -34,15 +35,13 @@ const VegaComp = dynamic(() => import("./VegaComp"), {
   ssr: false,
 });
 
-const Box = tw.div`flex flex-col p-4 shadow-lg rounded-lg justify-around items-center max-w-full bg-white my-6`;
+const Box = tw.div`flex flex-col p-4 shadow-lg rounded-lg justify-around items-center bg-white my-6`;
 
 const H1 = tw.h1`font-semibold font-mono text-2xl`;
 
-const Desc = tw.p`text-base w-full p-6 text-justify`;
+const Desc = tw.p`flex text-base w-full p-6 text-justify`;
 
 const Row = tw.div`flex flex-row justify-items-stretch justify-center w-full`;
-
-const Column = tw.div`flex flex-col content-center justify-center`;
 
 const Vis = () => {
   const [ageYear, setAgeYear] = useState(2018);
@@ -112,40 +111,37 @@ const Vis = () => {
       <Section inView>
         <H1>Age distribution of perpetrators</H1>
         <Row>
-          <Column>
-            <Desc>
-              Dissuade ecstatic and properly saw entirely sir why laughter
-              endeavor. In on my jointure horrible margaret suitable he followed
-              speedily. Indeed vanity excuse or mr lovers of on. By offer scale
-              an stuff. Blush be sorry no sight. Sang lose of hour then he left
-              find. For norland produce age wishing. To figure on it spring
-              season up. Her provision acuteness had excellent two why
-              intention. As called mr needed praise at. Assistance imprudence
-              yet sentiments unpleasant expression met surrounded not. Be at
-              talked ye though secure nearer.
-            </Desc>
-          </Column>
-            <Box>
-              <div tw="flex gap-x-2 items-center w-full">
-                <span>year range</span>
-                <Slider
-                  value={ageYear}
-                  max={2018}
-                  min={2013}
-                  tw="w-3/5"
-                  onChange={(v) => setAgeYear(v)}
-                />
-              </div>
-              <VegaComp
-                func={ageHistogram}
-                options={{
-                  yearStart: ageYear,
-                  yearEnd: ageYear,
-                  color: "teal",
-                }}
-                name="ageHistogram"
+          <Desc>
+            Dissuade ecstatic and properly saw entirely sir why laughter
+            endeavor. In on my jointure horrible margaret suitable he followed
+            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
+            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
+            For norland produce age wishing. To figure on it spring season up.
+            Her provision acuteness had excellent two why intention. As called
+            mr needed praise at. Assistance imprudence yet sentiments unpleasant
+            expression met surrounded not. Be at talked ye though secure nearer.
+          </Desc>
+          <Box>
+            <div tw="flex gap-x-2 items-center w-full">
+              <span>year range</span>
+              <Slider
+                value={ageYear}
+                max={2018}
+                min={2013}
+                tw="w-3/5"
+                onChange={(v) => setAgeYear(v)}
               />
-            </Box>
+            </div>
+            <VegaComp
+              func={ageHistogram}
+              options={{
+                yearStart: ageYear,
+                yearEnd: ageYear,
+                color: "teal",
+              }}
+              name="ageHistogram"
+            />
+          </Box>
         </Row>
       </Section>
 
@@ -187,58 +183,34 @@ const Vis = () => {
           />
         </Box>
         <Row>
-            <Box>
-              <div tw="flex items-center space-x-2">
-                <Select
-                  showSearch
-                  style={{ width: 200 }}
-                  placeholder="Select states"
-                  optionFilterProp="children"
-                  onChange={(v) => setMapState(v)}
-                  filterOption={(input, option) =>
-                    option.children
-                      .toLowerCase()
-                      .indexOf(input.toLowerCase()) >= 0
-                  }
-                >
-                  {states.map((state) => (
-                    <Option value={state}>{state}</Option>
-                  ))}
-                </Select>
-              </div>
-              <VegaComp
-                func={perpetratorsByTime}
-                name="perpetratorsByTime"
-                options={{
-                  field: feat,
-                  state_abbr: mapState,
-                  color: "red",
-                }}
-              />
-            </Box>
-          <Column>
-            <Desc>
-              Dissuade ecstatic and properly saw entirely sir why laughter
-              endeavor. In on my jointure horrible margaret suitable he followed
-              speedily. Indeed vanity excuse or mr lovers of on. By offer scale
-              an stuff. Blush be sorry no sight. Sang lose of hour then he left
-              find. For norland produce age wishing. To figure on it spring
-              season up. Her provision acuteness had excellent two why
-              intention. As called mr needed praise at. Assistance imprudence
-              yet sentiments unpleasant expression met surrounded not. Be at
-              talked ye though secure nearer.
-            </Desc>
-          </Column>
-        </Row>
-      </Section>
-
-      <Section>
-        <H1>Number of guns used over time</H1>
-        <Row>
           <Box>
-            <VegaComp func={gunArea} name="gunArea" />
+            <div tw="flex items-center space-x-2">
+              <Select
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select states"
+                optionFilterProp="children"
+                onChange={(v) => setMapState(v)}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                {states.map((state) => (
+                  <Option value={state}>{state}</Option>
+                ))}
+              </Select>
+            </div>
+            <VegaComp
+              func={perpetratorsByTime}
+              name="perpetratorsByTime"
+              options={{
+                field: feat,
+                state_abbr: mapState,
+                color: "red",
+              }}
+            />
           </Box>
-        <Column>
           <Desc>
             Dissuade ecstatic and properly saw entirely sir why laughter
             endeavor. In on my jointure horrible margaret suitable he followed
@@ -249,7 +221,25 @@ const Vis = () => {
             mr needed praise at. Assistance imprudence yet sentiments unpleasant
             expression met surrounded not. Be at talked ye though secure nearer.
           </Desc>
-        </Column>
+        </Row>
+      </Section>
+
+      <Section>
+        <H1>Number of guns used over time</H1>
+        <Row>
+          <Box>
+            <VegaComp func={gunArea} name="gunArea" />
+          </Box>
+          <Desc>
+            Dissuade ecstatic and properly saw entirely sir why laughter
+            endeavor. In on my jointure horrible margaret suitable he followed
+            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
+            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
+            For norland produce age wishing. To figure on it spring season up.
+            Her provision acuteness had excellent two why intention. As called
+            mr needed praise at. Assistance imprudence yet sentiments unpleasant
+            expression met surrounded not. Be at talked ye though secure nearer.
+          </Desc>
         </Row>
       </Section>
       <Section>
@@ -264,18 +254,16 @@ const Vis = () => {
             }}
           />
         </Box>
-        <Row>
-          <Desc>
-            Dissuade ecstatic and properly saw entirely sir why laughter
-            endeavor. In on my jointure horrible margaret suitable he followed
-            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
-            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
-            For norland produce age wishing. To figure on it spring season up.
-            Her provision acuteness had excellent two why intention. As called
-            mr needed praise at. Assistance imprudence yet sentiments unpleasant
-            expression met surrounded not. Be at talked ye though secure nearer.
-          </Desc>
-        </Row>
+        <Desc>
+          Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
+          In on my jointure horrible margaret suitable he followed speedily.
+          Indeed vanity excuse or mr lovers of on. By offer scale an stuff.
+          Blush be sorry no sight. Sang lose of hour then he left find. For
+          norland produce age wishing. To figure on it spring season up. Her
+          provision acuteness had excellent two why intention. As called mr
+          needed praise at. Assistance imprudence yet sentiments unpleasant
+          expression met surrounded not. Be at talked ye though secure nearer.
+        </Desc>
       </Section>
 
       <Section inView>
@@ -291,6 +279,45 @@ const Vis = () => {
             }}
           />
         </Box>
+        <Row>
+          <Box>
+            <div tw="flex items-center space-x-2">
+              <Select
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select states"
+                optionFilterProp="children"
+                onChange={(v) => setMapState(v)}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                {states.map((state) => (
+                  <Option value={state}>{state}</Option>
+                ))}
+              </Select>
+            </div>
+            <VegaComp
+              func={gunByTime}
+              name="gunByTime"
+              options={{
+                state_abbr: mapState,
+                gun: 'Handgun',
+              }}
+            />
+          </Box>
+          <Desc>
+            Dissuade ecstatic and properly saw entirely sir why laughter
+            endeavor. In on my jointure horrible margaret suitable he followed
+            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
+            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
+            For norland produce age wishing. To figure on it spring season up.
+            Her provision acuteness had excellent two why intention. As called
+            mr needed praise at. Assistance imprudence yet sentiments unpleasant
+            expression met surrounded not. Be at talked ye though secure nearer.
+          </Desc>
+        </Row>
       </Section>
     </main>
   );

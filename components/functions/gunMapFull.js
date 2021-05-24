@@ -2,6 +2,7 @@ import * as vega from "vega";
 import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
+import { aq, op } from "arquero";
 
 function gunRect(data) {
   return vl
@@ -95,7 +96,7 @@ function gunMapFull({ dataSet, options }) {
       gunRect(data).height(500),
       gunMap(data, usa, pst, gun).height(500).width(720)
     )
-    .config({ scale: { maxSize: 1500 }, view: { stroke: null } });
+    .config({scale: { maxSize: 1500 }, view: { background: null, stroke: null } });
 }
 
 const vegaOptions = {
@@ -107,7 +108,7 @@ const vegaOptions = {
     view.tooltip(new vegaTooltip.Handler().call);
   },
   view: {
-    renderer: "canvas",
+    renderer: "canvas"
   },
 };
 vl.register(vega, vegaLite, vegaOptions);
