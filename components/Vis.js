@@ -5,7 +5,7 @@ import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
 import gunMapFull from "./functions/gunMapFull";
-import gunByTime from "./functions/gunByTime"
+import gunByTime from "./functions/gunByTime";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
@@ -160,7 +160,9 @@ const Vis = () => {
               }
             >
               {features.map((feat) => (
-                <Option value={feat}>{feat}</Option>
+                <Option value={feat}>
+                  {feat.replaceAll("_", ` `).replaceAll("pctg", "percentage")}
+                </Option>
               ))}
             </Select>
             <span tw="">year range</span>
@@ -206,7 +208,7 @@ const Vis = () => {
               name="perpetratorsByTime"
               options={{
                 field: feat,
-                state_abbr: mapState
+                state_abbr: mapState,
               }}
             />
           </Box>
@@ -302,7 +304,7 @@ const Vis = () => {
               name="gunByTime"
               options={{
                 state_abbr: mapState,
-                gun: 'Handgun',
+                gun: "Handgun",
               }}
             />
           </Box>

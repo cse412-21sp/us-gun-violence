@@ -4,7 +4,6 @@ import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 import useStore from "../store/index";
-import { CoffeeLoading } from "react-loadingg";
 
 const Main = ({ func, name, width, height, options }) => {
   const container = useRef();
