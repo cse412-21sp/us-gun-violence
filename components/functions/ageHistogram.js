@@ -2,7 +2,7 @@ import * as vega from "vega";
 import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
-import { aq, op } from "arquero";
+import { op } from "arquero";
 
 function ageHistogram({ dataSet, options }) {
   const { p } = dataSet;
@@ -26,8 +26,8 @@ function ageHistogram({ dataSet, options }) {
       vl.color().value(color)
     )
     .width(720)
-    .height(360).config({background: null})
-    ;
+    .height(360)
+    .config({ background: null });
 }
 
 const vegaOptions = {
@@ -39,7 +39,7 @@ const vegaOptions = {
     view.tooltip(new vegaTooltip.Handler().call);
   },
   view: {
-    renderer: "canvas"
+    renderer: "canvas",
   },
 };
 vl.register(vega, vegaLite, vegaOptions);
