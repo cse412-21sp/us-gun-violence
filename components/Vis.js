@@ -15,7 +15,6 @@ import { useInView } from "react-intersection-observer";
 const { Option } = Select;
 
 const Section = (props) => {
-  console.log(props.inView);
   return (
     <motion.section
       tw="flex flex-col justify-center items-center w-9/12"
