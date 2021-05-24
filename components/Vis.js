@@ -206,8 +206,7 @@ const Vis = () => {
               name="perpetratorsByTime"
               options={{
                 field: feat,
-                state_abbr: mapState,
-                color: "red",
+                state_abbr: mapState
               }}
             />
           </Box>
