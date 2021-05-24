@@ -41,7 +41,7 @@ function gunRect(data, gun, yearStart, yearEnd) {
     );
 }
 
-function gunMap(data, gun, yearStart, yearEnd) {
+function gunMap(data, gun, yearStart, yearEnd, usa) {
   return vl
     .layer(
       vl
@@ -91,12 +91,12 @@ function gunMap(data, gun, yearStart, yearEnd) {
 }
 
 function gunMapFull({ dataSet, options }) {
-  const { gsty } = dataSet;
+  const { gsty, usa } = dataSet;
   const { gun, yearStart, yearEnd } = options;
   return vl
     .hconcat(
       gunRect(gsty, gun, yearStart, yearEnd).height(500),
-      gunMap(gsty, gun, yearStart, yearEnd).height(500).width(720)
+      gunMap(gsty, gun, yearStart, yearEnd, usa).height(500).width(720)
     )
     .config({
       mark: { opacity: 0.9 },

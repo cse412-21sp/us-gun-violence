@@ -160,7 +160,7 @@ const Vis = () => {
               }
             >
               {features.map((feat) => (
-                <Option value={feat}>
+                <Option value={feat} key={feat}>
                   {feat.replaceAll("_", ` `).replaceAll("pctg", "percentage")}
                 </Option>
               ))}
@@ -199,7 +199,9 @@ const Vis = () => {
                 }
               >
                 {states.map((state) => (
-                  <Option value={state}>{state}</Option>
+                  <Option value={state} key={state}>
+                    {state}
+                  </Option>
                 ))}
               </Select>
             </div>

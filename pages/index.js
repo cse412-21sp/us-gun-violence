@@ -19,6 +19,8 @@ const Home = () => {
     loadDataSet("stf");
     loadDataSet("stp");
     loadDataSet("g");
+    loadDataSet("gsty");
+    loadDataSet("gstm");
     loadjson("usa");
   }, []);
   if (
@@ -28,7 +30,9 @@ const Home = () => {
     dataset.g &&
     dataset.ppst &&
     dataset.stf &&
-    dataset.stp
+    dataset.stp &&
+    dataset.gsty &&
+    dataset.gstm
   ) {
     return <Vis />;
   }
@@ -38,7 +42,7 @@ const Home = () => {
         <CoffeeLoading size="large" />
       </section>
       <section tw={"pt-64"}>
-        <h1 tw={"text-2xl font-sans"}>We are loading site</h1>
+        <h1 tw={"text-2xl font-sans"}>We are brewing site</h1>
       </section>
     </main>
   );
