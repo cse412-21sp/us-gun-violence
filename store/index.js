@@ -8,6 +8,8 @@ const ds = {
   stp: "https://us-gun-violence-data.netlify.app//state_pop.csv",
   stf: "https://us-gun-violence-data.netlify.app//state_fips.csv",
   ppst: "https://us-gun-violence-data.netlify.app//perpetrators_by_state.csv",
+  gsty: "https://raw.githubusercontent.com/cse412-21sp/us-gun-violence/main/data/guns_by_state_year.csv",
+  gstm: "https://raw.githubusercontent.com/cse412-21sp/us-gun-violence/main/data/guns_by_state_month.csv"
 };
 
 const json = {
