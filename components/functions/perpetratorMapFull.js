@@ -46,14 +46,14 @@ function perpetratorMap({ dataSet, options }) {
     .data(pst)
     .layer(
       vl
-        .markGeoshape({ fill: "#ddd", stroke: "#fff", strokeWidth: 1 })
+        .markGeoshape({ fill: "#4e4e4e", stroke: "#fff", strokeWidth: 1 })
         .data(vl.topojson(usa).feature("states"))
         .transform(
           vl.lookup("id").from(vl.data(pst).key("fip").fields("state"))
         )
         .encode(vl.tooltip("state")),
       vl
-        .markCircle({ stroke: "#5e5e5e" })
+        .markCircle({ stroke: "#white"})
         .data(pst)
         .transform(
           vl.filter(
@@ -97,7 +97,20 @@ function perpetratorMapFull({ dataSet, options }) {
       perpetratorRect({ dataSet, options }).height(500),
       perpetratorMap({ dataSet, options }).height(500).width(720)
     )
-    .config({ scale: { maxSize: 1500 }, view: { stroke: null } });
+    .config({
+      mark: { opacity: 0.9 },
+      background: "#3e3e3e",
+      axis: {
+        tickColor: "white",
+        labelColor: "white",
+        titleColor: "white",
+        gridColor: "white",
+        domainColor: "white",
+      },
+      legend: { labelColor: "white", titleColor: "white" },
+      scale: { maxSize: 1500 },
+      view: { stroke: null },
+    });
 }
 
 const vegaOptions = {

@@ -30,7 +30,21 @@ function perpetratorsByTime({ dataSet, options }) {
         vl.y().mean(field).title(titles[field]),
         vl.color().fieldN('state_abbr').title('State')
       )
-   ).width(500).height(250);
+   ).width(500).height(250)
+   .config({
+    mark: { opacity: 0.9 },
+    background: "#3e3e3e",
+    axis: {
+      tickColor: "white",
+      labelColor: "white",
+      titleColor: "white",
+      gridColor: "white",
+      domainColor: "white",
+    },
+    legend: { labelColor: "white", titleColor: "white" },
+    scale: { maxSize: 1500 },
+    view: { stroke: null },
+  });
 }
 
 const vegaOptions = {

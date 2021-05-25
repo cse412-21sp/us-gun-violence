@@ -4,23 +4,37 @@ import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
 function gunArea({ dataSet, options }) {
-  const { g } = dataSet;
+  const { gstm } = dataSet;
 
   return vl
     .markArea({ opacity: 0.8 })
-    .data(g)
-    .transform(vl.filter("datum['gun'] != 'Unknown'"))
+    .data(gstm)
     .encode(
       vl.x().yearmonth("date"),
-      vl.y().count().title("Number of guns"),
+      vl.y().sum("count_guns").title("Number of guns"),
       vl
         .color()
         .fieldN("gun")
         .scale({ scheme: "category20b" })
         .title("Gun type")
     )
-    .height(480)
-    .width(700);
+    .width(720)
+    .height(400)
+    .config({
+      mark: { opacity: 0.9 },
+      background: "#3e3e3e",
+      axis: {
+        tickColor: "white",
+        labelColor: "white",
+        titleColor: "white",
+        gridColor: "white",
+        gridOpacity: 0.4,
+        domainColor: "white",
+      },
+      legend: { labelColor: "white", titleColor: "white" },
+      scale: { maxSize: 1500 },
+      view: { stroke: null },
+    });
 }
 
 const vegaOptions = {

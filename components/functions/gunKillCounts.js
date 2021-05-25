@@ -4,10 +4,10 @@ import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 function gunKillCounts({ dataSet, options }) {
   const { yearStart, yearEnd } = options;
-  const { g } = dataSet;
+  const { gsty } = dataSet;
   return vl
     .markBar({ opacity: 0.8 })
-    .data(g)
+    .data(gsty)
     .transform(
       vl.filter(
         "datum['gun'] != 'Unknown' && datum['year'] >= " +
@@ -25,8 +25,7 @@ function gunKillCounts({ dataSet, options }) {
         .scale({ scheme: "category20b" })
         .legend(false)
         .title("Gun type")
-    )
-    .config({background: null});
+    );
 }
 const vegaOptions = {
   config: {
