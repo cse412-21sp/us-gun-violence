@@ -75,14 +75,13 @@ function gunMap(data, gun, yearStart, yearEnd, usa) {
         .encode(
           vl.latitude().fieldQ("latitude"),
           vl.longitude().fieldQ("longitude"),
-          vl
-            .color()
+          vl.color()
             .fieldQ("Percentage of " + gun)
             .scale({ scheme: "redpurple", clamp: true }),
-          vl.size().fieldQ("Total guns/1M population/year"),
+          vl.size().fieldQ("Total guns/1M population/year").title(["Total guns/", "1M population/year"]),
           vl.tooltip([
             vl.fieldN("state"),
-            vl.fieldQ("percentage of " + gun),
+            vl.fieldQ("Percentage of " + gun),
             vl.fieldQ("Total guns/1M population/year"),
           ])
         )
@@ -102,13 +101,21 @@ function gunMapFull({ dataSet, options }) {
       mark: { opacity: 0.9 },
       background: "#1f2937",
       axis: {
+        titleFontSize: 16,
         tickColor: "white",
         labelColor: "white",
         titleColor: "white",
         gridColor: "white",
         domainColor: "white",
       },
-      legend: { labelColor: "white", titleColor: "white", symbolFillColor: "#6b7280", symbolStrokeColor: "white"},
+      legend: {
+        titleFontSize: 14,
+        labelFontSize: 12,
+        labelColor: "white",
+        titleColor: "white",
+        symbolFillColor: "#6b7280",
+        symbolStrokeColor: "white",
+      },
       scale: { maxSize: 1500 },
       view: { stroke: null },
     });

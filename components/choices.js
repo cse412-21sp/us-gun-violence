@@ -1,5 +1,6 @@
 export default {
   features: ["mean_age", "underages_ratio", "male_pctg", "female_pctg"],
+  guns: ["Handgun", "9mm", "Shotgun"],
   states: [
     "AL",
     "AK",

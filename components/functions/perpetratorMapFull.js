@@ -53,7 +53,7 @@ function perpetratorMap({ dataSet, options }) {
         )
         .encode(vl.tooltip("state")),
       vl
-        .markCircle({ stroke: "#white"})
+        .markCircle({ stroke: "#white" })
         .data(pst)
         .transform(
           vl.filter(
@@ -101,13 +101,21 @@ function perpetratorMapFull({ dataSet, options }) {
       mark: { opacity: 0.9 },
       background: "#1f2937",
       axis: {
+        titleFontSize: 16,
         tickColor: "white",
         labelColor: "white",
         titleColor: "white",
         gridColor: "white",
         domainColor: "white",
       },
-      legend: { labelColor: "white", titleColor: "white" , symbolFillColor: "#6b7280", symbolStrokeColor: "white"},
+      legend: {
+        titleFontSize: 14,
+        labelFontSize: 12,
+        labelColor: "white",
+        titleColor: "white",
+        symbolFillColor: "#6b7280",
+        symbolStrokeColor: "white",
+      },
       scale: { maxSize: 1500 },
       view: { stroke: null },
     });

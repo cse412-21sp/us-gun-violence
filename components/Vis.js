@@ -1,6 +1,7 @@
 import perpetratorsByGender from "../components/functions/PrepetratorsByGender";
 import perpetratorMapFull from "../components/functions/perpetratorMapFull";
 import ageHistogram from "../components/functions/ageHistogram";
+import ageBoxplot from "./functions/ageBoxplot";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
@@ -60,10 +61,13 @@ const Row = tw.div`flex flex-row items-center justify-around w-full`;
 
 const Vis = () => {
   const [ageYear, setAgeYear] = useState(2018);
-  const [mapYear, setMapYear] = useState(2018);
-  const [mapState, setMapState] = useState("WA");
+  const [mapYearP, setMapYearP] = useState(2018);
+  const [mapYearG, setMapYearG] = useState(2018);
+  const [mapStateP, setMapStateP] = useState("WA");
+  const [mapStateG, setMapStateG] = useState("WA");
   const [feat, setFeat] = useState("mean_age");
-  const { states, features } = choices;
+  const [gun, setGun] = useState("Handgun");
+  const { states, guns, features } = choices;
   const [ref, inView, entry] = useInView({
     /* Optional options */
     threshold: 2,
@@ -126,18 +130,8 @@ const Vis = () => {
       <Section inView={inView}>
         <H1>Age distribution of perpetrators</H1>
         <Row>
-          <Desc>
-            Dissuade ecstatic and properly saw entirely sir why laughter
-            endeavor. In on my jointure horrible margaret suitable he followed
-            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
-            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
-            For norland produce age wishing. To figure on it spring season up.
-            Her provision acuteness had excellent two why intention. As called
-            mr needed praise at. Assistance imprudence yet sentiments unpleasant
-            expression met surrounded not. Be at talked ye though secure nearer.
-          </Desc>
           <Box>
-            <div tw="flex gap-x-2 items-center w-full">
+            <div tw="flex gap-x-2 justify-around items-center w-full">
               <span tw="text-gray-50">year range</span>
               <Slider
                 value={ageYear}
@@ -159,13 +153,16 @@ const Vis = () => {
               name="ageHistogram"
             />
           </Box>
+          <Box>
+            <VegaComp func={ageBoxplot} name="ageBoxplot" />
+          </Box>
         </Row>
       </Section>
 
-      <Section tw="w-8/12" inView={inView}>
+      <Section inView={inView}>
         <H1>Ratio of underages over total perpretrators across US</H1>
         <Box tw="w-full">
-          <div tw="flex gap-x-2 items-center w-full">
+          <div tw="flex gap-x-2 justify-around items-center w-full">
             <Select
               showSearch
               style={{ width: 200, fill: "#6b7280" }}
@@ -184,12 +181,12 @@ const Vis = () => {
             </Select>
             <span tw="text-gray-50">year range</span>
             <Slider
-              value={mapYear}
+              value={mapYearP}
               max={2018}
               min={2013}
               marks={yearMark}
               tw="w-3/5"
-              onChange={(v) => setMapYear(v)}
+              onChange={(v) => setMapYearP(v)}
             />
           </div>
           <VegaComp
@@ -197,8 +194,8 @@ const Vis = () => {
             name="perpetratorMapFull"
             options={{
               field: feat,
-              yearStart: mapYear,
-              yearEnd: mapYear,
+              yearStart: mapYearP,
+              yearEnd: mapYearP,
             }}
           />
         </Box>
@@ -210,7 +207,7 @@ const Vis = () => {
                 style={{ width: 200 }}
                 placeholder="Select states"
                 optionFilterProp="children"
-                onChange={(v) => setMapState(v)}
+                onChange={(v) => setMapStateP(v)}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
@@ -228,7 +225,7 @@ const Vis = () => {
               name="perpetratorsByTime"
               options={{
                 field: feat,
-                state_abbr: mapState,
+                state_abbr: mapStateP,
               }}
             />
           </Box>
@@ -290,13 +287,38 @@ const Vis = () => {
       <Section inView={inView}>
         <H1>Percentage of gun across US</H1>
         <Box tw="w-full">
+          <div tw="flex gap-x-2 justify-around items-center w-full">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select guns"
+              optionFilterProp="children"
+              onChange={(v) => setGun(v)}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {guns.map((gun) => (
+                <Option value={gun}>{gun}</Option>
+              ))}
+            </Select>
+            <span tw="text-gray-50">year range</span>
+            <Slider
+              value={mapYearG}
+              max={2018}
+              min={2013}
+              marks={yearMark}
+              tw="w-3/5"
+              onChange={(v) => setMapYearG(v)}
+            />
+          </div>
           <VegaComp
             func={gunMapFull}
             name="gunMapFull"
             options={{
-              gun: "Handgun",
-              yearStart: 2013,
-              yearEnd: 2018,
+              gun: gun,
+              yearStart: mapYearG,
+              yearEnd: mapYearG,
             }}
           />
         </Box>
@@ -308,7 +330,7 @@ const Vis = () => {
                 style={{ width: 200 }}
                 placeholder="Select states"
                 optionFilterProp="children"
-                onChange={(v) => setMapState(v)}
+                onChange={(v) => setMapStateG(v)}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
@@ -323,8 +345,8 @@ const Vis = () => {
               func={gunByTime}
               name="gunByTime"
               options={{
-                state_abbr: mapState,
-                gun: "Handgun",
+                state_abbr: mapStateG,
+                gun: gun,
               }}
             />
           </Box>

@@ -20,16 +20,18 @@ function ageHistogram({ dataSet, options }) {
         .x()
         .fieldQ("age")
         .scale({ domain: [0, 100] })
-        .bin({ step: 5 }),
+        .bin({ step: 10 })
+        .title("Age"),
       vl.y().count().title("Number of Perpetrators"),
       vl.color().value(color)
     )
-    .width(720)
+    .width(480)
     .height(360)
     .config({
       mark: { opacity: 0.8 },
       background: "#1f2937",
       axis: {
+        titleFontSize: 13,
         tickColor: "white",
         labelColor: "white",
         titleColor: "white",
@@ -37,7 +39,12 @@ function ageHistogram({ dataSet, options }) {
         gridColor: "white",
         domainColor: "white",
       },
-      legend: { labelColor: "white", titleColor: "white" },
+      legend: {
+        titleFontSize: 16,
+        labelFontSize: 14,
+        labelColor: "white",
+        titleColor: "white",
+      },
       scale: { maxSize: 1500 },
       view: { stroke: null },
     });

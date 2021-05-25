@@ -2,9 +2,8 @@ import * as vega from "vega";
 import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
-import { op, not } from "arquero";
 
-function gunByTime(dataSet, options) {
+function gunByTime({dataSet, options}) {
   const { gsty } = dataSet;
   const { state_abbr, gun } = options;
 
@@ -38,9 +37,31 @@ function gunByTime(dataSet, options) {
             .y()
             .mean("gun_percentage")
             .title("Percentage of " + gun),
-          vl.color().fieldN("state_abbr").title("State")
+          vl.color().fieldN("state_abbr").title(null)
         )
     )
+    .width(500).height(360)
+    .config({
+      mark: { opacity: 0.9 },
+      background: "#1f2937",
+      axis: {
+        titleFontSize: 13,
+        tickColor: "white",
+        labelColor: "white",
+        titleColor: "white",
+        gridColor: "white",
+        gridOpacity: 0.4,
+        domainColor: "white",
+      },
+      legend: {
+        labelFontSize: 14,
+        labelColor: "white",
+        titleColor: "white",
+        title: null,
+      },
+      scale: { maxSize: 1500 },
+      view: { stroke: null },
+    });
 }
 
 const vegaOptions = {

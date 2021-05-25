@@ -14,7 +14,7 @@ const Home = () => {
   console.log(dataset);
   useEffect(() => {
     loadDataSet("p");
-    loadDataSet("ppst");
+    // loadDataSet("ppst");
     loadDataSet("pst");
     loadDataSet("stf");
     loadDataSet("stp");
@@ -28,7 +28,7 @@ const Home = () => {
     dataset.usa &&
     dataset.pst &&
     // dataset.g &&
-    dataset.ppst &&
+    // dataset.ppst &&
     dataset.stf &&
     dataset.stp &&
     dataset.gsty &&
