@@ -75,7 +75,7 @@ const Vis = () => {
   });
 
   return (
-    <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-800">
+    <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-800 w-screen">
       <section>
         <p tw="flex justify-center items-center text-lg flex-col text-white h-64  w-screen">
           <span tw="text-7xl">US Gun Violence</span>
