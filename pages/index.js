@@ -18,7 +18,7 @@ const Home = () => {
     loadDataSet("pst");
     loadDataSet("stf");
     loadDataSet("stp");
-    loadDataSet("g");
+    // loadDataSet("g");
     loadDataSet("gsty");
     loadDataSet("gstm");
     loadjson("usa");
@@ -27,7 +27,7 @@ const Home = () => {
     dataset.p &&
     dataset.usa &&
     dataset.pst &&
-    dataset.g &&
+    // dataset.g &&
     dataset.ppst &&
     dataset.stf &&
     dataset.stp &&

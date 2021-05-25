@@ -2,14 +2,14 @@ import create from "zustand";
 import { fromCSV } from "arquero";
 
 const ds = {
-  p: "https://us-gun-violence-data.netlify.app//perpetrators.csv",
-  g: "https://us-gun-violence-data.netlify.app//guns.csv",
-  pst: "https://us-gun-violence-data.netlify.app//perpetrators_by_state.csv",
-  stp: "https://us-gun-violence-data.netlify.app//state_pop.csv",
-  stf: "https://us-gun-violence-data.netlify.app//state_fips.csv",
-  ppst: "https://us-gun-violence-data.netlify.app//perpetrators_by_state.csv",
+  p: "https://us-gun-violence-data.netlify.app/perpetrators.csv",
+  g: "https://us-gun-violence-data.netlify.app/guns.csv",
+  pst: "https://us-gun-violence-data.netlify.app/perpetrators_by_state.csv",
+  stp: "https://us-gun-violence-data.netlify.app/state_pop.csv",
+  stf: "https://us-gun-violence-data.netlify.app/state_fips.csv",
+  ppst: "https://us-gun-violence-data.netlify.app/perpetrators_by_state.csv",
   gsty: "https://raw.githubusercontent.com/cse412-21sp/us-gun-violence/main/data/guns_by_state_year.csv",
-  gstm: "https://raw.githubusercontent.com/cse412-21sp/us-gun-violence/main/data/guns_by_state_month.csv"
+  gstm: "https://raw.githubusercontent.com/cse412-21sp/us-gun-violence/main/data/guns_by_state_month.csv",
 };
 
 const json = {
