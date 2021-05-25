@@ -24,6 +24,7 @@ function gunArea({ dataSet, options }) {
       mark: { opacity: 0.9 },
       background: "#1f2937",
       axis: {
+        titleFontSize: 13,
         tickColor: "white",
         labelColor: "white",
         titleColor: "white",
@@ -31,7 +32,12 @@ function gunArea({ dataSet, options }) {
         gridOpacity: 0.4,
         domainColor: "white",
       },
-      legend: { labelColor: "white", titleColor: "white" },
+      legend: {
+        titleFontSize: 16,
+        labelFontSize: 14,
+        labelColor: "white",
+        titleColor: "white",
+      },
       scale: { maxSize: 1500 },
       view: { stroke: null },
     });
