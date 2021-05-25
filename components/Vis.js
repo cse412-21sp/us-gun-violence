@@ -31,6 +31,10 @@ const Section = (props) => {
   );
 };
 
+const yearMark = Array.from(Array(2018 - 2013 + 1).keys())
+  .map((k) => 2013 + k)
+  .reduce((acc, v) => ({ ...acc, [v]: v }), {});
+
 const VegaComp = dynamic(() => import("./VegaComp"), {
   ssr: false,
 });
@@ -130,6 +134,7 @@ const Vis = () => {
                 min={2013}
                 tw="w-3/5"
                 onChange={(v) => setAgeYear(v)}
+                marks={yearMark}
               />
             </div>
             <VegaComp
@@ -170,6 +175,7 @@ const Vis = () => {
               value={mapYear}
               max={2018}
               min={2013}
+              marks={yearMark}
               tw="w-3/5"
               onChange={(v) => setMapYear(v)}
             />
