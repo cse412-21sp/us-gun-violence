@@ -14,8 +14,6 @@ import { motion } from "framer-motion";
 import choices from "../components/choices";
 import { useInView } from "react-intersection-observer";
 const { Option } = Select;
-import "antd/lib/select/style/index.css";
-import "antd/lib/slider/style/index.css";
 
 const Section = (props) => {
   return (
@@ -167,7 +165,7 @@ const Vis = () => {
       <Section tw="w-8/12" inView={inView}>
         <H1>Ratio of underages over total perpretrators across US</H1>
         <Box tw="w-full">
-          <div tw="flex gap-x-2 items-center w-full">
+          <div tw="flex gap-x-2 items-center w-full bg-gray-600">
             <Select
               showSearch
               style={{ width: 200, fill: "#6b7280" }}
