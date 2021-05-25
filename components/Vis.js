@@ -165,7 +165,7 @@ const Vis = () => {
       <Section tw="w-8/12" inView={inView}>
         <H1>Ratio of underages over total perpretrators across US</H1>
         <Box tw="w-full">
-          <div tw="flex gap-x-2 items-center w-full bg-gray-600">
+          <div tw="flex gap-x-2 items-center w-full">
             <Select
               showSearch
               style={{ width: 200, fill: "#6b7280" }}
