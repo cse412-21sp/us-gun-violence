@@ -11,7 +11,9 @@ function ageHistogram({ dataSet, options }) {
     .markBar({ opacity: 0.5 })
     .data(p)
     .transform(
-      vl.filter('datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd)
+      vl.filter(
+        'datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd
+      )
     )
     .encode(
       vl
@@ -24,7 +26,20 @@ function ageHistogram({ dataSet, options }) {
     )
     .width(720)
     .height(360)
-    .config({ background: null });
+    .config({
+      mark: { opacity: 0.9 },
+      background: "#3e3e3e",
+      axis: {
+        tickColor: "white",
+        labelColor: "white",
+        titleColor: "white",
+        gridColor: "white",
+        domainColor: "white",
+      },
+      legend: { labelColor: "white", titleColor: "white" },
+      scale: { maxSize: 1500 },
+      view: { stroke: null },
+    });
 }
 
 const vegaOptions = {
