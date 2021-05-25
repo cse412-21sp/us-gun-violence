@@ -13,7 +13,7 @@ function numGunByTypes({ dataSet, options }) {
     )
     .config({
       mark: { opacity: 0.9 },
-      background: "#3e3e3e",
+      background: "#1f2937",
       axis: {
         tickColor: "white",
         labelColor: "white",

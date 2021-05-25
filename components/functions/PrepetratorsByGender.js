@@ -48,45 +48,44 @@ function perpetratorsByGender({ dataSet, options }) {
     .fold(["female", "male"])
     .rename({ key: "gender" });
 
-  return vl
-    .hconcat(
-      vl
-        .markArea({ opacity: 0.5 })
-        .data(gender_count)
-        .encode(
-          x,
-          vl.y().fieldQ("value").title("Number of perpetrators"),
-          vl.color().fieldN("gender").scale({ scheme: "set1" })
-        )
-        .params(brush)
-        .width(450)
-        .height(360),
-      vl
-        .markArea({ opacity: 0.5 })
-        .data(gender_ratio)
-        .encode(
-          x,
-          vl.y().fieldQ("value").title("Percentage of perpetrators"),
-          vl.color().fieldN("gender").scale({ scheme: "set1" })
-        )
-        .encode(x.scale({ domain: brush }))
-        .width(450)
-        .height(360)
-    )
-    .config({
-      mark: { opacity: 0.9 },
-      background: "#3e3e3e",
-      axis: {
-        tickColor: "white",
-        labelColor: "white",
-        titleColor: "white",
-        gridColor: "white",
-        domainColor: "white",
-      },
-      legend: { labelColor: "white", titleColor: "white" },
-      scale: { maxSize: 1500 },
-      view: { stroke: null },
-    });
+  return vl.hconcat(
+    vl
+      .markArea()
+      .data(gender_count)
+      .encode(
+        x,
+        vl.y().fieldQ("value").title("Number of perpetrators"),
+        vl.color().fieldN("gender").scale({ scheme: "set1" })
+      )
+      .params(brush)
+      .width(450)
+      .height(360),
+    vl
+      .markArea()
+      .data(gender_ratio)
+      .encode(
+        x,
+        vl.y().fieldQ("value").title("Percentage of perpetrators"),
+        vl.color().fieldN("gender").scale({ scheme: "set1" })
+      )
+      .encode(x.scale({ domain: brush }))
+      .width(450)
+      .height(360)
+  ).config({
+    mark: { opacity: 0.7 },
+    background: "#1f2937",
+    axis: {
+      tickColor: "white",
+      labelColor: "white",
+      titleColor: "white",
+      gridColor: "white",
+      gridOpacity: 0.6,
+      domainColor: "white",
+    },
+    legend: { labelColor: "white", titleColor: "white" },
+    scale: { maxSize: 1500 },
+    view: { stroke: null },
+  });
 }
 
 const vegaOptions = {

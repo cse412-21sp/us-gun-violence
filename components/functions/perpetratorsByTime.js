@@ -33,11 +33,12 @@ function perpetratorsByTime({ dataSet, options }) {
    ).width(500).height(250)
    .config({
     mark: { opacity: 0.9 },
-    background: "#3e3e3e",
+    background: "#1f2937",
     axis: {
       tickColor: "white",
       labelColor: "white",
       titleColor: "white",
+      gridOpacity: 0.6,
       gridColor: "white",
       domainColor: "white",
     },
