@@ -39,13 +39,13 @@ const VegaComp = dynamic(() => import("./VegaComp"), {
   ssr: false,
 });
 
-const Box = tw.div`flex flex-col p-4 shadow-lg rounded-lg justify-around items-center bg-white my-6`;
+const Box = tw.div`flex flex-col p-4 justify-around items-center my-6`;
 
-const H1 = tw.h1`font-semibold font-mono text-2xl`;
+const H1 = tw.h1`font-semibold font-mono text-2xl text-gray-50`;
 
-const Desc = tw.p`flex text-base w-full p-6 text-justify`;
+const Desc = tw.p`flex text-base text-gray-50 w-full p-6 text-justify`;
 
-const Row = tw.div`flex flex-row justify-items-stretch justify-center w-full`;
+const Row = tw.div`flex flex-row items-center justify-around w-full`;
 
 const Vis = () => {
   const [ageYear, setAgeYear] = useState(2018);
@@ -60,9 +60,9 @@ const Vis = () => {
   });
 
   return (
-    <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-100">
+    <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-800">
       <section>
-        <p tw="flex justify-center items-center text-lg flex-col text-white bg-yellow-700 h-64  w-screen">
+        <p tw="flex justify-center items-center text-lg flex-col text-white h-64  w-screen">
           <span tw="text-7xl">US Gun Violence</span>
           <span></span>
           <span tw="text-base">
@@ -70,9 +70,9 @@ const Vis = () => {
           </span>
         </p>
       </section>
-      <section tw="py-12 px-20 bg-white">
-        <h1 tw="font-mono text-2xl font-bold">Introduction</h1>
-        <p tw="text-lg">
+      <section tw="py-12 px-20 bg-gray-700">
+        <h1 tw="font-mono text-2xl font-bold text-gray-50">Introduction</h1>
+        <p tw="text-lg text-gray-50">
           There are a very few countries in the word where citizens have the
           right to bear arms. US is one of them where their citizens own guns
           nearly half of all civilian guns in the world. As a result, gun
@@ -127,7 +127,7 @@ const Vis = () => {
           </Desc>
           <Box>
             <div tw="flex gap-x-2 items-center w-full">
-              <span>year range</span>
+              <span tw="text-gray-50">year range</span>
               <Slider
                 value={ageYear}
                 max={2018}
@@ -156,7 +156,7 @@ const Vis = () => {
           <div tw="flex gap-x-2 items-center w-full">
             <Select
               showSearch
-              style={{ width: 200 }}
+              style={{ width: 200 , fill: "#6b7280"}}
               placeholder="filter by feature"
               optionFilterProp="children"
               onChange={(v) => setFeat(v)}
@@ -170,7 +170,7 @@ const Vis = () => {
                 </Option>
               ))}
             </Select>
-            <span tw="">year range</span>
+            <span tw="text-gray-50">year range</span>
             <Slider
               value={mapYear}
               max={2018}

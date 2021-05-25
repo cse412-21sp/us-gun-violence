@@ -45,7 +45,7 @@ function gunMap(data, gun, yearStart, yearEnd, usa) {
   return vl
     .layer(
       vl
-        .markGeoshape({ fill: "#4e4e4e", stroke: "#fff", strokeWidth: 1 })
+        .markGeoshape({ fill: "#374151", stroke: "#fff", strokeWidth: 1 })
         .data(vl.topojson(usa).feature("states"))
         .transform(
           vl.lookup("id").from(vl.data(data).key("fip").fields("state"))
@@ -100,7 +100,7 @@ function gunMapFull({ dataSet, options }) {
     )
     .config({
       mark: { opacity: 0.9 },
-      background: "#3e3e3e",
+      background: "#1f2937",
       axis: {
         tickColor: "white",
         labelColor: "white",
@@ -108,7 +108,7 @@ function gunMapFull({ dataSet, options }) {
         gridColor: "white",
         domainColor: "white",
       },
-      legend: { labelColor: "white", titleColor: "white" },
+      legend: { labelColor: "white", titleColor: "white", symbolFillColor: "#6b7280", symbolStrokeColor: "white"},
       scale: { maxSize: 1500 },
       view: { stroke: null },
     });

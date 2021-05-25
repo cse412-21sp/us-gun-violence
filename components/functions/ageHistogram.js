@@ -8,7 +8,7 @@ function ageHistogram({ dataSet, options }) {
   const { p } = dataSet;
   const { yearStart, yearEnd, color } = options;
   return vl
-    .markBar({ opacity: 0.5 })
+    .markBar()
     .data(p)
     .transform(
       vl.filter(
@@ -27,12 +27,13 @@ function ageHistogram({ dataSet, options }) {
     .width(720)
     .height(360)
     .config({
-      mark: { opacity: 0.9 },
-      background: "#3e3e3e",
+      mark: { opacity: 0.8 },
+      background: "#1f2937",
       axis: {
         tickColor: "white",
         labelColor: "white",
         titleColor: "white",
+        gridOpacity: 0.6,
         gridColor: "white",
         domainColor: "white",
       },
