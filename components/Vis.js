@@ -14,6 +14,8 @@ import { motion } from "framer-motion";
 import choices from "../components/choices";
 import { useInView } from "react-intersection-observer";
 const { Option } = Select;
+import "antd/lib/select/style/index.css";
+import "antd/lib/slider/style/index.css";
 
 const Section = (props) => {
   return (
@@ -33,7 +35,18 @@ const Section = (props) => {
 
 const yearMark = Array.from(Array(2018 - 2013 + 1).keys())
   .map((k) => 2013 + k)
-  .reduce((acc, v) => ({ ...acc, [v]: v }), {});
+  .reduce(
+    (acc, v) => ({
+      ...acc,
+      [v]: {
+        style: {
+          color: "#f9fafb",
+        },
+        label: <strong>{v}</strong>,
+      },
+    }),
+    {}
+  );
 
 const VegaComp = dynamic(() => import("./VegaComp"), {
   ssr: false,
@@ -135,6 +148,7 @@ const Vis = () => {
                 tw="w-3/5"
                 onChange={(v) => setAgeYear(v)}
                 marks={yearMark}
+                style={{ fill: "#374151" }}
               />
             </div>
             <VegaComp
@@ -156,7 +170,7 @@ const Vis = () => {
           <div tw="flex gap-x-2 items-center w-full">
             <Select
               showSearch
-              style={{ width: 200 , fill: "#6b7280"}}
+              style={{ width: 200, fill: "#6b7280" }}
               placeholder="filter by feature"
               optionFilterProp="children"
               onChange={(v) => setFeat(v)}
