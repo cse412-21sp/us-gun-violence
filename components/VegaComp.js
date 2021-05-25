@@ -35,7 +35,9 @@ const Main = ({ func, name, width, height, options }) => {
       console.log(err);
     }
     return () => {
-      container.current.innerHTML = "";
+      if (container.current) {
+        container.current.innerHTML = "";
+      }
     };
   }, [container.current, options]);
 
