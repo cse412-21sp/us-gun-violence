@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-nltk
-git+https://github.com/twintproject/twint.git@origin/master#egg=twint
-requests
-pydantic
-pandas
