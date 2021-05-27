@@ -15,4 +15,4 @@ ENV NLTK_DATA="./work/nltk_data"
 CMD [ "python", "./work/main.py" ]
 
 
-EXPOSE 80
+EXPOSE 8080
