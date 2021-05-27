@@ -9,7 +9,7 @@ COPY ./backend  ./app
 # RUN mkdir live && cd ./work && python -m pip install -r requirements.txt
 # RUN chmod 777 -R ./work
 
-RUN python -m pip install -r requirements.txt
+RUN python -m pip install -r ./app/requirements.txt
 
 ENV NLTK_DATA="./app/nltk_data"
 
