@@ -1,6 +1,6 @@
 FROM python:3.6-buster
 
-COPY .  ./work
+COPY ./backend  ./work
 
 RUN mkdir live && cd ./work && pip3 install -r requirements.txt
 
