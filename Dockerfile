@@ -1,18 +1,16 @@
-FROM python:3.6-buster
+# FROM python:3.6-buster
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.6
 
-COPY ./backend  ./work
+COPY ./backend  ./app
 
+# RUN apt update &&  apt-get install libcap2-bin  -y
+# RUN setcap 'cap_net_bind_service=+ep' ./work/main.py
 
-RUN apt update &&  apt-get install libcap2-bin  -y
+# RUN mkdir live && cd ./work && python -m pip install -r requirements.txt
+# RUN chmod 777 -R ./work
 
-RUN setcap 'cap_net_bind_service=+ep' ./work/main.py
+RUN python -m pip install -r requirements.txt
 
-RUN mkdir live && cd ./work && python -m pip install -r requirements.txt
-RUN chmod 777 -R ./work
+ENV NLTK_DATA="./app/nltk_data"
 
-ENV NLTK_DATA="./work/nltk_data"
-
-CMD [ "python", "./work/main.py" ]
-
-
-EXPOSE 8080
+# EXPOSE 8080
