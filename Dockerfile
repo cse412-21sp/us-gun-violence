@@ -7,6 +7,5 @@ RUN chmod 777 ./work/main.py
 
 ENV NLTK_DATA="./work/nltk_data"
 
-CMD ["python", "./work/main.py"]
 
 EXPOSE 80
