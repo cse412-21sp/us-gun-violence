@@ -55,11 +55,26 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
         c.Limit = params.limit
     c.Geo = f"{str(params.lat)},{str(params.lng)},{str(params.distance)}{params.unit}"
     c.Pandas = True
+    c.Since = params.since
+    c.Until = params.until
     twint.run.Search(c)
-    print(twint.storage.panda.Tweets_df.info())
     sid = SentimentIntensityAnalyzer()
+    tweets = twint.storage.panda.Tweets_df['tweet']
+    stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0}
+    for tweet in tweets:
+        senvalue = sid.polarity_scores(tweet)
+        stat['pos'] += senvalue["pos"]
+        stat['neg'] += senvalue["neg"]
+        stat['neu'] += senvalue["neu"]
+        stat['comp'] += senvalue["compound"]
 
-    return twint.storage.panda.Tweets_df['tweet'].apply(lambda f: sid.polarity_scores(f)).mean()
+    stat['neg'] /= tweets.shape[0]
+    stat['pos'] /= tweets.shape[0]
+    stat['neu'] /= tweets.shape[0]
+    stat['comp'] /= tweets.shape[0]
+
+
+    return stat
 
 @router.post('/getTweet')
 def get_tweet(params: TweetSchema) -> dict:

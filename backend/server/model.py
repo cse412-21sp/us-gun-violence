@@ -27,6 +27,8 @@ class TweeetNearCord(BaseModel):
     distance: float
     limit: Optional[int]
     unit: Optional[str] = "km"
+    since: Optional[str] = "2014-01-01"
+    until: Optional[str] = "2018-12-31"
 
 class TxtSchema(BaseModel):
     text: str
