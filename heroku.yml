@@ -3,4 +3,4 @@ build:
     web: Dockerfile
 
 run:
-  web: python ./work/main.py
+  web: python -u ./work/main.py
