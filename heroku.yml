@@ -1,6 +1,5 @@
 build:
   docker:
     web: Dockerfile
-
-run:
-  web: python -u ./work/main.py
+# run:
+#   web: python -u ./work/main.py
