@@ -16,16 +16,29 @@ import choices from "../components/choices";
 import { useInView } from "react-intersection-observer";
 const { Option } = Select;
 
+const variants = {
+  visible: { opacity: 1, scale: 1, y: 0 },
+  hidden: {
+    opacity: 0,
+    // scale: 0.65,
+    // y: 50,
+  },
+};
+
 const Section = (props) => {
+  const [ref, inView, entry] = useInView({
+    /* Optional options */
+    threshold: 0.5,
+    triggerOnce: true,
+  });
+  console.log("iv: ", inView);
   return (
     <motion.section
       tw="flex flex-col justify-center items-center w-9/12"
-      animate={{ x: 0, visibility: props.inView ? true : false }}
-      transition={{
-        ease: "easeOut",
-        // , duration: 1
-      }}
-      initial={{ x: -4000 }}
+      animate={inView ? "visible" : "hideen"}
+      variants={variants}
+      ref={ref}
+      transition={{ duration: 2, ease: "easeIn" }}
     >
       {props.children}
     </motion.section>
@@ -68,11 +81,6 @@ const Vis = () => {
   const [feat, setFeat] = useState("mean_age");
   const [gun, setGun] = useState("Handgun");
   const { states, guns, features } = choices;
-  const [ref, inView, entry] = useInView({
-    /* Optional options */
-    threshold: 2,
-    triggerOnce: true,
-  });
 
   return (
     <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-800 w-screen">
@@ -106,7 +114,7 @@ const Vis = () => {
         </p>
       </section>
 
-      <Section inView={inView}>
+      <Section>
         <H1>Male and Female perpetrators over time</H1>
         <Row>
           <Box>
@@ -127,7 +135,7 @@ const Vis = () => {
         </Row>
       </Section>
 
-      <Section inView={inView}>
+      <Section>
         <H1>Age distribution of perpetrators</H1>
         <Row>
           <VegaComp
@@ -145,7 +153,7 @@ const Vis = () => {
         </Row>
       </Section>
 
-      <Section inView={inView}>
+      <Section>
         <H1>Mean age and underage ratio of perpetrators across US</H1>
         <Box tw="w-full">
           <div tw="flex gap-x-2 justify-around items-center w-full">
@@ -206,7 +214,7 @@ const Vis = () => {
         </Row>
       </Section>
 
-      <Section inView={inView}>
+      <Section>
         <H1>Number of guns used over time</H1>
         <Row>
           <Box>
@@ -224,7 +232,7 @@ const Vis = () => {
           </Desc>
         </Row>
       </Section>
-      <Section inView={inView}>
+      <Section>
         <H1>Gun counts and kill counts by types</H1>
         <Box>
           <VegaComp
@@ -248,7 +256,7 @@ const Vis = () => {
         </Desc>
       </Section>
 
-      <Section inView={inView}>
+      <Section>
         <H1>Percentage of gun across US</H1>
         <Box tw="w-full">
           <div tw="flex gap-x-2 justify-around items-center w-full">
