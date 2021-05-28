@@ -1,7 +1,7 @@
 import perpetratorsByGender from "../components/functions/PrepetratorsByGender";
 import perpetratorMapFull from "../components/functions/perpetratorMapFull";
 import ageHistogram from "../components/functions/ageHistogram";
-import ageBoxplot from "./functions/ageBoxplot";
+import ageDistribution from "./functions/ageDistribution";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
@@ -139,29 +139,28 @@ const Vis = () => {
         <H1>Age distribution of perpetrators</H1>
         <Row>
           <VegaComp
-            func={ageHistogram}
+            func={ageDistribution}
             options={useMemo(
               () => ({
-                yearStart: ageYear,
-                yearEnd: ageYear,
+                yearStart: 2014,
+                yearEnd: 2018,
                 color: "teal",
               }),
               [ageYear]
             )}
-            name="ageHistogram"
+            name="ageDistribution"
           />
-          <VegaComp func={ageBoxplot} name="ageBoxplot" />
         </Row>
       </Section>
 
       <Section>
-        <H1>Ratio of underages over total perpretrators across US</H1>
+        <H1>Mean age and underage ratio of perpetrators across US</H1>
         <Box tw="w-full">
           <div tw="flex gap-x-2 justify-around items-center w-full">
             <Select
               showSearch
               style={{ width: 200, fill: "#6b7280" }}
-              placeholder="filter by feature"
+              placeholder="select feature"
               optionFilterProp="children"
               onChange={(v) => setFeat(v)}
               filterOption={(input, option) =>
