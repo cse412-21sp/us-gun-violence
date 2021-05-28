@@ -12,7 +12,7 @@ function ageHistogram({ dataSet, options }) {
     .data(p)
     .transform(
       vl.filter(
-        'datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd
+        'datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd + ' && datum["age"] <= 100'
       )
     )
     .encode(
@@ -20,7 +20,7 @@ function ageHistogram({ dataSet, options }) {
         .x()
         .fieldQ("age")
         .scale({ domain: [0, 100] })
-        .bin({ step: 10 })
+        .bin({ step: 5 })
         .title("Age"),
       vl.y().count().title("Number of Perpetrators"),
       vl.color().value(color)

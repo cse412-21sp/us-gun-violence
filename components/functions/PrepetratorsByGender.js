@@ -13,6 +13,7 @@ function perpetratorsByGender({ dataSet, options }) {
   const x = vl.x().yearmonth("date");
 
   const gender_ratio = p
+    .filter((d) => d.year <= 2018 && d.year >= 2014)
     .derive({
       month: (d) => op.utcmonth(d.date),
       is_male: (d) => d.gender === "Male",
@@ -32,6 +33,7 @@ function perpetratorsByGender({ dataSet, options }) {
     .rename({ key: "gender" });
 
   const gender_count = p
+    .filter((d) => d.year <= 2018 && d.year >= 2014)
     .derive({
       month: (d) => op.utcmonth(d.date),
       is_male: (d) => d.gender === "Male",

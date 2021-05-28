@@ -130,32 +130,16 @@ const Vis = () => {
       <Section inView={inView}>
         <H1>Age distribution of perpetrators</H1>
         <Row>
-          <Box>
-            <div tw="flex gap-x-2 justify-around items-center w-full">
-              <span tw="text-gray-50">year range</span>
-              <Slider
-                value={ageYear}
-                max={2018}
-                min={2013}
-                tw="w-3/5"
-                onChange={(v) => setAgeYear(v)}
-                marks={yearMark}
-                style={{ fill: "#374151" }}
-              />
-            </div>
             <VegaComp
               func={ageHistogram}
               options={{
-                yearStart: ageYear,
-                yearEnd: ageYear,
+                yearStart: 2014,
+                yearEnd: 2018,
                 color: "teal",
               }}
               name="ageHistogram"
             />
-          </Box>
-          <Box>
             <VegaComp func={ageBoxplot} name="ageBoxplot" />
-          </Box>
         </Row>
       </Section>
 
@@ -179,53 +163,25 @@ const Vis = () => {
                 </Option>
               ))}
             </Select>
-            <span tw="text-gray-50">year range</span>
-            <Slider
-              value={mapYearP}
-              max={2018}
-              min={2013}
-              marks={yearMark}
-              tw="w-3/5"
-              onChange={(v) => setMapYearP(v)}
-            />
           </div>
           <VegaComp
             func={perpetratorMapFull}
             name="perpetratorMapFull"
             options={{
               field: feat,
-              yearStart: mapYearP,
-              yearEnd: mapYearP,
+              yearStart: 2014,
+              yearEnd: 2018,
             }}
           />
         </Box>
         <Row>
           <Box>
-            <div tw="flex items-center space-x-2">
-              <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select states"
-                optionFilterProp="children"
-                onChange={(v) => setMapStateP(v)}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
-              >
-                {states.map((state) => (
-                  <Option value={state} key={state}>
-                    {state}
-                  </Option>
-                ))}
-              </Select>
-            </div>
             <VegaComp
               func={perpetratorsByTime}
               name="perpetratorsByTime"
               options={{
                 field: feat,
-                state_abbr: mapStateP,
+                state_abbr: 'WA',
               }}
             />
           </Box>
@@ -267,7 +223,7 @@ const Vis = () => {
             func={numGunByTypes}
             name="numGunByTypes"
             options={{
-              yearStart: 2013,
+              yearStart: 2014,
               yearEnd: 2018,
             }}
           />
@@ -303,49 +259,24 @@ const Vis = () => {
               ))}
             </Select>
             <span tw="text-gray-50">year range</span>
-            <Slider
-              value={mapYearG}
-              max={2018}
-              min={2013}
-              marks={yearMark}
-              tw="w-3/5"
-              onChange={(v) => setMapYearG(v)}
-            />
           </div>
           <VegaComp
             func={gunMapFull}
             name="gunMapFull"
             options={{
               gun: gun,
-              yearStart: mapYearG,
-              yearEnd: mapYearG,
+              yearStart: 2014,
+              yearEnd: 2018,
             }}
           />
         </Box>
         <Row>
           <Box>
-            <div tw="flex items-center space-x-2">
-              <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select states"
-                optionFilterProp="children"
-                onChange={(v) => setMapStateG(v)}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
-              >
-                {states.map((state) => (
-                  <Option value={state}>{state}</Option>
-                ))}
-              </Select>
-            </div>
             <VegaComp
               func={gunByTime}
               name="gunByTime"
               options={{
-                state_abbr: mapStateG,
+                state_abbr: 'WA',
                 gun: gun,
               }}
             />
