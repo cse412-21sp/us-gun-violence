@@ -41,4 +41,4 @@ with alive_bar(df.shape[0]) as bar:
             return r
 
     df_polar = df.swifter.apply(get_polar, axis=1)
-    df.polar.to_csv(f'polar{radius}.csv')
+    df.polar.to_csv('polar_1_7d.csv')
