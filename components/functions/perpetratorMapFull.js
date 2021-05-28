@@ -3,12 +3,15 @@ import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
+const select = vl.selectPoint().fields("state");
+
 function perpetratorRect({ dataSet, options }) {
   const { pst } = dataSet;
   const { field, yearStart, yearEnd } = options;
   return vl
     .markRect()
     .data(pst)
+    .params(select)
     .transform(
       vl.filter(
         'datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd
@@ -21,7 +24,8 @@ function perpetratorRect({ dataSet, options }) {
         .sort(vl.mean(field).order("descending"))
         .title("State"),
       vl.color().mean(field),
-      vl.tooltip([vl.fieldN("state"), vl.mean(field)])
+      vl.tooltip([vl.fieldN("state"), vl.mean(field)]),
+      vl.opacity().if(select, vl.value(1)).value(0.2)
     );
 }
 
@@ -55,6 +59,7 @@ function perpetratorMap({ dataSet, options }) {
       vl
         .markCircle({ stroke: "#white" })
         .data(pst)
+        .params(select)
         .transform(
           vl.filter(
             'datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd
@@ -85,7 +90,8 @@ function perpetratorMap({ dataSet, options }) {
             vl.fieldN("state"),
             vl.fieldQ(field),
             vl.fieldQ("perpetrators_per_1M"),
-          ])
+          ]),
+          vl.opacity().if(select, vl.value(1)).value(0.2)
         )
     )
     .project(vl.projection("albersUsa"));
