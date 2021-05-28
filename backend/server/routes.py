@@ -53,39 +53,43 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
 
 @router.post('/getTweetLocScore')
 async def get_tweet_loc(params: TweeetNearCord) -> dict:
-    try:
-        c = twint.Config()
-        c.Proxy_host = "127.0.0.1"
-        c.Proxy_port = 5566
-        c.Proxy_type = "http"
-        c.Search = params.keyword
-        if not params.limit:    
-            c.Limit = 20
+    for _ in range(10):
+        try:
+            c = twint.Config()
+            c.Proxy_host = "127.0.0.1"
+            c.Proxy_port = 5566
+            c.Proxy_type = "http"
+            c.Search = params.keyword
+            if not params.limit:    
+                c.Limit = 20
+            else:
+                c.Limit = params.limit
+            c.Geo = f"{str(params.lat)},{str(params.lng)},{str(params.distance)}{params.unit}"
+            c.Pandas = True
+            c.Since = params.since
+            c.Until = params.until
+            twint.run.Search(c)
+            sid = SentimentIntensityAnalyzer()
+            stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0}
+            print(twint.storage.panda.Tweets_df.shape)
+            if twint.storage.panda.Tweets_df.shape[0] > 0:
+                tweets = twint.storage.panda.Tweets_df['tweet']
+                for tweet in tweets:
+                    senvalue = sid.polarity_scores(tweet)
+                    stat['pos'] += senvalue["pos"]
+                    stat['neg'] += senvalue["neg"]
+                    stat['neu'] += senvalue["neu"]
+                    stat['comp'] += senvalue["compound"]
+                stat['neg'] /= tweets.shape[0]
+                stat['pos'] /= tweets.shape[0]
+                stat['neu'] /= tweets.shape[0]
+                stat['comp'] /= tweets.shape[0] 
+            return stat
+        except:
+            print('there is some problem')
+            continue
         else:
-            c.Limit = params.limit
-        c.Geo = f"{str(params.lat)},{str(params.lng)},{str(params.distance)}{params.unit}"
-        c.Pandas = True
-        c.Since = params.since
-        c.Until = params.until
-        twint.run.Search(c)
-        sid = SentimentIntensityAnalyzer()
-        stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0}
-        print(twint.storage.panda.Tweets_df.shape)
-        if twint.storage.panda.Tweets_df.shape[0] > 0:
-            tweets = twint.storage.panda.Tweets_df['tweet']
-            for tweet in tweets:
-                senvalue = sid.polarity_scores(tweet)
-                stat['pos'] += senvalue["pos"]
-                stat['neg'] += senvalue["neg"]
-                stat['neu'] += senvalue["neu"]
-                stat['comp'] += senvalue["compound"]
-            stat['neg'] /= tweets.shape[0]
-            stat['pos'] /= tweets.shape[0]
-            stat['neu'] /= tweets.shape[0]
-            stat['comp'] /= tweets.shape[0] 
-        return stat
-    except:
-        print('there is some problem')
+            break            
 
 @router.post('/getTweet')
 def get_tweet(params: TweetSchema) -> dict:
