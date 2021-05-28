@@ -2,12 +2,14 @@ import * as vega from "vega";
 import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
-import { op } from "arquero";
+
+const select = vl.selectPoint().fields("state");
 
 function gunRect(data, gun, yearStart, yearEnd) {
   return vl
     .markRect()
     .data(data)
+    .params(select)
     .transform(
       vl.filter(
         'datum["gun"] == "' +
@@ -37,7 +39,8 @@ function gunRect(data, gun, yearStart, yearEnd) {
         vl.fieldN("state"),
         vl.fieldQ("Percentage of " + gun),
         vl.fieldQ("Total guns/1M population/year"),
-      ])
+      ]),
+      vl.opacity().if(select, vl.value(1)).value(0.2)
     );
 }
 
@@ -54,6 +57,7 @@ function gunMap(data, gun, yearStart, yearEnd, usa) {
       vl
         .markCircle({ stroke: "white", strokeWidth: 2 })
         .data(data)
+        .params(select)
         .transform(
           vl.filter(
             'datum["gun"] == "' +
@@ -75,15 +79,20 @@ function gunMap(data, gun, yearStart, yearEnd, usa) {
         .encode(
           vl.latitude().fieldQ("latitude"),
           vl.longitude().fieldQ("longitude"),
-          vl.color()
+          vl
+            .color()
             .fieldQ("Percentage of " + gun)
             .scale({ scheme: "redpurple", clamp: true }),
-          vl.size().fieldQ("Total guns/1M population/year").title(["Total guns/", "1M population/year"]),
+          vl
+            .size()
+            .fieldQ("Total guns/1M population/year")
+            .title(["Total guns/", "1M population/year"]),
           vl.tooltip([
             vl.fieldN("state"),
             vl.fieldQ("Percentage of " + gun),
             vl.fieldQ("Total guns/1M population/year"),
-          ])
+          ]),
+          vl.opacity().if(select, vl.value(1)).value(0.2)
         )
     )
     .project(vl.projection("albersUsa"));

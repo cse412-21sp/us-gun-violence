@@ -6,20 +6,45 @@ import * as vegaTooltip from "vega-tooltip";
 function gunArea({ dataSet, options }) {
   const { gstm } = dataSet;
 
+  const select = vl.selectPoint().fields("gun").bind("legend");
+
+  const brush = vl
+    .selectInterval() // Brush is a better (vivid?) name than selection in this case!
+    .encodings("x"); // limit selection to x-axis (year) values
+
   return vl
-    .markArea({ opacity: 0.8 })
-    .data(gstm)
-    .encode(
-      vl.x().yearmonth("date"),
-      vl.y().sum("count_guns").title("Number of guns"),
+    .hconcat(
       vl
-        .color()
-        .fieldN("gun")
-        .scale({ scheme: "category20b" })
-        .title("Gun type")
+        .markArea({ opacity: 0.7 })
+        .data(gstm)
+        .params(select, brush)
+        .transform(vl.filter('datum["year"] >= 2014'))
+        .encode(
+          vl.x().yearmonth("date"),
+          vl.y().sum("count_guns").title("Number of guns"),
+          vl
+            .color()
+            .fieldN("gun")
+            .scale({ scheme: "tableau20" })
+            .title("Gun type"),
+          vl.opacity().if(select, vl.value(0.9)).value(0.2)
+        )
+        .width(600)
+        .height(400),
+      vl
+        .markLine({ opacity: 0.8 })
+        .data(gstm)
+        .params(select)
+        .transform(vl.filter('datum["year"] >= 2014'))
+        .encode(
+          vl.x().yearmonth("date").scale({ domain: brush }),
+          vl.y().fieldQ("gun_percentage"),
+          vl.color().fieldN("gun"),
+          vl.opacity().if(select, vl.value(0.9)).value(0.05)
+        )
+        .width(600)
+        .height(400)
     )
-    .width(720)
-    .height(400)
     .config({
       mark: { opacity: 0.9 },
       background: "#1f2937",

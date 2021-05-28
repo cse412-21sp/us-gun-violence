@@ -7,10 +7,10 @@ function ageDistribution({ dataSet, options }) {
   const { p } = dataSet;
   const { yearStart, yearEnd, color } = options;
 
-  const selection = vl.selectMulti().encodings(['x', 'y']);
+  const selection = vl.selectMulti().encodings(["x", "y"]);
 
   const box = vl
-    .markBoxplot({ color: "white"})
+    .markBoxplot({ color: "white" })
     .data(p)
     .transform(vl.filter('datum["year"] >= 2014 && datum["age"] <= 100'))
     .encode(
@@ -47,9 +47,7 @@ function ageDistribution({ dataSet, options }) {
   const hist = vl
     .markBar()
     .data(p.filter((d) => d.age <= 100))
-    .transform(
-      vl.filter(selection)
-    )
+    .transform(vl.filter(selection))
     .encode(
       vl
         .x()
@@ -57,7 +55,11 @@ function ageDistribution({ dataSet, options }) {
         .scale({ domain: [0, 100] })
         .bin({ step: 5 })
         .title("Age"),
-      vl.y().count().scale({ domain: [0, 28000]}).title("Number of Perpetrators"),
+      vl
+        .y()
+        .count()
+        .scale({ domain: [0, 28000] })
+        .title("Number of Perpetrators"),
       vl.color().value(color)
     )
     .width(480)

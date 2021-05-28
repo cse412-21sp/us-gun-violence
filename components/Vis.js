@@ -1,12 +1,10 @@
 import perpetratorsByGender from "../components/functions/PrepetratorsByGender";
 import perpetratorMapFull from "../components/functions/perpetratorMapFull";
-import ageHistogram from "../components/functions/ageHistogram";
 import ageDistribution from "./functions/ageDistribution";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import perpetratorsByTime from "./functions/perpetratorsByTime";
 import gunMapFull from "./functions/gunMapFull";
-import gunByTime from "./functions/gunByTime";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
@@ -217,7 +215,9 @@ const Vis = () => {
           <Box>
             <VegaComp func={gunArea} name="gunArea" />
           </Box>
-          <Desc>
+        </Row>
+        <Row>
+        <Desc>
             Dissuade ecstatic and properly saw entirely sir why laughter
             endeavor. In on my jointure horrible margaret suitable he followed
             speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
@@ -230,7 +230,7 @@ const Vis = () => {
         </Row>
       </Section>
       <Section>
-        <H1>Gun counts and kill counts by types</H1>
+        <H1>Percentage of guns used and lethality</H1>
         <Box>
           <VegaComp
             func={numGunByTypes}
@@ -254,7 +254,7 @@ const Vis = () => {
       </Section>
 
       <Section>
-        <H1>Percentage of gun across US</H1>
+        <H1>Percentage of each gun type across US</H1>
         <Box tw="w-full">
           <div tw="flex gap-x-2 justify-around items-center w-full">
             <Select
@@ -271,7 +271,6 @@ const Vis = () => {
                 <Option value={gun}>{gun}</Option>
               ))}
             </Select>
-            <span tw="text-gray-50">year range</span>
           </div>
           <VegaComp
             func={gunMapFull}
@@ -287,19 +286,6 @@ const Vis = () => {
           />
         </Box>
         <Row>
-          <Box>
-            <VegaComp
-              func={gunByTime}
-              name="gunByTime"
-              options={useMemo(
-                () => ({
-                  state_abbr: mapStateG,
-                  gun: gun,
-                }),
-                [mapStateG, gun]
-              )}
-            />
-          </Box>
           <Desc>
             Dissuade ecstatic and properly saw entirely sir why laughter
             endeavor. In on my jointure horrible margaret suitable he followed

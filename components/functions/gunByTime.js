@@ -3,7 +3,7 @@ import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
-function gunByTime({dataSet, options}) {
+function gunByTime({ dataSet, options }) {
   const { gsty } = dataSet;
   const { state_abbr, gun } = options;
 
@@ -40,7 +40,8 @@ function gunByTime({dataSet, options}) {
           vl.color().fieldN("state_abbr").title(null)
         )
     )
-    .width(500).height(360)
+    .width(500)
+    .height(360)
     .config({
       mark: { opacity: 0.9 },
       background: "#1f2937",
