@@ -130,35 +130,19 @@ const Vis = () => {
       <Section inView={inView}>
         <H1>Age distribution of perpetrators</H1>
         <Row>
-          <Box>
-            <div tw="flex gap-x-2 justify-around items-center w-full">
-              <span tw="text-gray-50">year range</span>
-              <Slider
-                value={ageYear}
-                max={2018}
-                min={2013}
-                tw="w-3/5"
-                onChange={(v) => setAgeYear(v)}
-                marks={yearMark}
-                style={{ fill: "#374151" }}
-              />
-            </div>
-            <VegaComp
-              func={ageHistogram}
-              options={useMemo(
-                () => ({
-                  yearStart: ageYear,
-                  yearEnd: ageYear,
-                  color: "teal",
-                }),
-                [ageYear]
-              )}
-              name="ageHistogram"
-            />
-          </Box>
-          <Box>
-            <VegaComp func={ageBoxplot} name="ageBoxplot" />
-          </Box>
+          <VegaComp
+            func={ageHistogram}
+            options={useMemo(
+              () => ({
+                yearStart: ageYear,
+                yearEnd: ageYear,
+                color: "teal",
+              }),
+              [ageYear]
+            )}
+            name="ageHistogram"
+          />
+          <VegaComp func={ageBoxplot} name="ageBoxplot" />
         </Row>
       </Section>
 
@@ -182,15 +166,6 @@ const Vis = () => {
                 </Option>
               ))}
             </Select>
-            <span tw="text-gray-50">year range</span>
-            <Slider
-              value={mapYearP}
-              max={2018}
-              min={2013}
-              marks={yearMark}
-              tw="w-3/5"
-              onChange={(v) => setMapYearP(v)}
-            />
           </div>
           <VegaComp
             func={perpetratorMapFull}
@@ -207,25 +182,6 @@ const Vis = () => {
         </Box>
         <Row>
           <Box>
-            <div tw="flex items-center space-x-2">
-              <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select states"
-                optionFilterProp="children"
-                onChange={(v) => setMapStateP(v)}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
-              >
-                {states.map((state) => (
-                  <Option value={state} key={state}>
-                    {state}
-                  </Option>
-                ))}
-              </Select>
-            </div>
             <VegaComp
               func={perpetratorsByTime}
               name="perpetratorsByTime"
@@ -276,7 +232,7 @@ const Vis = () => {
             func={numGunByTypes}
             name="numGunByTypes"
             options={useMemo(() => ({
-              yearStart: 2013,
+              yearStart: 2014,
               yearEnd: 2018,
             }))}
           />
@@ -312,14 +268,6 @@ const Vis = () => {
               ))}
             </Select>
             <span tw="text-gray-50">year range</span>
-            <Slider
-              value={mapYearG}
-              max={2018}
-              min={2013}
-              marks={yearMark}
-              tw="w-3/5"
-              onChange={(v) => setMapYearG(v)}
-            />
           </div>
           <VegaComp
             func={gunMapFull}
@@ -336,23 +284,6 @@ const Vis = () => {
         </Box>
         <Row>
           <Box>
-            <div tw="flex items-center space-x-2">
-              <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select states"
-                optionFilterProp="children"
-                onChange={(v) => setMapStateG(v)}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
-              >
-                {states.map((state) => (
-                  <Option value={state}>{state}</Option>
-                ))}
-              </Select>
-            </div>
             <VegaComp
               func={gunByTime}
               name="gunByTime"
