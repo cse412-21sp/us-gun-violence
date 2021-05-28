@@ -10,7 +10,7 @@ import gunByTime from "./functions/gunByTime";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import choices from "../components/choices";
 import { useInView } from "react-intersection-observer";
@@ -130,15 +130,18 @@ const Vis = () => {
       <Section inView={inView}>
         <H1>Age distribution of perpetrators</H1>
         <Row>
-            <VegaComp
-              func={ageDistribution}
-              options={{
+          <VegaComp
+            func={ageDistribution}
+            options={useMemo(
+              () => ({
                 yearStart: 2014,
                 yearEnd: 2018,
                 color: "teal",
-              }}
-              name="ageDistribution"
-            />
+              }),
+              [ageYear]
+            )}
+            name="ageDistribution"
+          />
         </Row>
       </Section>
 
@@ -166,11 +169,14 @@ const Vis = () => {
           <VegaComp
             func={perpetratorMapFull}
             name="perpetratorMapFull"
-            options={{
-              field: feat,
-              yearStart: 2014,
-              yearEnd: 2018,
-            }}
+            options={useMemo(
+              () => ({
+                field: feat,
+                yearStart: mapYearP,
+                yearEnd: mapYearP,
+              }),
+              [feat, mapYearP]
+            )}
           />
         </Box>
         <Row>
@@ -178,10 +184,13 @@ const Vis = () => {
             <VegaComp
               func={perpetratorsByTime}
               name="perpetratorsByTime"
-              options={{
-                field: feat,
-                state_abbr: 'WA',
-              }}
+              options={useMemo(
+                () => ({
+                  field: feat,
+                  state_abbr: mapStateP,
+                }),
+                [feat, mapStateP]
+              )}
             />
           </Box>
           <Desc>
@@ -221,10 +230,10 @@ const Vis = () => {
           <VegaComp
             func={numGunByTypes}
             name="numGunByTypes"
-            options={{
+            options={useMemo(() => ({
               yearStart: 2014,
               yearEnd: 2018,
-            }}
+            }))}
           />
         </Box>
         <Desc>
@@ -262,11 +271,14 @@ const Vis = () => {
           <VegaComp
             func={gunMapFull}
             name="gunMapFull"
-            options={{
-              gun: gun,
-              yearStart: 2014,
-              yearEnd: 2018,
-            }}
+            options={useMemo(
+              () => ({
+                gun: gun,
+                yearStart: mapYearG,
+                yearEnd: mapYearG,
+              }),
+              [gun, mapYearG]
+            )}
           />
         </Box>
         <Row>
@@ -274,10 +286,13 @@ const Vis = () => {
             <VegaComp
               func={gunByTime}
               name="gunByTime"
-              options={{
-                state_abbr: 'WA',
-                gun: gun,
-              }}
+              options={useMemo(
+                () => ({
+                  state_abbr: mapStateG,
+                  gun: gun,
+                }),
+                [mapStateG, gun]
+              )}
             />
           </Box>
           <Desc>

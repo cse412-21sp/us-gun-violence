@@ -1,5 +1,5 @@
-# FROM python:3.6-buster
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.6
+FROM python:3.6-buster
+# FROM tiangolo/uvicorn-gunicorn-fastapi:python3.6
 
 COPY ./backend  ./app
 
@@ -13,4 +13,4 @@ RUN python -m pip install -r ./app/requirements.txt
 
 ENV NLTK_DATA="./app/nltk_data"
 
-# EXPOSE 8080
+EXPOSE 8080
