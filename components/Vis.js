@@ -29,7 +29,6 @@ const Section = (props) => {
     threshold: 0.4,
     triggerOnce: false,
   });
-  console.log("", inView);
   return (
     <motion.section
       tw="flex flex-col justify-center items-center w-9/12"
