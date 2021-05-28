@@ -17,28 +17,26 @@ import { useInView } from "react-intersection-observer";
 const { Option } = Select;
 
 const variants = {
-  visible: { opacity: 1, scale: 1, y: 0 },
+  visible: { opacity: 1, scale: 1 },
   hidden: {
     opacity: 0,
-    // scale: 0.65,
-    // y: 50,
   },
 };
 
 const Section = (props) => {
   const [ref, inView, entry] = useInView({
     /* Optional options */
-    threshold: 0.5,
-    triggerOnce: true,
+    threshold: 0.4,
+    triggerOnce: false,
   });
-  console.log("iv: ", inView);
+  console.log("", inView);
   return (
     <motion.section
       tw="flex flex-col justify-center items-center w-9/12"
-      animate={inView ? "visible" : "hideen"}
+      animate={inView ? "visible" : "hidden"}
       variants={variants}
       ref={ref}
-      transition={{ duration: 2, ease: "easeIn" }}
+      transition={{ duration: 0.2, ease: "easeIn" }}
     >
       {props.children}
     </motion.section>
