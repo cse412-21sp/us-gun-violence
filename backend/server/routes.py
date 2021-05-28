@@ -7,6 +7,10 @@ from server.helper import tmpJsonToRealJson
 import twint
 
 router = APIRouter()
+c = twint.Config()
+c.Proxy_host = "127.0.0.1"
+c.Proxy_port = 5566
+c.Proxy_type = "http"
 
 @router.post('/sentiment')
 def get_sentiment(txt: TxtSchema) -> dict:
@@ -19,7 +23,6 @@ def get_path() -> dict:
 
 @router.get('/tweet/user/{username}')
 def get_tweet(username: str):
-    c = twint.Config()
     c.Limit = 180
     c.Username = username
     c.Pandas = True
@@ -30,7 +33,6 @@ def get_tweet(username: str):
 
 @router.post('/getTweetLoc')
 def get_tweet_loc(params: TweeetNearCord) -> dict:
-    c = twint.Config()
     c.Search = params.keyword
     if not params.limit:
         c.Limit = 20
@@ -48,7 +50,6 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
 @router.post('/getTweetLocScore')
 async def get_tweet_loc(params: TweeetNearCord) -> dict:
     try:
-        c = twint.Config()
         c.Search = params.keyword
         if not params.limit:
             c.Limit = 20
