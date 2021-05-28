@@ -181,3 +181,9 @@ async def create_item(item: Item):
 #         "error": "Note with {} doesn't exist".format(id)
 #     }
 
+# c = twint.Config()
+# c.Proxy_host = "127.0.0.1"
+# c.Proxy_port = 5566
+# c.Proxy_type = "http"
+# c.Search = "great"
+# twint.run.Search(c)
