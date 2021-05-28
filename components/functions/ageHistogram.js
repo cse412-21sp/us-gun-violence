@@ -26,7 +26,7 @@ function ageHistogram({ dataSet, options }) {
       vl.color().value(color)
     )
     .width(480)
-    .height(360)
+    .height(480)
     .config({
       mark: { opacity: 0.8 },
       background: "#1f2937",
