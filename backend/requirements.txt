@@ -5,3 +5,5 @@ git+https://github.com/twintproject/twint.git@origin/master#egg=twint
 requests
 pydantic
 pandas
+alive-progress
+swifter
