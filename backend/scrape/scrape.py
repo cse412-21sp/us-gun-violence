@@ -11,6 +11,7 @@ import twint
 from stem.control import Controller
 from stem import Signal
 import time
+import random
 
 
 
@@ -83,7 +84,7 @@ with Controller.from_port(port = 9051) as controller:
                 except Exception as e:
                     # controller.authenticate(password='')
                     # controller.signal(Signal.NEWNYM)
-                    time.sleep(10)
+                    time.sleep(random.random() * 300)
                     print('error: ', e)
                     continue
 
