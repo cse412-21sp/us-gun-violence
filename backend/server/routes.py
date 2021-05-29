@@ -68,7 +68,7 @@ async def get_tweet_loc(params: TweeetNearCord) -> dict:
             c.Pandas = True
             c.Since = params.since
             c.Until = params.until
-            twint.run.Search(c)
+            await twint.run.Search(c)
             sid = SentimentIntensityAnalyzer()
             stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0}
             print(twint.storage.panda.Tweets_df.shape)
