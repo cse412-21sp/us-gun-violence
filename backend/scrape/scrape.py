@@ -82,7 +82,7 @@ with alive_bar(df.shape[0]) as bar:
     def get_loca_polar(r):
         bar()
         response = get_tweet_loc({
-                "keyword": "a",
+                "keyword": "gun",
                 "lat": r['latitude'],
                 "lng": r['longitude'],
                 "distance": radius,
