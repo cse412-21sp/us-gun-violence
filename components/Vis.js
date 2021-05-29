@@ -65,6 +65,8 @@ const H1 = tw.h1`font-semibold font-mono text-2xl text-gray-50`;
 
 const Desc = tw.p`flex text-base text-gray-50 w-full p-6 text-justify`;
 
+const Cap = tw.p`flex text-sm italic text-gray-50 w-full p-6 text-justify`;
+
 const Row = tw.div`flex flex-row items-center justify-around w-full`;
 
 const Vis = () => {
@@ -73,7 +75,7 @@ const Vis = () => {
   const [mapYearG, setMapYearG] = useState(2018);
   const [mapStateP, setMapStateP] = useState("WA");
   const [mapStateG, setMapStateG] = useState("WA");
-  const [feat, setFeat] = useState("mean_age");
+  const [feat, setFeat] = useState("underages_ratio");
   const [gun, setGun] = useState("Handgun");
   const { states, guns, features } = choices;
 
@@ -116,10 +118,9 @@ const Vis = () => {
           </Desc>
         </Row>
         <Row>
-          <Box>
-            <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
-          </Box>
+          <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
         </Row>
+        <Cap>Drag over the area chart to select a smaller time frame.</Cap>
         <Row>
           <Desc>
             Overall, the total number of gun violence incidents did not change
@@ -134,6 +135,7 @@ const Vis = () => {
       <Section>
         <H1>Age distribution of perpetrators</H1>
         <Row>
+          <Box>
           <VegaComp
             func={ageDistribution}
             options={useMemo(
@@ -146,7 +148,9 @@ const Vis = () => {
             )}
             name="ageDistribution"
           />
+          </Box>
         </Row>
+        <Cap>Click on a boxplot to display the distribution accordingly.</Cap>
         <Row>
           <Desc>
             Besides the genders, the next important feature of perpetrators to
@@ -206,6 +210,7 @@ const Vis = () => {
             )}
           />
         </Box>
+        <Cap>Click to highlight a state.</Cap>
         <Row>
           <Desc>
             From the map, a pattern is recognizable: the south-eastern states
@@ -229,6 +234,7 @@ const Vis = () => {
             <VegaComp func={gunArea} name="gunArea" />
           </Box>
         </Row>
+        <Cap>Click on the legend to highlight specific gun types to compare or drag over the area chart to explore a smaller time frame.</Cap>
         <Row>
           <Desc>
             Our next part includes finding insights from different gun types
@@ -254,6 +260,7 @@ const Vis = () => {
             }))}
           />
         </Box>
+        <Cap>Click a bar to highlight a specific gun type.</Cap>
         <Desc>
           This visualization has an all-year summary of how frequent each type
           of gun was used. The trend is similar to what we saw in the previous
@@ -297,6 +304,7 @@ const Vis = () => {
             )}
           />
         </Box>
+        <Cap>Click to highlight a state.</Cap>
         <Row>
           <Desc>
             Next, we plotted a geospatial map of the US showing how frequent
