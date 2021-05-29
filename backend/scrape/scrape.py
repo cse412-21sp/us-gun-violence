@@ -66,7 +66,7 @@ with Controller.from_port(port = 9051) as controller:
                     c.Until = params['until']
                     twint.run.Search(c)
                     sid = SentimentIntensityAnalyzer()
-                    stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0}
+                    stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}
                     print(twint.storage.panda.Tweets_df.shape)
                     if twint.storage.panda.Tweets_df.shape[0] > 0:
                         tweets = twint.storage.panda.Tweets_df['tweet']
@@ -87,6 +87,7 @@ with Controller.from_port(port = 9051) as controller:
                     time.sleep(random.random() * 300)
                     print('error: ', e)
                     continue
+            return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}
 
         def get_loca_polar(r):
             bar()
@@ -105,6 +106,7 @@ with Controller.from_port(port = 9051) as controller:
                 r['neg'] = response['neg']
                 r['neu'] = response['neu']
                 r['comp'] = response['comp']
+                r['scrape'] = response['scrape']
             else:
                 r['pos'] = 0
                 r['neg'] = 0
