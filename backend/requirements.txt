@@ -7,3 +7,4 @@ pydantic
 pandas
 alive-progress
 swifter
+pandarallel

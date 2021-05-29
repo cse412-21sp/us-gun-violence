@@ -2,7 +2,10 @@ import pandas as pd
 import requests
 from alive_progress import alive_bar
 import datetime
-import swifter
+# import swifter
+# import pandarallel
+from pandarallel import pandarallel
+pandarallel.initialize()
 
 
 df = pd.read_csv('incidents.csv')
@@ -40,5 +43,5 @@ with alive_bar(df.shape[0]) as bar:
                 r['comp'] = 0
             return r
 
-    df_polar = df.swifter.apply(get_polar, axis=1)
+    df_polar = df.parallel_apply(get_polar, axis=1)
     df.polar.to_csv('polar_1_7d.csv')
