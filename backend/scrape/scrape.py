@@ -80,8 +80,8 @@ with Controller.from_port(port = 9051) as controller:
                         stat['comp'] /= tweets.shape[0] 
                     return stat
                 except Exception as e:
-                    controller.authenticate(password='')
-                    controller.signal(Signal.NEWNYM)
+                    # controller.authenticate(password='')
+                    # controller.signal(Signal.NEWNYM)
                     print('error: ', e)
                     continue
 
