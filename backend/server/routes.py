@@ -52,7 +52,7 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
 
 
 @router.post('/getTweetLocScore')
-async def get_tweet_loc(params: TweeetNearCord) -> dict:
+def get_tweet_loc(params: TweeetNearCord) -> dict:
     for _ in range(10):
         try:
             c = twint.Config()
@@ -68,7 +68,7 @@ async def get_tweet_loc(params: TweeetNearCord) -> dict:
             c.Pandas = True
             c.Since = params.since
             c.Until = params.until
-            await twint.run.Search(c)
+            twint.run.Search(c)
             sid = SentimentIntensityAnalyzer()
             stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0}
             print(twint.storage.panda.Tweets_df.shape)
