@@ -86,7 +86,7 @@ with alive_bar(df.shape[0]) as bar:
                 "lat": r['latitude'],
                 "lng": r['longitude'],
                 "distance": radius,
-                "uniit": "km",
+                "unit": "km",
                 "since": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') - datetime.timedelta(days=over)).strftime('%Y-%m-%d'),
                 "until": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') + datetime.timedelta(days=over)).strftime('%Y-%m-%d')
             })
