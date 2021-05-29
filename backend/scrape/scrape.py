@@ -14,7 +14,7 @@ df = pd.read_csv('incidents.csv')
 datShape = df.shape
 
 radius = 1
-over = 7
+over = 14
 
 url = "http://localhost:8080/api/getTweetLocScore"
 
