@@ -12,6 +12,8 @@ from stem.control import Controller
 from stem import Signal
 import time
 import random
+import nest_asyncio
+nest_asyncio.apply()
 
 
 

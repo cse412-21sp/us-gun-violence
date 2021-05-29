@@ -9,3 +9,4 @@ alive-progress
 swifter
 pandarallel
 stem
+nest_asyncio
