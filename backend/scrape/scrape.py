@@ -10,6 +10,7 @@ pandarallel.initialize(progress_bar=True, nb_workers=32)
 import twint
 from stem.control import Controller
 from stem import Signal
+import time
 
 
 
@@ -82,6 +83,7 @@ with Controller.from_port(port = 9051) as controller:
                 except Exception as e:
                     # controller.authenticate(password='')
                     # controller.signal(Signal.NEWNYM)
+                    time.sleep(10)
                     print('error: ', e)
                     continue
 
