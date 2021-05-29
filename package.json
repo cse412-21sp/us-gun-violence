@@ -8,7 +8,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "yarn build && next export -o docs && touch docs/.nojekyll && git add . && git commit -m 'build' && git push"
+    "export": "next export -o docs",
+    "pub": "yarn build && next export -o docs && touch docs/.nojekyll && git add . && git commit -m 'build' && git push"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",

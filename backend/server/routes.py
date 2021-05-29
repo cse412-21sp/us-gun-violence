@@ -52,7 +52,7 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
 
 
 @router.post('/getTweetLocScore')
-async def get_tweet_loc(params: TweeetNearCord) -> dict:
+def get_tweet_loc(params: TweeetNearCord) -> dict:
     for _ in range(10):
         try:
             c = twint.Config()
@@ -85,11 +85,9 @@ async def get_tweet_loc(params: TweeetNearCord) -> dict:
                 stat['neu'] /= tweets.shape[0]
                 stat['comp'] /= tweets.shape[0] 
             return stat
-        except:
-            print('there is some problem')
+        except Exception as e:
+            print(e)
             continue
-        else:
-            break            
 
 @router.post('/getTweet')
 def get_tweet(params: TweetSchema) -> dict:

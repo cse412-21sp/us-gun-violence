@@ -7,3 +7,6 @@ pydantic
 pandas
 alive-progress
 swifter
+pandarallel
+stem
+nest_asyncio
