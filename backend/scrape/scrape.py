@@ -6,7 +6,7 @@ import datetime
 # import pandarallel
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize(progress_bar=True)
+pandarallel.initialize()
 import twint
 
 
