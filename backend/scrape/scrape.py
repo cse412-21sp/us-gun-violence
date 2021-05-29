@@ -27,10 +27,7 @@ with alive_bar(df.shape[0]) as bar:
                 c.Proxy_port = 5566
                 c.Proxy_type = "http"
                 c.Search = params['keyword']
-                if not params['limit']:    
-                    c.Limit = 20
-                else:
-                    c.Limit = params['limit']
+                c.Limit = 100
                 c.Geo = f"{str(params['lat'])},{str(params['lng'])},{str(params['distance'])}{params['unit']}"
                 c.Pandas = True
                 c.Since = params['since']
