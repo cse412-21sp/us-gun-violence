@@ -52,7 +52,7 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
 
 
 @router.post('/getTweetLocScore')
-async def get_tweet_loc(params: TweeetNearCord) -> dict:
+def get_tweet_loc(params: TweeetNearCord) -> dict:
     for _ in range(10):
         try:
             c = twint.Config()
