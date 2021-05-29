@@ -6,7 +6,7 @@ import datetime
 # import pandarallel
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize()
+pandarallel.initialize(progress_bar=True)
 import twint
 
 
@@ -53,7 +53,7 @@ with alive_bar(df.shape[0]) as bar:
                     stat['comp'] /= tweets.shape[0] 
                 return stat
             except Exception as e:
-                print(e)
+                print('error: ', e)
                 continue
 
     def get_polar(r):
@@ -92,6 +92,7 @@ with alive_bar(df.shape[0]) as bar:
                 "since": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') - datetime.timedelta(days=over)).strftime('%Y-%m-%d'),
                 "until": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') + datetime.timedelta(days=over)).strftime('%Y-%m-%d')
             })
+        print(response)
         if response:
             r['pos'] = response['pos']
             r['neg'] = response['neg']
