@@ -8,3 +8,4 @@ pandas
 alive-progress
 swifter
 pandarallel
+stem
