@@ -81,8 +81,9 @@ with Controller.from_port(port = 9051) as controller:
                         stat['neg'] /= tweets.shape[0]
                         stat['pos'] /= tweets.shape[0]
                         stat['neu'] /= tweets.shape[0]
-                        stat['comp'] /= tweets.shape[0] 
-                    return stat
+                        stat['comp'] /= tweets.shape[0]
+                        time.sleep(random.random() * 60)
+                        return stat
                 except Exception as e:
                     # controller.authenticate(password='')
                     # controller.signal(Signal.NEWNYM)
