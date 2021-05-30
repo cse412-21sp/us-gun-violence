@@ -86,6 +86,8 @@ with Controller.from_port(port = 9051) as controller:
                         stat['comp'] /= tweets.shape[0]
                         wait()
                         return stat
+                    else:
+                        return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}
                 except Exception as e:
                     wait()
                     print('error: ', e)
