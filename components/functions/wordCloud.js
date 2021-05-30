@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 const wordCloud = ({ dataSet, options }) => {
-  const [dataWord, setData] = useState({
-    counts: [],
-  });
+  const [dataWord, setData] = useState([
+    { text: "loading", value: 100, weight: 200 },
+  ]);
   useEffect(() => {
     fetch(
       "https://county-pain-israeli-baby.trycloudflare.com/api/getWordCloud",

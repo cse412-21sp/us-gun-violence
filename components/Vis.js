@@ -327,28 +327,7 @@ const Vis = () => {
         </Row>
       </Section>
       <Section>
-        <VegaComp
-          func={wordCloud}
-          name="wordCloud"
-          options={useMemo(() => {
-            fetch(
-              "https://county-pain-israeli-baby.trycloudflare.com/api/getWordCloud",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ keyword: wordwordCloud }),
-              }
-            )
-              .then((response) => {
-                console.log(response);
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          }, [wordwordCloud])}
-        />
+        <VegaComp func={wordCloud} name="wordCloud" />
       </Section>
     </main>
   );

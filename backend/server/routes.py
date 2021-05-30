@@ -96,7 +96,10 @@ def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
     print(total_counter)
     for key, value in total_counter:
         emotions[key] = sid.polarity_scores(key)
-    return {"counts": total_counter, "emotions": emotions}
+    format = list()
+    for key, value in total_counter:
+        format.append({"text": key, "value": value, "weight": emotions[key]})
+    return format 
 
 
 @router.post('/getTweetLocScore')
