@@ -59,3 +59,4 @@ const wordCloud = ({ dataSet, options }) => {
 }
 `;
 };
+export default wordCloud;
