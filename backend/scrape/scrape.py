@@ -113,6 +113,7 @@ with Controller.from_port(port = 9051) as controller:
                 r['neg'] = 0
                 r['neu'] = 0
                 r['comp'] = 0
+                r['scrape'] = False
                 return r
 
         df_polar = df.parallel_apply(get_loca_polar, axis=1)
