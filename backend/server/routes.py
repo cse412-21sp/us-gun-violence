@@ -7,6 +7,8 @@ from server.helper import tmpJsonToRealJson
 import twint
 from collections import Counter
 
+nltk.download('words')
+
 
 router = APIRouter()
 
@@ -68,22 +70,34 @@ def get_graph(params: tweetGraphSchema) -> dict:
 @router.post('/getWordCloud')
 def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
     c = twint.Config()
-    c.Proxy_host = "127.0.0.1"
-    c.Proxy_port = 5566
-    c.Proxy_type = "http"
+    # c.Proxy_host = "127.0.0.1"
+    # c.Proxy_port = 5566
+    # c.Proxy_type = "http"
+    words = set(nltk.corpus.words.words())
     c.Search = params.keyword
     c.Limit = params.limit
+    c.Pandas = True
+    c.Lang = "en"
+    twint.run.Search(c)
     tweets = twint.storage.panda.Tweets_df
+    print(tweets.info())
     if tweets.shape[0] == 0:
         response.status_code = status.HTTP_204_NO_CONTENT
         return {};
-    filtered = [w for w in tweets['text'] if w.isalnum()]
-    counts = Counter(filtered)
+    tweets_sent = tweets['tweet'].apply(lambda sent: sent.join(w for w in nltk.wordpunct_tokenize(sent) \
+         if w.lower() in words or not w.isalpha()))
+    total_counter = Counter()
+    def addCounter(sent, total):
+        cur = Counter(sent)
+        total = total + cur
+        return cur
+    tweets_counter = tweets_sent.apply(lambda sent: addCounter(sent, total_counter))
+    print(total_counter)
     emotions = dict()
     sid = SentimentIntensityAnalyzer()
-    for key, value in emotions.items():
+    for key, value in total_counter.items():
         emotions[key] = sid.polarity_scores(key)
-    return {"counts": counts, "emotions": emotions}
+    return {"counts": total_counter, "emotions": emotions}
 
 
 @router.post('/getTweetLocScore')
@@ -106,7 +120,6 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
             twint.run.Search(c)
             sid = SentimentIntensityAnalyzer()
             stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0}
-            print(twint.storage.panda.Tweets_df.shape)
             if twint.storage.panda.Tweets_df.shape[0] > 0:
                 tweets = twint.storage.panda.Tweets_df['tweet']
                 for tweet in tweets:

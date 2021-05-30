@@ -90,6 +90,7 @@ with Controller.from_port(port = 9051) as controller:
                         return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}
                 except Exception as e:
                     wait()
+                    wait()
                     print('error: ', e)
                     continue
             return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}

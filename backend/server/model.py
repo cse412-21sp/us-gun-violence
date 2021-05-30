@@ -35,7 +35,7 @@ class TxtSchema(BaseModel):
 
 class tweetWordCloud(BaseModel):
     keyword: Optional[str] = "gun violence"
-    limit: Optional[int] = 1000
+    limit: Optional[int] = 200
 
 class Item(BaseModel):
     name: str
