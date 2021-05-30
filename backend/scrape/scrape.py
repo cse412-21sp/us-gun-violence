@@ -6,7 +6,7 @@ import datetime
 # import pandarallel
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize(progress_bar=True, nb_workers=4)
+pandarallel.initialize()
 import twint
 from stem.control import Controller
 from stem import Signal
