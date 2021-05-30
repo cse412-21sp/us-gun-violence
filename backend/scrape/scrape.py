@@ -2,11 +2,9 @@ import pandas as pd
 import requests
 from alive_progress import alive_bar
 import datetime
-# import swifter
-# import pandarallel
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize()
+pandarallel.initialize(progress_bar=True, nb_workers=20)
 import twint
 from stem.control import Controller
 from stem import Signal
@@ -18,7 +16,7 @@ nest_asyncio.apply()
 
 
 
-df = pd.read_csv('incidents.csv').head(10)
+df = pd.read_csv('incidents.csv')
 df = df[df['city_or_county'] == 'Seattle']
 datShape = df.shape
 
@@ -102,12 +100,14 @@ with Controller.from_port(port = 9051) as controller:
                     "since": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') - datetime.timedelta(days=over)).strftime('%Y-%m-%d'),
                     "until": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') + datetime.timedelta(days=over)).strftime('%Y-%m-%d')
                 })
+            print(response)
             if response:
                 r['pos'] = response['pos']
                 r['neg'] = response['neg']
                 r['neu'] = response['neu']
                 r['comp'] = response['comp']
                 r['scrape'] = response['scrape']
+                return r
             else:
                 r['pos'] = 0
                 r['neg'] = 0
