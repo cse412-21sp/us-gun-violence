@@ -12,6 +12,7 @@ import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import choices from "../components/choices";
 import { useInView } from "react-intersection-observer";
+import VegaEmbeded from "../components/vegaEmbeded";
 const { Option } = Select;
 
 const variants = {
@@ -347,7 +348,7 @@ const Vis = () => {
         </Row>
       </Section>
       <Section>
-        <VegaComp
+        <VegaEmbeded
           func={wordCloud}
           name="wordCloud"
           options={useMemo(
