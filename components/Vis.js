@@ -8,7 +8,7 @@ import wordCloud from "./functions/wordCloud";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import choices from "../components/choices";
 import { useInView } from "react-intersection-observer";
@@ -79,7 +79,27 @@ const Vis = () => {
   const [feat, setFeat] = useState("underages_ratio");
   const [gun, setGun] = useState("Handgun");
   const { states, guns, features } = choices;
-
+  const [dataWord, setData] = useState([
+    { text: "loading", value: 100, weight: 200 },
+  ]);
+  useEffect(() => {
+    fetch(
+      "https://county-pain-israeli-baby.trycloudflare.com/api/getWordCloud",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: '{"keyword":"gun violence"}',
+      }
+    )
+      .then((response) => {
+        setData(response.json());
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
   return (
     <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-800 w-screen">
       <section>
@@ -327,7 +347,16 @@ const Vis = () => {
         </Row>
       </Section>
       <Section>
-        <VegaComp func={wordCloud} name="wordCloud" />
+        <VegaComp
+          func={wordCloud}
+          name="wordCloud"
+          options={useMemo(
+            () => ({
+              dataWord: dataWord,
+            }),
+            [dataWord]
+          )}
+        />
       </Section>
     </main>
   );

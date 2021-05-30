@@ -23,14 +23,13 @@ const Main = ({ func, name, width, height, options }) => {
   vl.register(vega, vegaLite, vegaOptions);
   useEffect(() => {
     try {
-      func({ dataSet, options })
-        .render()
-        .then((viewElement) => {
-          if (typeof window !== undefined && container.current && container) {
-            container.current.innerHTML = "";
-            container.current.appendChild(viewElement);
-          }
-        });
+      const resultFunc = func({ dataSet, options });
+      resultFunc.render().then((viewElement) => {
+        if (typeof window !== undefined && container.current && container) {
+          container.current.innerHTML = "";
+          container.current.appendChild(viewElement);
+        }
+      });
     } catch (err) {
       console.log(err);
     }

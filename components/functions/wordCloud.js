@@ -1,26 +1,4 @@
-import { useState, useEffect } from "react";
 const wordCloud = ({ dataSet, options }) => {
-  const [dataWord, setData] = useState([
-    { text: "loading", value: 100, weight: 200 },
-  ]);
-  useEffect(() => {
-    fetch(
-      "https://county-pain-israeli-baby.trycloudflare.com/api/getWordCloud",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: '{"keyword":"gun violence"}',
-      }
-    )
-      .then((response) => {
-        setData(response.json());
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
   const { dataWord } = options;
   return `{
   "$schema": "https://vega.github.io/schema/vega/v5.json",
