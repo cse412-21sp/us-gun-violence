@@ -6,7 +6,7 @@ import datetime
 # import pandarallel
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize(progress_bar=True, nb_workers=32)
+pandarallel.initialize(progress_bar=True, nb_workers=8)
 import twint
 from stem.control import Controller
 from stem import Signal
@@ -117,6 +117,6 @@ with Controller.from_port(port = 9051) as controller:
                 return r
 
         df_polar = df.parallel_apply(get_loca_polar, axis=1)
-        df.polar.to_csv('polar_1_7d.csv')
+        df_polar.to_csv('polar_1_7d.csv')
 
 
