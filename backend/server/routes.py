@@ -87,15 +87,14 @@ def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
     tweets_sent = tweets['tweet'].apply(lambda sent: sent.join(w for w in nltk.wordpunct_tokenize(sent) \
          if w.lower() in words or not w.isalpha()))
     total_counter = Counter()
-    def addCounter(sent, total):
-        cur = Counter(sent)
-        total = total + cur
-        return cur
-    tweets_counter = tweets_sent.apply(lambda sent: addCounter(sent, total_counter))
-    print(total_counter)
+    for index, value in tweets_sent.items():
+        current = Counter(value.split(''' '''))
+        total_counter = total_counter + current
     emotions = dict()
     sid = SentimentIntensityAnalyzer()
-    for key, value in total_counter.items():
+    total_counter = total_counter.most_common(100)
+    print(total_counter)
+    for key, value in total_counter:
         emotions[key] = sid.polarity_scores(key)
     return {"counts": total_counter, "emotions": emotions}
 
