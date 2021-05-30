@@ -39,3 +39,9 @@ class Item(BaseModel):
     description: Optional[str] = None
     price: float
     tax: Optional[float] = None
+
+
+class tweetGraphSchema(BaseModel):
+    keyword: str
+    limit: Optional[int] = 100
+    username: Optional[str] = "nobody"

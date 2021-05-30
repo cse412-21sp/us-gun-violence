@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
-from server.model import TweetSchema,  TxtSchema, Item, TweeetNearCord
+from server.model import TweetSchema,  TxtSchema, Item, TweeetNearCordm, tweetGraphSchema
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from server.helper import tmpJsonToRealJson
@@ -49,6 +49,19 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
 
     return twint.storage.panda.Tweets_df.to_json()
 
+
+@router.post('/getGraph')
+def get_graph(params: tweetGraphSchema) -> dict:
+    c = twint.Config()
+    c.Proxy_host = "127.0.0.1"
+    c.Proxy_port = 5566
+    c.Proxy_type = "http"
+    c.Search = params.keyword
+    if params.username: 
+        c.Username = params.username
+    c.Pandas = True
+    print(twint.storage.panda.Tweets_df.info)
+    return twint.storage.panda.Tweets_df.to_json()
 
 
 @router.post('/getTweetLocScore')

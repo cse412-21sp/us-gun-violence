@@ -18,7 +18,7 @@ nest_asyncio.apply()
 
 
 
-df = pd.read_csv('incidents.csv')
+df = pd.read_csv('incidents.csv').head(2)
 df = df[df['city_or_county'] == 'Seattle']
 datShape = df.shape
 
