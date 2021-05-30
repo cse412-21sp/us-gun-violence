@@ -1,0 +1,2 @@
+,incident_id,date,state,city_or_county,n_killed,n_injured,latitude,longitude,pos,neg,neu,comp,scrape
+366,92339,2014-01-01,Washington,Seattle,0,1,47.6017,-122.29899999999999,0.0,0.0,1.0,0.0,True

@@ -3,8 +3,8 @@ import perpetratorMapFull from "../components/functions/perpetratorMapFull";
 import ageDistribution from "./functions/ageDistribution";
 import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
-import perpetratorsByTime from "./functions/perpetratorsByTime";
 import gunMapFull from "./functions/gunMapFull";
+import wordCloud from "./functions/wordCloud";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Slider, Select } from "antd";
@@ -75,6 +75,7 @@ const Vis = () => {
   const [mapYearG, setMapYearG] = useState(2018);
   const [mapStateP, setMapStateP] = useState("WA");
   const [mapStateG, setMapStateG] = useState("WA");
+  const [wordwordCloud, setWordWordCloud] = useState("gun");
   const [feat, setFeat] = useState("underages_ratio");
   const [gun, setGun] = useState("Handgun");
   const { states, guns, features } = choices;
@@ -136,18 +137,18 @@ const Vis = () => {
         <H1>Age distribution of perpetrators</H1>
         <Row>
           <Box>
-          <VegaComp
-            func={ageDistribution}
-            options={useMemo(
-              () => ({
-                yearStart: 2014,
-                yearEnd: 2018,
-                color: "teal",
-              }),
-              [ageYear]
-            )}
-            name="ageDistribution"
-          />
+            <VegaComp
+              func={ageDistribution}
+              options={useMemo(
+                () => ({
+                  yearStart: 2014,
+                  yearEnd: 2018,
+                  color: "teal",
+                }),
+                [ageYear]
+              )}
+              name="ageDistribution"
+            />
           </Box>
         </Row>
         <Cap>Click on a boxplot to display the distribution accordingly.</Cap>
@@ -234,7 +235,10 @@ const Vis = () => {
             <VegaComp func={gunArea} name="gunArea" />
           </Box>
         </Row>
-        <Cap>Click on the legend to highlight specific gun types to compare or drag over the area chart to explore a smaller time frame.</Cap>
+        <Cap>
+          Click on the legend to highlight specific gun types to compare or drag
+          over the area chart to explore a smaller time frame.
+        </Cap>
         <Row>
           <Desc>
             Our next part includes finding insights from different gun types
@@ -310,16 +314,41 @@ const Vis = () => {
             Next, we plotted a geospatial map of the US showing how frequent
             each type of gun is used in each state to see any patterns.
             Generally, west states had higher rates of guns used. Following the
-            lethality plot in the previous visualization, we can point out states that have more highly lethal gun
-            types. For example, could see Alaska having the most frequent use of
-            a 12 gauge gun which is gun with almost 0.5 lethality. Using the
-            given information we could infer high risk states to a specific gun
-            type and predict future gun violence incidents. By knowing the gun
-            types distributed geographically in the US we could know which gun
-            types are “favored” by perpetrators in different states or
-            geographical areas and predict their lethalities.
+            lethality plot in the previous visualization, we can point out
+            states that have more highly lethal gun types. For example, could
+            see Alaska having the most frequent use of a 12 gauge gun which is
+            gun with almost 0.5 lethality. Using the given information we could
+            infer high risk states to a specific gun type and predict future gun
+            violence incidents. By knowing the gun types distributed
+            geographically in the US we could know which gun types are “favored”
+            by perpetrators in different states or geographical areas and
+            predict their lethalities.
           </Desc>
         </Row>
+      </Section>
+      <Section>
+        <VegaComp
+          func={wordCloud}
+          name="wordCloud"
+          options={useMemo(() => {
+            fetch(
+              "https://county-pain-israeli-baby.trycloudflare.com/api/getWordCloud",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ keyword: wordwordCloud }),
+              }
+            )
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }, [wordwordCloud])}
+        />
       </Section>
     </main>
   );
