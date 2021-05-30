@@ -74,7 +74,7 @@ function gunKillCounts({ dataSet, options }) {
       )
       .encode(
         vl.y().fieldN("gun").sort(vl.mean("kill_rate")),
-        vl.x().mean("kill_rate").title("Lethality (kills/injured)"),
+        vl.x().mean("kill_rate").title("Lethality (kills/total victims)"),
         vl
           .color()
           .fieldN("gun")

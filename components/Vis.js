@@ -65,6 +65,8 @@ const H1 = tw.h1`font-semibold font-mono text-2xl text-gray-50`;
 
 const Desc = tw.p`flex text-base text-gray-50 w-full p-6 text-justify`;
 
+const Cap = tw.p`flex text-sm italic text-gray-50 w-full p-6 text-justify`;
+
 const Row = tw.div`flex flex-row items-center justify-around w-full`;
 
 const Vis = () => {
@@ -73,7 +75,7 @@ const Vis = () => {
   const [mapYearG, setMapYearG] = useState(2018);
   const [mapStateP, setMapStateP] = useState("WA");
   const [mapStateG, setMapStateG] = useState("WA");
-  const [feat, setFeat] = useState("mean_age");
+  const [feat, setFeat] = useState("underages_ratio");
   const [gun, setGun] = useState("Handgun");
   const { states, guns, features } = choices;
 
@@ -98,34 +100,34 @@ const Vis = () => {
           gun violence in US and explore any potential concerns regarding
           civilian-owned guns in US. The dataset used in this project contains
           records of gun incidents in US from January 2013 to March 2018
-          provided by Gun Violence Archive. Besides the overall rate of gun
-          violence over time, we aim to use geospatial mapping to see the
-          distribution of gun incidents by states and counties. Using graphical
-          distributions (regression and normal distribution), we will able to
-          explore the demographics of gun perpetrators including age and gender
-          and see any correlations they have with the damage caused. Finally, we
-          will also explore which gun types are most used and most associated
-          with a larger number of casualties.
+          provided by Gun Violence Archive. We aim to explore the patterns lie
+          in the demographics of gun perpetrators including age and gender.
+          Moreover, we also want to use a geospatial map to address gun control
+          problems by states. Finally, we will also explore which gun types are
+          most used and most associated with hihger lethality.
         </p>
       </section>
 
       <Section>
         <H1>Male and Female perpetrators over time</H1>
         <Row>
-          <Box>
-            <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
-          </Box>
+          <Desc>
+            To understand the characteristics and patterns of gun perpetrators
+            across the years, we first plotted a stacked area plot of the number
+            and proportion of perpetrators of the two genders from 2014 to 2018.
+          </Desc>
         </Row>
         <Row>
+          <VegaComp func={perpetratorsByGender} name="perpetratorsByGender" />
+        </Row>
+        <Cap>Drag over the area chart to select a smaller time frame.</Cap>
+        <Row>
           <Desc>
-            Dissuade ecstatic and properly saw entirely sir why laughter
-            endeavor. In on my jointure horrible margaret suitable he followed
-            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
-            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
-            For norland produce age wishing. To figure on it spring season up.
-            Her provision acuteness had excellent two why intention. As called
-            mr needed praise at. Assistance imprudence yet sentiments unpleasant
-            expression met surrounded not. Be at talked ye though secure nearer.
+            Overall, the total number of gun violence incidents did not change
+            very much in 5 years. The number of perpetrators from April 2014 to
+            October 2014 was relatively higher. From the percentage graph, we
+            can see that male perpetrators are accounted for a much greater
+            portion compared to female perpetrators at about 10 times higher.
           </Desc>
         </Row>
       </Section>
@@ -133,6 +135,7 @@ const Vis = () => {
       <Section>
         <H1>Age distribution of perpetrators</H1>
         <Row>
+          <Box>
           <VegaComp
             func={ageDistribution}
             options={useMemo(
@@ -145,11 +148,36 @@ const Vis = () => {
             )}
             name="ageDistribution"
           />
+          </Box>
+        </Row>
+        <Cap>Click on a boxplot to display the distribution accordingly.</Cap>
+        <Row>
+          <Desc>
+            Besides the genders, the next important feature of perpetrators to
+            observe is age. The boxplots show how the ages of perpetrators were
+            distributed in each year. The distribution of ages stayed mostly the
+            same throughout the years as mean and median ages of perpetrators
+            did not vary much. The higher mean than the median indicates that
+            the distribution skews left towards younger ages. The number of
+            perpetrators is highest between the ages of 20 - 25. The
+            distribution of each looked pretty much the same except for 2018,
+            because the data is only available for the early months.
+          </Desc>
         </Row>
       </Section>
 
       <Section>
         <H1>Mean age and underage ratio of perpetrators across US</H1>
+        <Row>
+          <Desc>
+            Young perpetrators, especially underage ones, are a big concern
+            considering guns falling into young people’s hands. Here, we want to
+            see the number of underage perpetrators in different states and see
+            which states in particular have gun control problems to address. As
+            a result, we plotted a geospatial map showing the number of underage
+            perpetrators in each US state.
+          </Desc>
+        </Row>
         <Box tw="w-full">
           <div tw="flex gap-x-2 justify-around items-center w-full">
             <Select
@@ -182,29 +210,19 @@ const Vis = () => {
             )}
           />
         </Box>
+        <Cap>Click to highlight a state.</Cap>
         <Row>
-          <Box>
-            <VegaComp
-              func={perpetratorsByTime}
-              name="perpetratorsByTime"
-              options={useMemo(
-                () => ({
-                  field: feat,
-                  state_abbr: mapStateP,
-                }),
-                [feat, mapStateP]
-              )}
-            />
-          </Box>
           <Desc>
-            Dissuade ecstatic and properly saw entirely sir why laughter
-            endeavor. In on my jointure horrible margaret suitable he followed
-            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
-            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
-            For norland produce age wishing. To figure on it spring season up.
-            Her provision acuteness had excellent two why intention. As called
-            mr needed praise at. Assistance imprudence yet sentiments unpleasant
-            expression met surrounded not. Be at talked ye though secure nearer.
+            From the map, a pattern is recognizable: the south-eastern states
+            tend to have higher percentages of underage perpetrators. South
+            eastern states also had higher numbers of perpetrators per
+            population.
+          </Desc>
+        </Row>
+        <Row>
+          <Desc>
+            In the next section, we will explore the gun types used in gun
+            violence incidents, to analyze their distributions and lethality.
           </Desc>
         </Row>
       </Section>
@@ -216,16 +234,17 @@ const Vis = () => {
             <VegaComp func={gunArea} name="gunArea" />
           </Box>
         </Row>
+        <Cap>Click on the legend to highlight specific gun types to compare or drag over the area chart to explore a smaller time frame.</Cap>
         <Row>
-        <Desc>
-            Dissuade ecstatic and properly saw entirely sir why laughter
-            endeavor. In on my jointure horrible margaret suitable he followed
-            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
-            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
-            For norland produce age wishing. To figure on it spring season up.
-            Her provision acuteness had excellent two why intention. As called
-            mr needed praise at. Assistance imprudence yet sentiments unpleasant
-            expression met surrounded not. Be at talked ye though secure nearer.
+          <Desc>
+            Our next part includes finding insights from different gun types
+            used in gun incidents. By plotting a number and percentage of each
+            gun type over time, we could see which types of guns are most
+            commonly used by the perpetrators. The stacked area plot on the left
+            had a huge gap in November 2014, it was caused by missing data. From
+            two graphs, we could see that handguns are used most often among all
+            gun types and the percentage of handguns increased rapidly in 2015.
+            Other frequently used gun types included 9mm, rifle and shotgun.
           </Desc>
         </Row>
       </Section>
@@ -241,15 +260,15 @@ const Vis = () => {
             }))}
           />
         </Box>
+        <Cap>Click a bar to highlight a specific gun type.</Cap>
         <Desc>
-          Dissuade ecstatic and properly saw entirely sir why laughter endeavor.
-          In on my jointure horrible margaret suitable he followed speedily.
-          Indeed vanity excuse or mr lovers of on. By offer scale an stuff.
-          Blush be sorry no sight. Sang lose of hour then he left find. For
-          norland produce age wishing. To figure on it spring season up. Her
-          provision acuteness had excellent two why intention. As called mr
-          needed praise at. Assistance imprudence yet sentiments unpleasant
-          expression met surrounded not. Be at talked ye though secure nearer.
+          This visualization has an all-year summary of how frequent each type
+          of gun was used. The trend is similar to what we saw in the previous
+          visualization. However, the lethality of each type of gun (specified
+          by the ratio of total kill count over the total number of victims)
+          varies differently. We can see how handguns as the most common ones
+          are not that lethal compared to long rifles while shotguns tend to be
+          the least lethal.
         </Desc>
       </Section>
 
@@ -285,16 +304,20 @@ const Vis = () => {
             )}
           />
         </Box>
+        <Cap>Click to highlight a state.</Cap>
         <Row>
           <Desc>
-            Dissuade ecstatic and properly saw entirely sir why laughter
-            endeavor. In on my jointure horrible margaret suitable he followed
-            speedily. Indeed vanity excuse or mr lovers of on. By offer scale an
-            stuff. Blush be sorry no sight. Sang lose of hour then he left find.
-            For norland produce age wishing. To figure on it spring season up.
-            Her provision acuteness had excellent two why intention. As called
-            mr needed praise at. Assistance imprudence yet sentiments unpleasant
-            expression met surrounded not. Be at talked ye though secure nearer.
+            Next, we plotted a geospatial map of the US showing how frequent
+            each type of gun is used in each state to see any patterns.
+            Generally, west states had higher rates of guns used. Following the
+            lethality plot in the previous visualization, we can point out states that have more highly lethal gun
+            types. For example, could see Alaska having the most frequent use of
+            a 12 gauge gun which is gun with almost 0.5 lethality. Using the
+            given information we could infer high risk states to a specific gun
+            type and predict future gun violence incidents. By knowing the gun
+            types distributed geographically in the US we could know which gun
+            types are “favored” by perpetrators in different states or
+            geographical areas and predict their lethalities.
           </Desc>
         </Row>
       </Section>
