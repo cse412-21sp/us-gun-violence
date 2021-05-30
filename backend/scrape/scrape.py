@@ -6,7 +6,7 @@ import datetime
 # import pandarallel
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize(progress_bar=True, nb_workers=1)
+pandarallel.initialize(progress_bar=True, nb_workers=4)
 import twint
 from stem.control import Controller
 from stem import Signal
@@ -18,7 +18,7 @@ nest_asyncio.apply()
 
 
 
-df = pd.read_csv('incidents.csv').head(4)
+df = pd.read_csv('incidents.csv').head(10)
 df = df[df['city_or_county'] == 'Seattle']
 datShape = df.shape
 
