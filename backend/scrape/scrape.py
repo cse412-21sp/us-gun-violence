@@ -6,7 +6,7 @@ import datetime
 # import pandarallel
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize(progress_bar=True, nb_workers=8)
+pandarallel.initialize(progress_bar=True, nb_workers=1)
 import twint
 from stem.control import Controller
 from stem import Signal
@@ -18,7 +18,7 @@ nest_asyncio.apply()
 
 
 
-df = pd.read_csv('incidents.csv').head(2)
+df = pd.read_csv('incidents.csv').head(4)
 df = df[df['city_or_county'] == 'Seattle']
 datShape = df.shape
 
@@ -102,7 +102,6 @@ with Controller.from_port(port = 9051) as controller:
                     "since": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') - datetime.timedelta(days=over)).strftime('%Y-%m-%d'),
                     "until": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') + datetime.timedelta(days=over)).strftime('%Y-%m-%d')
                 })
-            print(response)
             if response:
                 r['pos'] = response['pos']
                 r['neg'] = response['neg']
