@@ -33,6 +33,9 @@ class TweeetNearCord(BaseModel):
 class TxtSchema(BaseModel):
     text: str
 
+class tweetWordCloud(BaseModel):
+    keyword: Optional[str] = "gun violence"
+    limit: Optional[int] = 1000
 
 class Item(BaseModel):
     name: str

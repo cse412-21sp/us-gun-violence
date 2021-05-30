@@ -25,10 +25,13 @@ over = 14
 
 url = "http://localhost:8080/api/getTweetLocScore"
 
+
+rand = lambda: random.random() * random.random() * 200
+wait = lambda: time.sleep(rand())
+
 with Controller.from_port(port = 9051) as controller:
     with alive_bar(df.shape[0]) as bar:
         def get_polar(r):
-            bar()
             payload = {
                 "keyword": "a",
                 "lat": r['latitude'],
@@ -81,10 +84,10 @@ with Controller.from_port(port = 9051) as controller:
                         stat['pos'] /= tweets.shape[0]
                         stat['neu'] /= tweets.shape[0]
                         stat['comp'] /= tweets.shape[0]
-                        time.sleep(random.random() * 200)
+                        wait()
                         return stat
                 except Exception as e:
-                    time.sleep(random.random() * 200)
+                    wait()
                     print('error: ', e)
                     continue
             return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}

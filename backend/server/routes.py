@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Response, status
 from fastapi.encoders import jsonable_encoder
-from server.model import TweetSchema,  TxtSchema, Item, TweeetNearCordm, tweetGraphSchema
+from server.model import TweetSchema,  TxtSchema, Item, TweeetNearCord, tweetGraphSchema, tweetWordCloud
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from server.helper import tmpJsonToRealJson
 import twint
+from collections import Counter
+
 
 router = APIRouter()
 
@@ -62,6 +64,26 @@ def get_graph(params: tweetGraphSchema) -> dict:
     c.Pandas = True
     print(twint.storage.panda.Tweets_df.info)
     return twint.storage.panda.Tweets_df.to_json()
+    
+@router.post('/getWordCloud')
+def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
+    c = twint.Config()
+    c.Proxy_host = "127.0.0.1"
+    c.Proxy_port = 5566
+    c.Proxy_type = "http"
+    c.Search = params.keyword
+    c.Limit = params.limit
+    tweets = twint.storage.panda.Tweets_df
+    if tweets.shape[0] == 0:
+        response.status_code = status.HTTP_204_NO_CONTENT
+        return {};
+    filtered = [w for w in tweets['text'] if w.isalnum()]
+    counts = Counter(filtered)
+    emotions = dict()
+    sid = SentimentIntensityAnalyzer()
+    for key, value in emotions.items():
+        emotions[key] = sid.polarity_scores(key)
+    return {"counts": counts, "emotions": emotions}
 
 
 @router.post('/getTweetLocScore')
