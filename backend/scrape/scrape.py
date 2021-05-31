@@ -4,7 +4,7 @@ from alive_progress import alive_bar
 import datetime
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize(progress_bar=True, nb_workers=20)
+pandarallel.initialize(progress_bar=True)
 import twint
 from stem.control import Controller
 from stem import Signal
@@ -89,10 +89,10 @@ with Controller.from_port(port = 9051) as controller:
                     else:
                         return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}
                 except Exception as e:
-                    [wait() for i in range(5)] 
                     print('error: ', e)
+                    [wait() for i in range(5)] 
                     continue
-            return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}
+            return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": False}
 
         def get_loca_polar(r):
             bar()
