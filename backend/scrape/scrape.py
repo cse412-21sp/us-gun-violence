@@ -17,7 +17,7 @@ nest_asyncio.apply()
 
 
 df = pd.read_csv('incidents.csv')
-df = df[df['city_or_county'] == 'Seattle']
+df = df[df['state'] == 'Washington']
 datShape = df.shape
 
 radius = 1
