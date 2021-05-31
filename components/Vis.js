@@ -7,13 +7,14 @@ import gunMapFull from "./functions/gunMapFull";
 import wordCloud from "./functions/wordCloud";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
-import { Slider, Select } from "antd";
+import { Input, Select } from "antd";
 import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import choices from "../components/choices";
 import { useInView } from "react-intersection-observer";
 import VegaEmbeded from "../components/vegaEmbeded";
 const { Option } = Select;
+const { Search } = Input;
 
 const variants = {
   visible: { opacity: 1, scale: 1 },
@@ -77,13 +78,15 @@ const Vis = () => {
   const [mapStateP, setMapStateP] = useState("WA");
   const [mapStateG, setMapStateG] = useState("WA");
   const [wordwordCloud, setWordWordCloud] = useState("gun");
+  const [wcLoading, setWCLoading] = useState(true);
   const [feat, setFeat] = useState("underages_ratio");
   const [gun, setGun] = useState("Handgun");
-  const { states, guns, features } = choices;
+  const { guns, features } = choices;
   const [dataWord, setData] = useState([
     { text: "loading", value: 100, weight: 200 },
   ]);
   useEffect(() => {
+    setWCLoading(true);
     fetch(
       "https://county-pain-israeli-baby.trycloudflare.com/api/getWordCloud",
       {
@@ -91,17 +94,18 @@ const Vis = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: '{"keyword":"gun violence"}',
+        body: JSON.stringify({ keyword: wordwordCloud }),
       }
     )
       .then((r) => r.json())
       .then((response) => {
         setData(response);
+        setWCLoading(false);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [wordwordCloud]);
   return (
     <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-800 w-screen">
       <section>
@@ -297,7 +301,6 @@ const Vis = () => {
           the least lethal.
         </Desc>
       </Section>
-
       <Section>
         <H1>Percentage of each gun type across US</H1>
         <Box tw="w-full">
@@ -349,6 +352,14 @@ const Vis = () => {
         </Row>
       </Section>
       <Section>
+        <H1>Word Cloud</H1>
+        <Search
+          placeholder={wordwordCloud}
+          loading={wcLoading}
+          onSearch={(value) => {
+            setWordWordCloud(value);
+          }}
+        />
         <VegaEmbeded
           func={wordCloud}
           name="wordCloud"
@@ -359,6 +370,12 @@ const Vis = () => {
             [dataWord]
           )}
         />
+        <Desc>
+          Here is the word cloud of 1000 most recent tweet from Twitter related
+          to keyword: {wordwordCloud} The size is encode by number of occurence.
+          The color is encode by the sentiment value calculate from VANDER NLP
+          model.
+        </Desc>
       </Section>
     </main>
   );
