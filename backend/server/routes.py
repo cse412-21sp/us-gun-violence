@@ -98,7 +98,7 @@ def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
         emotions[key] = sid.polarity_scores(key)
     format = list()
     for key, value in total_counter:
-        format.append({"text": key, "value": value, "weight": emotions[key]['compound']})
+        format.append({"text": key, "value": value, "weight": float(emotions[key]['compound']) + 1})
     return format 
 
 
