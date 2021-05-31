@@ -94,8 +94,9 @@ const Vis = () => {
         body: '{"keyword":"gun violence"}',
       }
     )
+      .then((r) => r.json())
       .then((response) => {
-        setData(response.json());
+        setData(response);
       })
       .catch((err) => {
         console.error(err);

@@ -38,7 +38,6 @@ const Main = ({ func, name, width, height, options }) => {
 
   return (
     <div ref={container} tw="rounded-2xl">
-      {/* <CoffeeLoading key={name} /> */}
     </div>
   );
 };
