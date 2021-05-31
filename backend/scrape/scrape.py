@@ -26,7 +26,7 @@ over = 14
 url = "http://localhost:8080/api/getTweetLocScore"
 
 
-rand = lambda: random.random() * random.random() * 100
+rand = lambda: random.random() * random.random() * 30
 wait = lambda: time.sleep(rand())
 
 with Controller.from_port(port = 9051) as controller:
@@ -90,7 +90,7 @@ with Controller.from_port(port = 9051) as controller:
                         return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}
                 except Exception as e:
                     print('error: ', e)
-                    [wait() for i in range(5)] 
+                    [wait() for i in range(8)] 
                     continue
             return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": False}
 
