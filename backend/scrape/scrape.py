@@ -28,7 +28,7 @@ url = "http://localhost:8080/api/getTweetLocScore"
 
 rand = lambda: random.random() * random.random() * 10
 wait = lambda: time.sleep(rand())
-spam_wait = lambda: 60 + time.sleep(rand() * 20)
+spam_wait = lambda: time.sleep(rand() * 20 + 100)
 
 with Controller.from_port(port = 9051) as controller:
     def get_polar(r):
