@@ -4,7 +4,7 @@ from alive_progress import alive_bar
 import datetime
 from pandarallel import pandarallel
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-pandarallel.initialize(progress_bar=True)
+pandarallel.initialize(progress_bar=True, verbose=0)
 import twint
 from stem.control import Controller
 from stem import Signal
