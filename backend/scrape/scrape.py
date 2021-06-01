@@ -28,6 +28,7 @@ url = "http://localhost:8080/api/getTweetLocScore"
 
 rand = lambda: random.random() * random.random() * 10
 wait = lambda: time.sleep(rand())
+spam_wait = lambda: 60 + time.sleep(rand() * 20)
 
 with Controller.from_port(port = 9051) as controller:
     def get_polar(r):
@@ -89,7 +90,7 @@ with Controller.from_port(port = 9051) as controller:
                     return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": True}
             except Exception as e:
                 print('error: ', e)
-                [wait() for i in range(24)] 
+                spam_wait()
                 continue
         return {"pos": 0, "neg": 0, "neu": 0, "comp": 0, "scrape": False}
 
