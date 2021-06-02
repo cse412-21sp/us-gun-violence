@@ -3,13 +3,13 @@ from fastapi.encoders import jsonable_encoder
 from server.model import TweetSchema,  TxtSchema, Item, TweeetNearCord, tweetGraphSchema, tweetWordCloud
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from server.helper import tmpJsonToRealJson
 import twint
 from collections import Counter
 from nltk.corpus import stopwords
 
 
 nltk.download('words')
+nltk.download('stopwords')
 
 
 router = APIRouter()
