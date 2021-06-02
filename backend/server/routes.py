@@ -6,6 +6,8 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from server.helper import tmpJsonToRealJson
 import twint
 from collections import Counter
+from nltk.corpus import stopwords
+
 
 nltk.download('words')
 
@@ -87,7 +89,9 @@ def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
     tweets_sent = tweets['tweet'].apply(lambda sent: sent.join(w for w in nltk.wordpunct_tokenize(sent) \
          if w.lower() in words or not w.isalpha()))
     total_counter = Counter()
-    for index, value in tweets_sent.items():
+    common_word_set=set(stopwords.words('english'))
+    tweets_remove_common = tweets_sent.apply(lambda txt: (lambda w: not w in common_word_set,txt.split())())
+    for index, value in tweets_remove_common.items():
         current = Counter(value.split(''' '''))
         total_counter = total_counter + current
     emotions = dict()
