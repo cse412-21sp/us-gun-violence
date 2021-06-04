@@ -167,7 +167,7 @@ const Vis = () => {
       </Section>
 
       <Section>
-        <H1>Mean age and underage ratio of perpetrators across US</H1>
+        <H1>Underage ratio and mean age of perpetrators across US</H1>
         <Row>
           <Desc>
             Young perpetrators, especially underage ones, are a big concern

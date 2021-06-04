@@ -15,7 +15,8 @@ function perpetratorRect({ dataSet, options }) {
     .transform(
       vl.filter(
         'datum["year"] >= ' + yearStart + ' && datum["year"] <= ' + yearEnd
-      )
+      ),
+      vl.calculate('datum["underages_ratio"] * 100').as("underages_ratio")
     )
     .encode(
       vl
@@ -34,7 +35,7 @@ function perpetratorMap({ dataSet, options }) {
   const { pst, usa } = dataSet;
   const titles = {
     mean_age: "Perpetrators mean age",
-    underages_ratio: ["Ratio of underage/total", "perpetrators"],
+    underages_ratio: ["Percentage of underage/total", "perpetrators"],
     male_pctg: ["Percentage of ", "male perpetrators"],
     female_pctg: ["Percentage of ", "female perpetrators"],
   };
@@ -71,7 +72,8 @@ function perpetratorMap({ dataSet, options }) {
               vl.mean("perpetrators_per_1M").as("perpetrators_per_1M"),
               vl.mean("latitude").as("latitude"),
               vl.mean("longitude").as("longitude")
-            )
+            ),
+          vl.calculate('datum["underages_ratio"] * 100').as('underages_ratio')
         )
         .encode(
           vl.latitude().fieldQ("latitude"),
