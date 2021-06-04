@@ -1,10 +1,16 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Response, status
 from fastapi.encoders import jsonable_encoder
-from server.model import TweetSchema,  TxtSchema, Item, TweeetNearCord
+from server.model import TweetSchema,  TxtSchema, Item, TweeetNearCord, tweetGraphSchema, tweetWordCloud
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from server.helper import tmpJsonToRealJson
 import twint
+from collections import Counter
+from nltk.corpus import stopwords
+
+
+nltk.download('words')
+nltk.download('stopwords')
+
 
 router = APIRouter()
 
@@ -50,6 +56,55 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
     return twint.storage.panda.Tweets_df.to_json()
 
 
+@router.post('/getGraph')
+def get_graph(params: tweetGraphSchema) -> dict:
+    c = twint.Config()
+    c.Proxy_host = "127.0.0.1"
+    c.Proxy_port = 5566
+    c.Proxy_type = "http"
+    c.Search = params.keyword
+    if params.username: 
+        c.Username = params.username
+    c.Pandas = True
+    print(twint.storage.panda.Tweets_df.info)
+    return twint.storage.panda.Tweets_df.to_json()
+    
+@router.post('/getWordCloud')
+def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
+    c = twint.Config()
+    # c.Proxy_host = "127.0.0.1"
+    # c.Proxy_port = 5566
+    # c.Proxy_type = "http"
+    words = set(nltk.corpus.words.words())
+    c.Search = params.keyword
+    c.Limit = params.limit
+    c.Pandas = True
+    c.Lang = "en"
+    twint.run.Search(c)
+    tweets = twint.storage.panda.Tweets_df
+    print(tweets.info())
+    if tweets.shape[0] == 0:
+        response.status_code = status.HTTP_204_NO_CONTENT
+        return {};
+    tweets_sent = tweets['tweet'].apply(lambda sent: sent.join(w for w in nltk.wordpunct_tokenize(sent) \
+         if w.lower() in words or not w.isalpha()))
+    total_counter = Counter()
+    common_word_set=set(stopwords.words('english'))
+    tweets_remove_common = tweets_sent.apply(lambda txt: (lambda w: not w in common_word_set,txt.split())())
+    for index, value in tweets_remove_common.items():
+        current = Counter(value.split(''' '''))
+        total_counter = total_counter + current
+    emotions = dict()
+    sid = SentimentIntensityAnalyzer()
+    total_counter = total_counter.most_common(100)
+    print(total_counter)
+    for key, value in total_counter:
+        emotions[key] = sid.polarity_scores(key)
+    format = list()
+    for key, value in total_counter:
+        format.append({"text": key, "count": value, "weight": (float(emotions[key]['compound']) + 1) * 300})
+    return format 
+
 
 @router.post('/getTweetLocScore')
 def get_tweet_loc(params: TweeetNearCord) -> dict:
@@ -71,7 +126,6 @@ def get_tweet_loc(params: TweeetNearCord) -> dict:
             twint.run.Search(c)
             sid = SentimentIntensityAnalyzer()
             stat = {"pos": 0, "neg": 0, "neu": 0, "comp": 0}
-            print(twint.storage.panda.Tweets_df.shape)
             if twint.storage.panda.Tweets_df.shape[0] > 0:
                 tweets = twint.storage.panda.Tweets_df['tweet']
                 for tweet in tweets:
