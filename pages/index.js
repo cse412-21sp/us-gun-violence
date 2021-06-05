@@ -14,23 +14,23 @@ const Home = () => {
   console.log(dataset);
   useEffect(() => {
     loadDataSet("p");
-    // loadDataSet("ppst");
     loadDataSet("pst");
     loadDataSet("stf");
     loadDataSet("stp");
-    // loadDataSet("g");
     loadDataSet("gsty");
     loadDataSet("gstm");
+    loadDataSet("gdc");
+    loadDataSet("gdp");
     loadjson("usa");
   }, []);
   if (
     dataset.p &&
     dataset.usa &&
     dataset.pst &&
-    // dataset.g &&
-    // dataset.ppst &&
     dataset.stf &&
     dataset.stp &&
+    dataset.gdc &&
+    dataset.gdp &&
     dataset.gsty &&
     dataset.gstm
   ) {
