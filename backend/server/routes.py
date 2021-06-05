@@ -72,9 +72,6 @@ def get_graph(params: tweetGraphSchema) -> dict:
 @router.post('/getWordCloud')
 def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
     c = twint.Config()
-    # c.Proxy_host = "127.0.0.1"
-    # c.Proxy_port = 5566
-    # c.Proxy_type = "http"
     words = set(nltk.corpus.words.words())
     c.Search = params.keyword
     c.Limit = params.limit
@@ -85,13 +82,15 @@ def get_wordCloud(params: tweetWordCloud, response: Response) -> dict:
     print(tweets.info())
     if tweets.shape[0] == 0:
         response.status_code = status.HTTP_204_NO_CONTENT
-        return {};
+        return {}
     tweets_sent = tweets['tweet'].apply(lambda sent: sent.join(w for w in nltk.wordpunct_tokenize(sent) \
          if w.lower() in words or not w.isalpha()))
     total_counter = Counter()
     common_word_set=set(stopwords.words('english'))
-    tweets_remove_common = tweets_sent.apply(lambda txt: (lambda w: not w in common_word_set,txt.split())())
-    for index, value in tweets_remove_common.items():
+    non_common_list = lambda txt: list(filter(lambda w: w not in common_word_set, txt.split()))
+    str_non_common = lambda tweet: " ".join(non_common_list(tweet))
+    tweet_w_no_common = tweets_sent.apply(str_non_common)
+    for index, value in tweet_w_no_common.items():
         current = Counter(value.split(''' '''))
         total_counter = total_counter + current
     emotions = dict()
