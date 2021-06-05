@@ -94,6 +94,7 @@ const Vis = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        mode: "no-cors",
         body: JSON.stringify({ keyword: wordwordCloud }),
       }
     )
