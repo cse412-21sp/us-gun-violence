@@ -88,7 +88,7 @@ const Vis = () => {
   useEffect(() => {
     setWCLoading(true);
     fetch(
-      "https://county-pain-israeli-baby.trycloudflare.com/api/getWordCloud",
+      "https://advise-pressing-dolls-suit.trycloudflare.com/api/getWordCloud",
       {
         method: "POST",
         headers: {
