@@ -94,14 +94,14 @@ const Vis = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        mode: "no-cors",
         body: JSON.stringify({ keyword: wordwordCloud }),
       }
     )
-      .then((r) => r.json())
+      .then((response) => response.json())
       .then((response) => {
-        setData(response);
         setWCLoading(false);
+        console.log("response: ", response);
+        setData(response);
       })
       .catch((err) => {
         console.error(err);
