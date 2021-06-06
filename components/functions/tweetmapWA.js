@@ -4,46 +4,41 @@ import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
 function perpetratorMap({ dataSet, options }) {
-  const { wa, polar, usa } = dataSet;
-  const titles = {
-    mean_age: "Perpetrators mean age",
-    underages_ratio: ["Percentage of underage/total", "perpetrators"],
-    male_pctg: ["Percentage of ", "male perpetrators"],
-    female_pctg: ["Percentage of ", "female perpetrators"],
-  };
+  const { wa, polar } = dataSet;
+  const select = vl.selectInterval().bind("scales");
 
-  return vl
-    .layer(
-      vl
-        .markGeoshape({ fill: "#374151", stroke: "#fff", strokeWidth: 1 })
-        .data(vl.topojson(usa).feature("counties")),
-      vl
-        .markCircle({ stroke: "#white" })
-        .data(polar)
-        .transform(
-          vl.filter("datum['latitude'] != '0' && datum['longitude'] != '0'")
-        )
-        .encode(
-          vl.latitude().fieldQ("latitude"),
-          vl.longitude().fieldQ("longitude"),
-          vl
-            .color()
-            .fieldQ("comp")
-            .legend({ titleLineHeight: 10 })
-            .scale({ scheme: "redblue" }),
-          vl
-            .size()
-            .fieldQ("n_killed")
-            .title(["Perpetrators/", "1M population/year"]),
-          vl.tooltip([
-            vl.fieldN("city_or_county"),
-            vl.fieldQ("comp"),
-            vl.fieldQ("latitude"),
-            vl.fieldQ("longitude"),
-          ])
-        )
-    )
-    .project(vl.projection("albersUSA"));
+  return vl.layer(
+    vl
+      .markGeoshape({ fill: "#374151", stroke: "#fff", strokeWidth: 1 })
+      .data(vl.topojson(wa).feature("counties"))
+      .params(select),
+    vl
+      .markCircle({ stroke: "#white" })
+      .data(polar)
+      .transform(
+        vl.filter("datum['latitude'] != '0' && datum['longitude'] != '0'")
+      )
+      .encode(
+        vl.latitude().fieldQ("latitude"),
+        vl.longitude().fieldQ("longitude"),
+        vl
+          .color()
+          .fieldQ("comp")
+          .legend({ titleLineHeight: 10 })
+          .scale({ scheme: "redblue" }),
+        vl
+          .size()
+          .fieldQ("n_killed")
+          .title(["Perpetrators/", "1M population/year"]),
+        vl.tooltip([
+          vl.fieldN("city_or_county"),
+          vl.fieldQ("comp"),
+          vl.fieldQ("latitude"),
+          vl.fieldQ("longitude"),
+        ])
+      )
+      .params(select)
+  );
 }
 
 function perpetratorMapFull({ dataSet, options }) {

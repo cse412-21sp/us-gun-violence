@@ -12,7 +12,7 @@ const ds = {
   gstm: "https://us-gun-violence-data.netlify.app/guns_by_state_month.csv",
   gdc: "https://us-gun-violence-data.netlify.app/gender_count.csv",
   gdp: "https://us-gun-violence-data.netlify.app/gender_pctg.csv",
-  polar: "https://us-gun-violence-data.netlify.app/polar_1_7d_WA.csv",
+  polar: "https://us-gun-violence-data.netlify.app/polar_1_7d_WA_pro.csv",
 };
 
 const json = {
