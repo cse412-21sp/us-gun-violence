@@ -20,7 +20,7 @@ df = pd.read_csv('incidents.csv')
 df = df[df['state'] == 'Washington']
 datShape = df.shape
 
-radius = 5
+radius = 3
 dayBefore = 14
 dayAf = 0
 over = 14
