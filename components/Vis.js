@@ -5,6 +5,7 @@ import gunArea from "../components/functions/gunArea";
 import numGunByTypes from "./functions/numGunByTypes";
 import gunMapFull from "./functions/gunMapFull";
 import wordCloud from "./functions/wordCloud";
+import tweetmapWA from "./functions/tweetmapWA";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Input, Select } from "antd";
@@ -377,6 +378,9 @@ const Vis = () => {
           The color is encode by the sentiment value calculate from VANDER NLP
           model.
         </Desc>
+      </Section>
+      <Section>
+        <VegaComp func={tweetmapWA} name="tweetmapWA" />
       </Section>
     </main>
   );

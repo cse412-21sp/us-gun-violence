@@ -17,7 +17,13 @@ fs.readFile("us-10m.json", function (err, data) {
     objects: {
       counties: {
         type: "GeometryCollection",
-        geometries: [geomeFip],
+        geometries: [
+          { type: "MultiPolygon", arcs: [], id: 22051 },
+          { type: null, id: 23023 },
+          { type: null, id: 37031 },
+          { type: null, id: 42045 },
+          ...geomeFip,
+        ],
       },
     },
     arcs: us.arcs,
