@@ -1,12 +1,11 @@
 const wordCloud = ({ dataSet, options }) => {
   const { dataWord } = options;
-  console.log(dataWord);
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description:
       "A word cloud visualization depicting Vega research paper abstracts.",
-    width: 800,
-    height: 400,
+    width: 1280,
+    height: 720,
     padding: 0,
 
     data: [
@@ -21,7 +20,7 @@ const wordCloud = ({ dataSet, options }) => {
         name: "color",
         type: "ordinal",
         domain: { data: "table", field: "text" },
-        range: ["blue", "orange", "crimson"],
+        range: ["blue", "orange", "red"],
       },
     ],
 
@@ -46,13 +45,13 @@ const wordCloud = ({ dataSet, options }) => {
         transform: [
           {
             type: "wordcloud",
-            size: [800, 400],
+            size: [1280, 720],
             text: { field: "text" },
             rotate: { field: "datum.angle" },
             font: "Helvetica Neue, Arial",
             fontSize: { field: "datum.count" },
             fontWeight: { field: "datum.weight" },
-            fontSizeRange: [12, 56],
+            fontSizeRange: [28, 102],
             padding: 2,
           },
         ],
