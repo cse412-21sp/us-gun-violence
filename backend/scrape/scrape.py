@@ -17,10 +17,12 @@ nest_asyncio.apply()
 
 
 df = pd.read_csv('incidents.csv')
-df = df[df['state'] == 'New York']
+df = df[df['state'] == 'Washington']
 datShape = df.shape
 
-radius = 1
+radius = 5
+dayBefore = 14
+dayAf = 0
 over = 14
 
 url = "http://localhost:8080/api/getTweetLocScore"
@@ -37,8 +39,8 @@ with Controller.from_port(port = 9051) as controller:
             "lat": r['latitude'],
             "lng": r['longitude'],
             "distance": radius,
-            "since": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') - datetime.timedelta(days=over)).strftime('%Y-%m-%d'),
-            "until": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') + datetime.timedelta(days=over)).strftime('%Y-%m-%d')
+            "since": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') - datetime.timedelta(days=dayBefore)).strftime('%Y-%m-%d'),
+            "until": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') + datetime.timedelta(days=dayAf)).strftime('%Y-%m-%d')
         }
         headers = {"Content-Type": "application/json"}
 
