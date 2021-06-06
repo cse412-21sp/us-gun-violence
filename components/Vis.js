@@ -378,6 +378,12 @@ const Vis = () => {
           model.
         </Desc>
       </Section>
+      <section tw="py-12 px-20 bg-gray-700 w-full">
+        <h1 tw="font-mono text-2xl font-bold text-gray-50">Data Used</h1>
+        <ul tw="text-lg text-gray-50">
+          <li><a href="https://www.kaggle.com/jameslko/gun-violence-data">Gun Violence Data from Kaggle</a></li>
+        </ul>
+      </section>
     </main>
   );
 };
