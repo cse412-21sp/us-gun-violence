@@ -4,7 +4,7 @@ import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
 function perpetratorMap({ dataSet, options }) {
-  const { wa, pst } = dataSet;
+  const { wa, polar, usa } = dataSet;
   const titles = {
     mean_age: "Perpetrators mean age",
     underages_ratio: ["Percentage of underage/total", "perpetrators"],
@@ -12,21 +12,38 @@ function perpetratorMap({ dataSet, options }) {
     female_pctg: ["Percentage of ", "female perpetrators"],
   };
 
-  const schemes = {
-    mean_age: "goldred",
-    underages_ratio: "yellowgreenblue",
-    male_pctg: "tealblues",
-    female_pctg: "redpurple",
-  };
-
   return vl
-    .data(pst)
     .layer(
       vl
         .markGeoshape({ fill: "#374151", stroke: "#fff", strokeWidth: 1 })
-        .data(vl.topojson(wa).feature("counties"))
+        .data(vl.topojson(usa).feature("counties")),
+      vl
+        .markCircle({ stroke: "#white" })
+        .data(polar)
+        .transform(
+          vl.filter("datum['latitude'] != '0' && datum['longitude'] != '0'")
+        )
+        .encode(
+          vl.latitude().fieldQ("latitude"),
+          vl.longitude().fieldQ("longitude"),
+          vl
+            .color()
+            .fieldQ("comp")
+            .legend({ titleLineHeight: 10 })
+            .scale({ scheme: "redblue" }),
+          vl
+            .size()
+            .fieldQ("n_killed")
+            .title(["Perpetrators/", "1M population/year"]),
+          vl.tooltip([
+            vl.fieldN("city_or_county"),
+            vl.fieldQ("comp"),
+            vl.fieldQ("latitude"),
+            vl.fieldQ("longitude"),
+          ])
+        )
     )
-    .project(vl.projection("albersUsa"));
+    .project(vl.projection("albersUSA"));
 }
 
 function perpetratorMapFull({ dataSet, options }) {
@@ -51,7 +68,7 @@ function perpetratorMapFull({ dataSet, options }) {
         symbolFillColor: "#6b7280",
         symbolStrokeColor: "white",
       },
-      scale: { maxSize: 1500 },
+      scale: { maxSize: 50 },
       view: { stroke: null },
     });
 }
