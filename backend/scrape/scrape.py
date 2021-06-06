@@ -103,8 +103,8 @@ with Controller.from_port(port = 9051) as controller:
                 "lng": r['longitude'],
                 "distance": radius,
                 "unit": "km",
-                "since": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') - datetime.timedelta(days=over)).strftime('%Y-%m-%d'),
-                "until": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') + datetime.timedelta(days=over)).strftime('%Y-%m-%d')
+                "since": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') - datetime.timedelta(days=dayBefore)).strftime('%Y-%m-%d'),
+                "until": (datetime.datetime.strptime(r['date'], '%Y-%m-%d') + datetime.timedelta(days=dayAf)).strftime('%Y-%m-%d')
             })
         print(response)
         if response:
