@@ -15,14 +15,15 @@ function map({ dataSet, options }) {
       .data(polar)
       .transform(
         vl.filter("datum['latitude'] != '0' && datum['longitude'] != '0'"),
-        vl.calculate("datum['n_killed'] + datum['n_injured']").as("num_victims")
+        vl.calculate("datum['n_killed'] + datum['n_injured']").as("num_victims"),
+        vl.calculate("datum['comp']").as("sentimentality value")
       )
       .encode(
         vl.latitude().fieldQ("latitude"),
         vl.longitude().fieldQ("longitude"),
         vl
           .color()
-          .fieldQ("comp").title("Sentimentality")
+          .fieldQ("sentimentality value").title("Sentimentality value")
           .legend({ titleLineHeight: 10 })
           .scale({ scheme: "redblue" }),
         vl
@@ -31,7 +32,7 @@ function map({ dataSet, options }) {
           .title(["Number of Victims"]),
         vl.tooltip([
           vl.fieldN("city_or_county"),
-          vl.fieldQ("comp"),
+          vl.fieldQ("sentimentality value"),
           vl.fieldQ("latitude"),
           vl.fieldQ("longitude"),
         ])
