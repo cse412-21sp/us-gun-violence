@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=http://199.241.138.16:8888/tree/us-gun-violence/backend/scrape
+HostUrl=http://199.241.138.16:8888/files/us-gun-violence/backend/scrape/polar_1_7d_NY.csv?download=1
