@@ -7,7 +7,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://cse412-21sp.github.io/us-gun-violence"
+    "https://cse412-21sp.github.io"
 ]
 
 app.add_middleware(
