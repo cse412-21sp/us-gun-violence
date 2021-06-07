@@ -342,19 +342,67 @@ const Vis = () => {
             each type of gun is used in each state to see any patterns.
             Generally, west states had higher rates of guns used. Following the
             lethality plot in the previous visualization, we can point out
-            states that have more highly lethal gun types. For example, could
+            states that have more highly lethal gun types. For example, we could
             see Alaska having the most frequent use of a 12 gauge gun which is
             gun with almost 0.5 lethality. Using the given information we could
-            infer high risk states to a specific gun type and predict future gun
-            violence incidents. By knowing the gun types distributed
-            geographically in the US we could know which gun types are “favored”
-            by perpetrators in different states or geographical areas and
-            predict their lethalities.
+            infer high risk states to a specific gun type and future trends of
+            gun usage specific to areas.
+          </Desc>
+        </Row>
+        <Row>
+          <Desc>
+            In conclusion, these visualizations will be useful for authorities
+            of different states to figure out gun control problems that should
+            be further investigated. This includes highly lethal guns and
+            underage perpetrators. For instance, by knowing the gun types
+            distributed geographically in the US we could know which gun types
+            are commonly used by perpetrators in different areas so the
+            authorities can investigate and enforce proper gun controls specific
+            to a different area. We hope these visualizations will be useful for
+            those who want to learn the overall picture of gun violence in US
+            and those who want to do further research on gun violence.
           </Desc>
         </Row>
       </Section>
       <Section>
-        <H1>Word Cloud</H1>
+        <H1>
+          Extra: Sentimentality Analysis of Tweets about Gun Violence in US.
+        </H1>
+        <Desc>
+          In addition to gun violence data retrieved from Gun Violence Archive,
+          we have pulled data of tweets about gun incidents from Twitter API as
+          an experiment. Next, we performed sentimentality analysis which
+          evaluates negativity and positivity of language used in each tweet.
+          For the sentimentality analysis we used the library{" "}
+          <a className="underline" href="">
+            NLTK (Natural Language Toolkit)
+          </a>{" "}
+          with the model{" "}
+          <a
+            className="underline"
+            href="https://github.com/cjhutto/vaderSentiment"
+          >
+            Vader
+          </a>{" "}
+          <a
+            className="underline"
+            href="http://comp.social.gatech.edu/papers/icwsm14.vader.hutto.pdf"
+          >
+            (Link to the paper)
+          </a>{" "}
+          implemented. This part of visualizations is only intended to be an
+          experiment. We want to see possibility of visualizations we can create
+          out of the sentimentality analysis we have performed.
+        </Desc>
+        <Desc>
+          For the first visualization, we created a word cloud that dynamically
+          pulls real-time tweets data according to the word input. The words
+          displayed are the top words contained in the tweets that are
+          associated with the input word. The blue, orange and red colors
+          incicate a positive, neutral and negative word respectively according
+          to the model. We also filter out stock words (articles, pronouns etc.)
+          prior to this visualization.
+        </Desc>
         <Search
           placeholder={wordwordCloud}
           loading={wcLoading}
@@ -374,18 +422,29 @@ const Vis = () => {
         />
         <Desc>
           Here is the word cloud of 1000 most recent tweet from Twitter related
-          to keyword: {wordwordCloud} The size is encode by number of occurence.
-          The color is encode by the sentiment value calculate from VANDER NLP
-          model.
+          to keyword: <span>{wordwordCloud}</span>
         </Desc>
       </Section>
       <Section>
+        <Desc>
+          With the position and time of each gun incident from the previous
+          dataset we have, we were able to scope down and scrape tweets around
+          the same location and time as the gun incident. For this
+          visualization, we scope down only to the state of Washington. We plot
+          the location of each gun incident on the map of the Washington state.
+          The blue, orange and red colors indicate sentimentality of tweets
+          around the same time and location of each gun incident.
+        </Desc>
         <VegaComp func={tweetmapWA} name="tweetmapWA" />
       </Section>
       <section tw="py-12 px-20 bg-gray-700 w-full">
         <h1 tw="font-mono text-2xl font-bold text-gray-50">Data Used</h1>
         <ul tw="text-lg text-gray-50">
-          <li><a href="https://www.kaggle.com/jameslko/gun-violence-data">Gun Violence Data from Kaggle</a></li>
+          <li>
+            <a href="https://www.kaggle.com/jameslko/gun-violence-data">
+              Gun Violence Data from Kaggle
+            </a>
+          </li>
         </ul>
       </section>
     </main>
