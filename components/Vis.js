@@ -111,16 +111,19 @@ const Vis = () => {
   }, [wordwordCloud]);
   return (
     <main tw="flex flex-col justify-center items-center gap-y-8 bg-gray-800 w-screen">
-      <section>
+      <section tw="gap-y-4">
         <p tw="flex justify-center items-center text-lg flex-col text-white h-64  w-screen">
           <span tw="text-7xl">US Gun Violence</span>
           <span></span>
-          <span tw="text-base">
+          <span tw="text-lg">
             Interactive data visualizations about gun violence in US
+          </span>
+          <span tw={"text-base"}>
+            By Laphon Premcharoen, Varich Boonsanong, Phoenix Yi
           </span>
         </p>
       </section>
-      <section tw="py-12 px-20 bg-gray-700">
+      <section tw="py-32 px-20 bg-gray-700">
         <h1 tw="font-mono text-2xl font-bold text-gray-50">Introduction</h1>
         <p tw="text-lg text-gray-50">
           There are a very few countries in the word where citizens have the
@@ -433,19 +436,16 @@ const Vis = () => {
         <Desc>
           With the position and time of each gun incident from the previous
           dataset we have, we were able to scope down and scrape tweets around
-          the same location and time (7 days before and after the incident) as the gun incident. For this
-          visualization, we scope down only to some major states in US: New York and Washington. We plot
-          the location of each gun incident on each state map.
-          The blue, orange and red colors indicate sentimentality of tweets
-          around the same time and location of each gun incident.
+          the same location and time (7 days before and after the incident) as
+          the gun incident. For this visualization, we scope down only to some
+          major states in US: New York and Washington. We plot the location of
+          each gun incident on each state map. The blue, orange and red colors
+          indicate sentimentality of tweets around the same time and location of
+          each gun incident.
         </Desc>
-        <Desc>
-          Washington State:
-        </Desc>
+        <Desc>Washington State:</Desc>
         <VegaComp func={tweetmapWA} name="tweetmapWA" />
-        <Desc>
-          New York State:
-        </Desc>
+        <Desc>New York State:</Desc>
         <VegaComp func={tweetmapNY} name="tweetmapNY" />
       </Section>
       <section tw="py-12 px-20 bg-gray-700 w-full">
