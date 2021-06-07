@@ -119,7 +119,7 @@ const Vis = () => {
             Interactive data visualizations about gun violence in US
           </span>
           <span tw={"text-base"}>
-            By Laphon Premcharoen, Varich Boonsanong, Phoenix Yi
+            By Varich Boonsanong, Laphon Premcharoen, Phoenix Yi
           </span>
         </p>
       </section>
@@ -452,7 +452,7 @@ const Vis = () => {
       </Section>
       <section tw="py-12 px-20 bg-gray-700 w-full">
         <h1 tw="font-mono text-2xl font-bold text-gray-50">Data Used</h1>
-        <ul tw="text-lg text-gray-50">
+        <ul tw="text-lg text-gray-50 underline">
           <li>
             <a href="https://www.kaggle.com/jameslko/gun-violence-data">
               Gun Violence Data from Kaggle
