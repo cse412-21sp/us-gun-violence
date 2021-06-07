@@ -20,7 +20,7 @@ const wordCloud = ({ dataSet, options }) => {
         name: "color",
         type: "ordinal",
         domain: { data: "table", field: "text" },
-        range: ["blue", "orange", "red"],
+        range: ["red", "orange", "blue"],
       },
     ],
 
