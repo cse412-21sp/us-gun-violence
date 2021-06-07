@@ -243,7 +243,7 @@ const Vis = () => {
             )}
           />
         </Box>
-        <Cap>Click to highlight a state.</Cap>
+        <Cap>Click to highlight a state and select feature.</Cap>
         <Row>
           <Desc>
             From the map, a pattern is recognizable: the south-eastern states
@@ -296,7 +296,9 @@ const Vis = () => {
             }))}
           />
         </Box>
-        <Cap>Click a bar to highlight a specific gun type.</Cap>
+        <Cap>
+          Click a bar to highlight a specific gun type and select gun type.
+        </Cap>
         <Desc>
           This visualization has an all-year summary of how frequent each type
           of gun was used. The trend is similar to what we saw in the previous
