@@ -433,13 +433,19 @@ const Vis = () => {
         <Desc>
           With the position and time of each gun incident from the previous
           dataset we have, we were able to scope down and scrape tweets around
-          the same location and time as the gun incident. For this
+          the same location and time (7 days before and after the incident) as the gun incident. For this
           visualization, we scope down only to some major states in US: New York and Washington. We plot
           the location of each gun incident on each state map.
           The blue, orange and red colors indicate sentimentality of tweets
           around the same time and location of each gun incident.
         </Desc>
+        <Desc>
+          Washington State:
+        </Desc>
         <VegaComp func={tweetmapWA} name="tweetmapWA" />
+        <Desc>
+          New York State:
+        </Desc>
         <VegaComp func={tweetmapNY} name="tweetmapNY" />
       </Section>
       <section tw="py-12 px-20 bg-gray-700 w-full">
