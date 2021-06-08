@@ -6,6 +6,7 @@ import numGunByTypes from "./functions/numGunByTypes";
 import gunMapFull from "./functions/gunMapFull";
 import wordCloud from "./functions/wordCloud";
 import tweetmapWA from "./functions/tweetmapWA";
+import tweetmapNY from "./functions/tweetmapNY";
 import tw from "twin.macro";
 import dynamic from "next/dynamic";
 import { Input, Select } from "antd";
@@ -374,18 +375,18 @@ const Vis = () => {
           an experiment. Next, we performed sentimentality analysis which
           evaluates negativity and positivity of language used in each tweet.
           For the sentimentality analysis we used the library{" "}
-          <a className="underline" href="">
+          <a style="text-decoration: underline;" href="">
             NLTK (Natural Language Toolkit)
           </a>{" "}
           with the model{" "}
           <a
-            className="underline"
+            style="text-decoration: underline;"
             href="https://github.com/cjhutto/vaderSentiment"
           >
             Vader
           </a>{" "}
           <a
-            className="underline"
+            style="text-decoration: underline;"
             href="http://comp.social.gatech.edu/papers/icwsm14.vader.hutto.pdf"
           >
             (Link to the paper)
@@ -436,6 +437,7 @@ const Vis = () => {
           around the same time and location of each gun incident.
         </Desc>
         <VegaComp func={tweetmapWA} name="tweetmapWA" />
+        <VegaComp func={tweetmapNY} name="tweetmapNY" />
       </Section>
       <section tw="py-12 px-20 bg-gray-700 w-full">
         <h1 tw="font-mono text-2xl font-bold text-gray-50">Data Used</h1>

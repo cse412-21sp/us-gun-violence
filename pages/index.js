@@ -23,6 +23,7 @@ const Home = () => {
     loadDataSet("gdp");
     loadDataSet("polar");
     loadjson("wa");
+    loadjson("ny");
     loadjson("usa");
   }, []);
   if (
@@ -35,7 +36,8 @@ const Home = () => {
     dataset.gdp &&
     dataset.gsty &&
     dataset.gstm &&
-    dataset.wa
+    dataset.wa &&
+    dataset.ny
   ) {
     return <Vis />;
   }

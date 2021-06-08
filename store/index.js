@@ -12,12 +12,14 @@ const ds = {
   gstm: "https://us-gun-violence-data.netlify.app/guns_by_state_month.csv",
   gdc: "https://us-gun-violence-data.netlify.app/gender_count.csv",
   gdp: "https://us-gun-violence-data.netlify.app/gender_pctg.csv",
-  polar: "https://us-gun-violence-data.netlify.app/polar_1_7d_WA_pro.csv",
+  polarWA: "https://us-gun-violence-data.netlify.app/polar_1_7d_WA_pro.csv",
+  polarNY: "https://us-gun-violence-data.netlify.app/polar_1_7d_NY_pro.csv",
 };
 
 const json = {
   usa: "https://raw.githubusercontent.com/vega/vega-datasets/master/data/us-10m.json",
   wa: "https://us-gun-violence-data.netlify.app/wa.json",
+  ny: "https://us-gun-violence-data.netlify.app/ny.json",
 };
 
 const useStore = create((set, get) => ({
