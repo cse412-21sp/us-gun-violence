@@ -434,8 +434,8 @@ const Vis = () => {
           With the position and time of each gun incident from the previous
           dataset we have, we were able to scope down and scrape tweets around
           the same location and time as the gun incident. For this
-          visualization, we scope down only to the state of Washington. We plot
-          the location of each gun incident on the map of the Washington state.
+          visualization, we scope down only to some major states in US: New York and Washington. We plot
+          the location of each gun incident on each state map.
           The blue, orange and red colors indicate sentimentality of tweets
           around the same time and location of each gun incident.
         </Desc>
