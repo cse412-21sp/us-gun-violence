@@ -21,7 +21,8 @@ const Home = () => {
     loadDataSet("gstm");
     loadDataSet("gdc");
     loadDataSet("gdp");
-    loadDataSet("polar");
+    loadDataSet("polarWA");
+    loadDataSet("polarNY");
     loadjson("wa");
     loadjson("ny");
     loadjson("usa");
@@ -36,6 +37,8 @@ const Home = () => {
     dataset.gdp &&
     dataset.gsty &&
     dataset.gstm &&
+    dataset.polarWA &&
+    dataset.polarNY &&
     dataset.wa &&
     dataset.ny
   ) {

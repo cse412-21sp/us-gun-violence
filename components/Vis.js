@@ -67,9 +67,9 @@ const Box = tw.div`flex flex-col p-4 justify-around items-center my-6`;
 
 const H1 = tw.h1`font-semibold font-mono text-2xl text-gray-50`;
 
-const Desc = tw.p`flex text-base text-gray-50 w-full p-6 text-justify`;
+const Desc = tw.p`text-base text-gray-50 w-full p-6 text-justify`;
 
-const Cap = tw.p`flex text-sm italic text-gray-50 w-full p-6 text-justify`;
+const Cap = tw.p`flex text-base italic text-yellow-200 w-full p-6 text-justify`;
 
 const Row = tw.div`flex flex-row items-center justify-around w-full`;
 
@@ -375,22 +375,25 @@ const Vis = () => {
           an experiment. Next, we performed sentimentality analysis which
           evaluates negativity and positivity of language used in each tweet.
           For the sentimentality analysis we used the library{" "}
-          <a style="text-decoration: underline;" href="">
-            NLTK (Natural Language Toolkit)
-          </a>{" "}
-          with the model{" "}
-          <a
-            style="text-decoration: underline;"
-            href="https://github.com/cjhutto/vaderSentiment"
-          >
-            Vader
-          </a>{" "}
-          <a
-            style="text-decoration: underline;"
-            href="http://comp.social.gatech.edu/papers/icwsm14.vader.hutto.pdf"
-          >
-            (Link to the paper)
-          </a>{" "}
+          <span>
+            <a tw="underline" href="https://nltk.org">
+              NLTK (Natural Language Toolkit)
+            </a>
+          </span>
+          with the model
+          <span>
+            <a tw="underline" href="https://github.com/cjhutto/vaderSentiment">
+              Vader
+            </a>
+          </span>
+          <span>
+            <a
+              tw="underline"
+              href="http://comp.social.gatech.edu/papers/icwsm14.vader.hutto.pdf"
+            >
+              (Link to the paper)
+            </a>
+          </span>
           implemented. This part of visualizations is only intended to be an
           experiment. We want to see possibility of visualizations we can create
           out of the sentimentality analysis we have performed.

@@ -4,7 +4,7 @@ fs.readFile("us-10m.json", function (err, data) {
     console.log(err);
   }
   const us = JSON.parse(data);
-  const fipcode = "53";
+  const fipcode = "6";
   const geomeFip = us.objects.counties.geometries.filter((code) => {
     return String(code.id).substring(0, 2) == fipcode;
   });
@@ -29,7 +29,7 @@ fs.readFile("us-10m.json", function (err, data) {
     arcs: us.arcs,
   };
   console.log(output);
-  fs.writeFile("./wa.json", JSON.stringify(output), "utf8", function (err) {
+  fs.writeFile("./CA.json", JSON.stringify(output), "utf8", function (err) {
     if (err) {
       console.log(err);
     }

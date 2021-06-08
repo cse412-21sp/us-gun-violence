@@ -4,7 +4,9 @@ import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
 function map({ dataSet, options }) {
-  const { wa, polar } = dataSet;
+  const { wa, polarWA } = dataSet;
+
+  console.log(polarWA);
 
   return vl.layer(
     vl
@@ -12,7 +14,7 @@ function map({ dataSet, options }) {
       .data(vl.topojson(wa).feature("counties")),
     vl
       .markCircle({ stroke: null })
-      .data(polar)
+      .data(polarWA)
       .transform(
         vl.filter("datum['latitude'] != '0' && datum['longitude'] != '0'"),
         vl.calculate("datum['n_killed'] + datum['n_injured']").as("num_victims"),
