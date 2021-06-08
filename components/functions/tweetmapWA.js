@@ -3,50 +3,52 @@ import * as vl from "vega-lite-api";
 import * as vegaLite from "vega-lite";
 import * as vegaTooltip from "vega-tooltip";
 
+const brush = vl.selectPoint().fields("incident_id");
+
 function map({ dataSet, options }) {
   const { wa, polarWA } = dataSet;
 
-  console.log(polarWA);
-
-  return vl.layer(
-    vl
-      .markGeoshape({ fill: "#374151", stroke: "#fff", strokeWidth: 1 })
-      .data(vl.topojson(wa).feature("counties")),
-    vl
-      .markCircle({ stroke: null })
-      .data(polarWA)
-      .transform(
-        vl.filter("datum['latitude'] != '0' && datum['longitude'] != '0'"),
-        vl.calculate("datum['n_killed'] + datum['n_injured']").as("num_victims"),
-        vl.calculate("datum['comp']").as("sentimentality value")
-      )
-      .encode(
-        vl.latitude().fieldQ("latitude"),
-        vl.longitude().fieldQ("longitude"),
-        vl
-          .color()
-          .fieldQ("sentimentality value").title("Sentimentality value")
-          .legend({ titleLineHeight: 10 })
-          .scale({ scheme: "redblue" }),
-        vl
-          .size()
-          .fieldQ("num_victims")
-          .title(["Number of Victims"]),
-        vl.tooltip([
-          vl.fieldN("city_or_county"),
-          vl.fieldQ("sentimentality value"),
-          vl.fieldQ("latitude"),
-          vl.fieldQ("longitude"),
-        ])
-      )
-  ).project(
-    vl.projection()
-  );
+  return vl
+    .layer(
+      vl
+        .markGeoshape({ fill: "#374151", stroke: "#fff", strokeWidth: 1 })
+        .data(vl.topojson(wa).feature("counties")),
+      vl
+        .markCircle({ stroke: null })
+        .data(polarWA)
+        .params(brush)
+        .transform(
+          vl.filter("datum['latitude'] != 0 && datum['longitude'] != 0"),
+          vl
+            .calculate("datum['n_killed'] + datum['n_injured']")
+            .as("num_victims"),
+          vl.calculate("datum['comp']").as("sentimentality value")
+        )
+        .encode(
+          vl.latitude().fieldQ("latitude"),
+          vl.longitude().fieldQ("longitude"),
+          vl
+            .color()
+            .fieldQ("sentimentality value")
+            .title("Sentimentality value")
+            .legend({ titleLineHeight: 10 })
+            .scale({ scheme: "redblue" }),
+          vl.size().fieldQ("num_victims").title(["Number of Victims"]),
+          vl.tooltip([
+            vl.fieldN("city_or_county"),
+            vl.fieldQ("sentimentality value"),
+            vl.fieldQ("latitude"),
+            vl.fieldQ("longitude"),
+          ]),
+          vl.opacity().if(brush, vl.value(1)).value(0.1)
+        )
+    )
+    .project(vl.projection());
 }
 
 function tweetMap({ dataSet, options }) {
   return vl
-    .hconcat(map({ dataSet, options }).height(720).width(1200))
+    .vconcat(map({ dataSet, options }).height(720).width(1200))
     .config({
       mark: { opacity: 0.9 },
       background: "#1f2937",
